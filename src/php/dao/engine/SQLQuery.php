@@ -16,14 +16,12 @@ final class SQLQuery
     public function getQuery(): string
     {
         if ($this->params !== null) $this->sql = self::replaceArray($this->sql, $this->params);
-
         return $this->sql;
     }
 
     private static function replaceArray(string $value, array $array): string
     {
         foreach ($array as $innerKey => $innerValue) $value = self::replace($innerKey, $innerValue, $value);
-
         return $value;
     }
 
