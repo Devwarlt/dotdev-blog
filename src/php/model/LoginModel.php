@@ -19,28 +19,13 @@ final class LoginModel
         $this->level = $level;
     }
 
-    public function getUsername(): string
-    {
-        return $this->username;
-    }
+    public function getId(): int { return $this->id; }
 
-    public function getPassword(): string
-    {
-        return $this->password;
-    }
+    public function getUsername(): string { return $this->username; }
 
-    public function getEmail(): string
-    {
-        return $this->email;
-    }
+    public function getPassword(): string { return $this->password; }
 
-    public function getLevel(): int
-    {
-        return $this->level;
-    }
+    public function getEmail(): string { return $this->email; }
 
-    public function getId(): int
-    {
-        return $this->id;
-    }
+    public function getLevel(): int { return $this->level; }
 }
