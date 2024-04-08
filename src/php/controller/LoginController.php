@@ -4,6 +4,7 @@ namespace php\controller;
 
 use php\dao\LoginDAO;
 use php\model\LoginModel;
+use php\model\LoginResultModel;
 
 define("LOGIN_ID", "login-id");
 define("LOGIN_NAME", "login-name");
@@ -27,59 +28,62 @@ final class LoginController
         return self::$singleton;
     }
 
-    public function authUser(string $username, string $password): array
+    public function authUser(string $username, string $password): LoginResultModel
     {
-        $result = array("login" => null, "err" => null);
+        $result = new LoginResultModel();
 
         if (!preg_match(self::$NAME_REGEX_PATTERN, $username)) {
-            $result["err"] = "Nome inválido!";
+            $result->setErr("Nome inválido!");
             return $result;
         }
 
         if (!preg_match(self::$PASSWORD_REGEX_PATTERN, $password)) {
-            $result["err"] = "Senha inválida!";
+            $result->setErr("Senha inválida!");
             return $result;
         }
 
         $login = new LoginModel(-1, $username, $password, null, -1);
         $dao = LoginDAO::getSingleton();
-        if (($result["login"] = $dao->signUp($login)) === null) {
-            $result["err"] = "Credenciais não autenticadas!";
+        $result->setLogin($dao->signUp($login));
+        if ($result->getLogin() === null) {
+            $result->setErr("Credenciais não autenticadas!");
             return $result;
         }
 
         return $result;
     }
 
-    public function signInUser(string $username, string $password, string $email): array
+    public function signInUser(string $username, string $password, string $email): LoginResultModel
     {
-        $result = array("status" => false, "err" => null);
+        $result = new LoginResultModel();
 
         if (!preg_match(self::$NAME_REGEX_PATTERN, $username)) {
-            $result["err"] = "Nome inválido!";
+            $result->setErr("Nome inválido!");
             return $result;
         }
 
         if (!preg_match(self::$PASSWORD_REGEX_PATTERN, $password)) {
-            $result["err"] = "Senha inválida!";
+            $result->setErr("Senha inválida!");
             return $result;
         }
 
         if (!preg_match(self::$GMAIL_REGEX_PATTERN, $email)) {
-            $result["err"] = "E-mail inválido! Apenas e-mails Google estão permitidos.";
-            return  $result;
+            $result->setErr("E-mail inválido! Apenas e-mails Google estão permitidos.");
+            return $result;
         }
 
         $login = new LoginModel(-1, $username, $password, $email, 0);
         $dao = LoginDAO::getSingleton();
         if ($dao->signUp($login) !== null) {
-            $result["err"] = "Já existe um cadastro com esses dados. Efetue o login
-                para continuar.";
+            $result->setErr(
+                "Já existe um cadastro com esses dados. Efetue o login para continuar."
+            );
             return $result;
         }
 
-        if (!($result['status'] = $dao->signIn($login)))
-            $result["err"] = "Não foi possível criar o usuário!";
+        $result->setStatus($dao->signIn($login));
+        if (!$result->getStatus())
+            $result->setErr("Não foi possível criar o usuário!");
         return $result;
     }
 
