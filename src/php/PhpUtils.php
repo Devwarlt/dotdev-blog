@@ -4,7 +4,7 @@ namespace php;
 
 final class PhpUtils
 {
-    public static PhpUtils $singleton;
+    public static $singleton;
     private static string $php_injection_regex_pattern = '/^(?=.*<\?)|(?=.*\?>).*$/';
 
     private function __construct() { }

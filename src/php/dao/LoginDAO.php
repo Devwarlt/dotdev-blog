@@ -8,7 +8,7 @@ use php\model\LoginModel;
 
 final class LoginDAO
 {
-    private static LoginDAO $singleton;
+    private static $singleton;
 
     private function __construct() { }
 

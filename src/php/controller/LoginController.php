@@ -18,7 +18,7 @@ final class LoginController
     private static string $PASSWORD_REGEX_PATTERN = "/^[a-zA-Z0-9'\"!@#$%¨&*()_+¹²³£¢¬§=-]{3,255}$/";
     private static string $GMAIL_REGEX_PATTERN = "^[0-9a-zA-Z_]+@gmail\.com{,320}$/";
 
-    private static LoginController $singleton;
+    private static $singleton;
 
     private function __construct() { }
 
@@ -115,6 +115,9 @@ final class LoginController
 
     public function isUserSignedUp(): bool
     {
+        if (!isset($_SESSION))
+            session_start();
+
         return array_key_exists(LOGIN_ID, $_SESSION)
             && array_key_exists(LOGIN_NAME, $_SESSION)
             && array_key_exists(LOGIN_PASSWORD, $_SESSION);
