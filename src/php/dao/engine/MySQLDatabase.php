@@ -21,14 +21,15 @@ final class MySQLDatabase
     public static function getSingleton(): MySQLDatabase
     {
         try {
-            if (self::$singleton === null)
-                self::$singleton = new MySQLDatabase(
-                    new PDO(
-                        "engine:host=" . DB_HOST . ";dbname=" . DB_SCHEMA,
-                        DB_USER,
-                        DB_PASSWORD
-                    )
+            if (self::$singleton === null) {
+                $pdo = new PDO(
+                    "mysql:host=" . DB_HOST . ";dbname=" . DB_SCHEMA,
+                    DB_USER,
+                    DB_PASSWORD
                 );
+                $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                self::$singleton = new MySQLDatabase($pdo);
+            }
         }
         catch (PDOException $e) { self::displayPDOException($e); }
         finally { return self::$singleton; }
