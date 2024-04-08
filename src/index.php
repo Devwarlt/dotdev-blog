@@ -70,8 +70,7 @@
             <hr/>
             <p style='color: limegreen; text-align: justify; text-justify: inter-word'>$ok</p>
             <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Fechar'></button>
-        </div>
-        ";
+        </div>";
         }
         ?>
     </div>
