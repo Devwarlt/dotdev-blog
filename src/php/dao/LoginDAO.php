@@ -2,6 +2,7 @@
 
 namespace php\dao;
 
+use PDO;
 use php\dao\engine\MySQLDatabase;
 use php\dao\engine\SQLQuery;
 use php\model\LoginModel;
@@ -50,7 +51,7 @@ final class LoginDAO
 
         if ($result === null) return null;
 
-        $data = $result->fetch(\PDO::FETCH_OBJ);
+        $data = $result->fetch(PDO::FETCH_OBJ);
         return new LoginModel(
             $data->id,
             $login->getUsername(),
