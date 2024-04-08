@@ -7,6 +7,8 @@
           <resourceRoots>
             <path value="file://$PROJECT_DIR$/src/css" />
             <path value="file://$PROJECT_DIR$/src/js" />
+            <path value="file://$PROJECT_DIR$/src/fonts" />
+            <path value="file://$PROJECT_DIR$/src/assets" />
           </resourceRoots>
         </entryData>
       </entry>

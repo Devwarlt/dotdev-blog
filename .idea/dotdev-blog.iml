@@ -6,8 +6,11 @@
       <excludeFolder url="file://$MODULE_DIR$/.idea/dataSources" />
       <excludeFolder url="file://$MODULE_DIR$/src/css" />
       <excludeFolder url="file://$MODULE_DIR$/src/js" />
+      <excludeFolder url="file://$MODULE_DIR$/src/assets" />
+      <excludeFolder url="file://$MODULE_DIR$/src/fonts" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="@types/jquery" level="application" />
   </component>
 </module>
