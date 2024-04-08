@@ -49,7 +49,7 @@ switch ($controller) {
                 return;
             }
 
-            $loginResponse = $login->authUser($_POST["username"], $_POST["password"]);
+            $loginResponse = $login->logIn($_POST["username"], $_POST["password"]);
             if ($loginResponse->getErr() === null) {
                 if ($loginResponse->getLogin() !== null)
                     $login->beginSession($loginResponse->getLogin());

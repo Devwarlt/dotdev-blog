@@ -28,7 +28,7 @@ final class LoginController
         return self::$singleton;
     }
 
-    public function authUser(string $username, string $password): LoginResultModel
+    public function logIn(string $username, string $password): LoginResultModel
     {
         $result = new LoginResultModel();
 
@@ -53,7 +53,7 @@ final class LoginController
         return $result;
     }
 
-    public function signInUser(string $username, string $password, string $email): LoginResultModel
+    public function signIn(string $username, string $password, string $email): LoginResultModel
     {
         $result = new LoginResultModel();
 
