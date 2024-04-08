@@ -1,6 +1,6 @@
 <?php
 
-namespace php\dao\db;
+namespace php\dao\engine;
 
 final class SQLQuery
 {

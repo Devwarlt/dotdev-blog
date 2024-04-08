@@ -2,8 +2,8 @@
 
 namespace php\dao;
 
-use php\dao\db\MySQLDatabase;
-use php\dao\db\SQLQuery;
+use php\dao\engine\MySQLDatabase;
+use php\dao\engine\SQLQuery;
 use php\model\LoginModel;
 
 final class LoginDAO
