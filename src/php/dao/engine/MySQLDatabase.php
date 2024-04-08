@@ -8,8 +8,8 @@ use PDOStatement;
 
 define("DB_HOST", "localhost");
 define("DB_SCHEMA", "dotdev-db");
-define("DB_USER", "root");
-define("DB_PASSWORD", hash('sha256', 'toor'));
+define("DB_USER", "dbadmin");
+define("DB_PASSWORD", 'toor');
 
 final class MySQLDatabase
 {
@@ -29,9 +29,9 @@ final class MySQLDatabase
                         DB_PASSWORD
                     )
                 );
-            return self::$singleton;
         }
         catch (PDOException $e) { self::displayPDOException($e); }
+        finally { return self::$singleton; }
     }
 
     public function update(SQLQuery $query): bool { return $this->dml($query->getQuery()); }
@@ -100,6 +100,12 @@ final class MySQLDatabase
             <strong><span class='glyphicon glyphicon-alert' aria-hidden='true'></span>&nbsp;&nbsp;
             <u>Internal connection exception!</u></strong></div>
         <div class='card-body'>
+            <h5>PDOException::getMessage():</h5>
+            <p><small><strong>&blacktriangleright;&nbsp;Message:</strong>
+            <code class='text-warning bg-dark border-warning rounded'>"
+            . $exception->getMessage() . "</code></small></p>
+        </div>
+        <div class='card-footer'>
             <h5>Stack trace:</h5>
             <pre class='text-warning bg-dark border-warning rounded'>"
             . json_encode($exception->getTrace(), JSON_PRETTY_PRINT) .
