@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>.DEV Blog - Início</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/bootstrap.min.css?t=<?php echo time(); ?>"/>
+    <link rel="stylesheet" href="css/custom.css?t=<?php echo time(); ?>"/>
 </head>
-<body>
-    <header class="navbar navbar-dark flex-column flex-md-row bg-dark">
-        <a class="navbar-brand ms-md-0 ms-md-2" href="/"><strong>.DEV Blog</strong></a>
+<body class="bg-image">
+    <header class="navbar navbar-dark flex-column flex-md-row bg-dark shadow-lg
+        opacity-75 border-secondary-subtle border-bottom border-0 border-opacity-10">
+        <a class="navbar-brand ms-md-0 ms-md-5" href="/"><strong>.DEV Blog</strong></a>
         <div class="navbar-nav-scroll navbar-expand">
             <ul class="navbar-nav flex-md-row">
                 <li class="nav-item">
@@ -22,7 +24,7 @@
             </ul>
         </div>
         <div class="float-end my-lg-auto text-light">
-            <a class="btn btn-outline-success ms-md-0 ms-md-2" href="/">
+            <a class="btn btn-outline-success ms-md-0 ms-md-2" href="/login">
                 <strong>Entrar</strong>
             </a>
             <a class="btn btn-outline-secondary ms-md-0 ms-md-2" href="/">
@@ -31,19 +33,6 @@
         </div>
     </header>
     <div class="col card-body">
-<!--        <form class="card card-header form-inline alert-secondary border-secondary"-->
-<!--              action="php/MVCRouter.php" method="post">-->
-<!--            <input type="hidden" name="controller" value="login"/>-->
-<!--            <h3 class="card-header">Login</h3>-->
-<!--            <div class="card-body card-group">-->
-<!--                <label for="username"></label>-->
-<!--                <input type="text" id="username" name="username" placeholder="Usuário"/>&nbsp;-->
-<!--                <label for="password"></label>-->
-<!--                <input type="password" id="password" name="password" placeholder="Senha"/>&nbsp;-->
-<!--                <input class="btn btn-sm btn-outline-primary" type="submit" value="Entrar"/>&nbsp;-->
-<!--                <input class="btn btn-sm btn-outline-secondary" type="reset" value="Resetar"/>-->
-<!--            </div>-->
-<!--        </form>-->
         <?php
 
         include "php/controller/LoginController.php";
@@ -77,7 +66,7 @@
             <p style='color: red; text-align: justify; text-justify: inter-word'>$err</p>
             <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Fechar'></button>
         </div>
-        ";
+            ";
         }
 
         if (isset($_GET["ok"])) {
@@ -101,7 +90,7 @@
         }
         ?>
     </div>
-    <footer class="card-footer py-0 mt-auto bg-body-secondary fixed-bottom">
+    <footer class="card-footer py-3 mt-auto bg-body-secondary fixed-bottom border-success-subtle border-top border-5">
         <div class="container py-4">
             <div class="row">
                 <div class="col-lg-5 mb-0">
