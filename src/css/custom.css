@@ -1,0 +1,8 @@
+.bg-image {
+    background-image: url("../assets/background.jpg");
+    backdrop-filter: blur(8px);
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
