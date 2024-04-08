@@ -5,18 +5,45 @@
     <title>.DEV Blog - Início</title>
     <link rel="stylesheet" href="css/bootstrap.min.css"/>
 </head>
-<body style="height: 100%;" class="h-100 row align-items-center  alert-light">
+<body>
+    <header class="navbar navbar-dark flex-column flex-md-row bg-dark">
+        <a class="navbar-brand ms-md-0 ms-md-2" href="/"><strong>.DEV Blog</strong></a>
+        <div class="navbar-nav-scroll navbar-expand">
+            <ul class="navbar-nav flex-md-row">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Postagens</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/">Ranking</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Editores</a>
+                </li>
+            </ul>
+        </div>
+        <div class="float-end my-lg-auto text-light">
+            <a class="btn btn-outline-success ms-md-0 ms-md-2" href="/">
+                <strong>Entrar</strong>
+            </a>
+            <a class="btn btn-outline-secondary ms-md-0 ms-md-2" href="/">
+                <strong>Cadastrar</strong>
+            </a>
+        </div>
+    </header>
     <div class="col card-body">
-        <form class="card card-header form-inline alert-secondary border-secondary" action="php/MVCRouter.php" method="post">
-            <input type="hidden" name="controller" value="login"/>
-            <h3 class="card-header">Login</h3>
-            <div class="card-body card-group">
-                <label for="username"></label><input type="text" id="username" name="username" placeholder="Usuário"/>&nbsp;
-                <label for="password"></label><input type="password" id="password" name="password" placeholder="Senha"/>&nbsp;
-                <input class="btn btn-sm btn-outline-primary" type="submit" value="Entrar"/>&nbsp;
-                <input class="btn btn-sm btn-outline-secondary" type="reset" value="Resetar"/>
-            </div>
-        </form>
+<!--        <form class="card card-header form-inline alert-secondary border-secondary"-->
+<!--              action="php/MVCRouter.php" method="post">-->
+<!--            <input type="hidden" name="controller" value="login"/>-->
+<!--            <h3 class="card-header">Login</h3>-->
+<!--            <div class="card-body card-group">-->
+<!--                <label for="username"></label>-->
+<!--                <input type="text" id="username" name="username" placeholder="Usuário"/>&nbsp;-->
+<!--                <label for="password"></label>-->
+<!--                <input type="password" id="password" name="password" placeholder="Senha"/>&nbsp;-->
+<!--                <input class="btn btn-sm btn-outline-primary" type="submit" value="Entrar"/>&nbsp;-->
+<!--                <input class="btn btn-sm btn-outline-secondary" type="reset" value="Resetar"/>-->
+<!--            </div>-->
+<!--        </form>-->
         <?php
 
         include "php/controller/LoginController.php";
@@ -74,6 +101,31 @@
         }
         ?>
     </div>
+    <footer class="card-footer py-0 mt-auto bg-body-secondary fixed-bottom">
+        <div class="container py-4">
+            <div class="row">
+                <div class="col-lg-5 mb-0">
+                    <a class="d-inline-flex align-items-center mb-2 link-dark text-decoration-none" href="/"
+                        aria-label=".DEV Blog">
+                        <span class="fs-5">.DEV Blog</span>
+                    </a>
+                    <ul class="list-unstyled small text-muted">
+                        <li class="mb-2">
+                            <strong>Projeto Integrado III</strong>
+                        </li>
+                        <li class="mb-2">
+                            <strong>Aluno:</strong> Nádio Dib Fernandes Pontes [matrícula: <code>201918579</code>]
+                        </li>
+                        <li class="mb-2">
+                            Código licenciado pelo
+                            <a class="alert-link"
+                               href="https://github.com/Devwarlt/dotdev-blog#MIT-1-ov-file">MIT</a>.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
 </body>
