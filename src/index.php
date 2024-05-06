@@ -33,6 +33,9 @@
         </div>
     </header>
     <div class="col card-body">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class='col-md-10 col-md-offset-1'>
         <?php
 
         include "php/controller/LoginController.php";
@@ -59,13 +62,12 @@
             }
 
             echo "
-        <hr/>
-        <div class='alert alert-danger border-danger alert-dismissible fade show' role='alert'>
-            <h3 style='color: darkred'>Erro!</h3>
-            <hr/>
-            <p style='color: red; text-align: justify; text-justify: inter-word'>$err</p>
-            <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Fechar'></button>
-        </div>
+                    <div class='alert alert-danger border-danger alert-dismissible fade show top-50' role='alert'>
+                        <h3 style='color: darkred'>Erro!</h3>
+                        <hr/>
+                        <p style='color: red; text-align: justify; text-justify: inter-word'>$err</p>
+                        <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Fechar'></button>
+                    </div>
             ";
         }
 
@@ -80,15 +82,18 @@
             }
 
             echo "
-        <hr/>
-        <div class='alert alert-success border-success alert-dismissible fade show' role='alert'>
-            <h3 style='color: green'>Sucesso!</h3>
-            <hr/>
-            <p style='color: limegreen; text-align: justify; text-justify: inter-word'>$ok</p>
-            <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Fechar'></button>
-        </div>";
+                    <div class='alert alert-success border-success alert-dismissible fade show top-50' role='alert'>
+                        <h3 style='color: green'>Sucesso!</h3>
+                        <hr/>
+                        <p style='color: limegreen; text-align: justify; text-justify: inter-word'>$ok</p>
+                        <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Fechar'></button>
+                    </div>
+            ";
         }
         ?>
+                </div>
+            </div>
+        </div>
     </div>
     <footer class="card-footer py-3 mt-auto bg-body-secondary fixed-bottom border-success-subtle border-top border-5">
         <div class="container py-4">
