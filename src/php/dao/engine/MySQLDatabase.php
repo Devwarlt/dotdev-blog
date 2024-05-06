@@ -8,7 +8,7 @@ use PDOStatement;
 
 define("DB_HOST", "localhost");
 define("DB_SCHEMA", "dotdev-db");
-define("DB_USER", "dbadmin");
+define("DB_USER", "root");
 define("DB_PASSWORD", 'toor');
 
 final class MySQLDatabase
