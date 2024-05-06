@@ -41,6 +41,7 @@
                 </div>
                 <div class="card-body">
                     <form action="php/MVCRouter" method="post">
+                        <input type="hidden" name="controller" value="login">
                         <div class="form-group row mt-1">
                             <label for="username" class="col-sm-3 col-form-label">Usuário</label>
                             <div class="col-sm-8">
@@ -56,7 +57,7 @@
                         <div class="form-group col mt-3">
                             <div class="d-flex justify-content-center">
                                 <button type="submit" class="btn btn-sm btn-primary">Entrar</button>
-                                &nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;
                                 <a href="/" class="btn btn-sm btn-outline-secondary" role="button">
                                     <span class="glyphicon glyphicon-share-alt"></span>
                                     Voltar
