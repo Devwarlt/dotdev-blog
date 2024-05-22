@@ -39,7 +39,11 @@ switch ($controller) {
             }
 
             if (!isset($_POST["username"]) || !isset($_POST["password"])) {
-                $utils->onRawIndexErr("Credenciais inválidas!", $errRef);
+                $utils->onRawIndexErr(
+                    "Não foi possível efetuar seu login no sistema! Realize o login com suas credenciais "
+                    . "adequadamente.",
+                    "../login"
+                );
                 return;
             }
 

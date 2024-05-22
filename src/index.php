@@ -32,66 +32,65 @@
             </a>
         </div>
     </header>
-    <div class="col card-body">
-        <div class="container-fluid">
-            <div class="row justify-content-center">
-                <div class='col-md-10 col-md-offset-1'>
-        <?php
+    <div class="container">
+        <div class="d-flex mt-5 justify-content-center">
+            <div class="row align-self-center w-50">
+    <?php
 
-        include "php/controller/LoginController.php";
+    include "php/controller/LoginController.php";
 
-        use php\controller\LoginController;
-        use php\PhpUtils as phputils;
+    use php\controller\LoginController;
+    use php\PhpUtils as phputils;
 
-        session_start();
+    session_start();
 
-        $login = LoginController::getSingleton();
-        if ($login->isUserSignedUp()) {
-            header("Location:/account");
+    $redirect = "/";
+    $login = LoginController::getSingleton();
+    if ($login->isUserSignedUp()) {
+        header("Location:/account");
+        return;
+    }
+
+    if (isset($_GET["err"])) {
+        include "php/PhpUtils.php";
+
+        $utils = phputils::getSingleton();
+        $err = urldecode($_GET["err"]);
+        if ($utils->checkPhpInjection($err)) {
+            $utils->onRawIndexErr("Php Injection detectado!", $redirect);
             return;
         }
 
-        if (isset($_GET["err"])) {
-            include "php/PhpUtils.php";
-
-            $utils = phputils::getSingleton();
-            $err = urldecode($_GET["err"]);
-            if ($utils->checkPhpInjection($err)) {
-                $utils->onRawIndexErr("Php Injection detectado!", "/");
-                return;
-            }
-
-            echo "
-                    <div class='alert alert-danger border-danger alert-dismissible fade show top-50' role='alert'>
-                        <h3 style='color: darkred'>Erro!</h3>
-                        <hr/>
-                        <p style='color: red; text-align: justify; text-justify: inter-word'>$err</p>
-                        <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Fechar'></button>
-                    </div>
-            ";
-        }
-
-        if (isset($_GET["ok"])) {
-            include "php/PhpUtils.php";
-
-            $utils = phputils::getSingleton();
-            $ok = urldecode($_GET["ok"]);
-            if ($utils->checkPhpInjection($ok)) {
-                $utils->onRawIndexErr("Php Injection detectado!", "/");
-                return;
-            }
-
-            echo "
-                    <div class='alert alert-success border-success alert-dismissible fade show top-50' role='alert'>
-                        <h3 style='color: green'>Sucesso!</h3>
-                        <hr/>
-                        <p style='color: limegreen; text-align: justify; text-justify: inter-word'>$ok</p>
-                        <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Fechar'></button>
-                    </div>
-            ";
-        }
-        ?>
+        echo "
+                <div class='alert alert-danger border-danger alert-dismissible fade show top-50' role='alert'>
+                    <h3 style='color: darkred'>Erro!</h3>
+                    <hr/>
+                    <p style='color: red; text-align: justify; text-justify: inter-word'>$err</p>
+                    <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Fechar'></button>
                 </div>
+        ";
+    }
+
+    if (isset($_GET["ok"])) {
+        include "php/PhpUtils.php";
+
+        $utils = phputils::getSingleton();
+        $ok = urldecode($_GET["ok"]);
+        if ($utils->checkPhpInjection($ok)) {
+            $utils->onRawIndexErr("Php Injection detectado!", $redirect);
+            return;
+        }
+
+        echo "
+                <div class='alert alert-success border-success alert-dismissible fade show top-50' role='alert'>
+                    <h3 style='color: green'>Sucesso!</h3>
+                    <hr/>
+                    <p style='color: limegreen; text-align: justify; text-justify: inter-word'>$ok</p>
+                    <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Fechar'></button>
+                </div>
+        ";
+    }
+    ?>
             </div>
         </div>
     </div>

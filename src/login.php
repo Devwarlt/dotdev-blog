@@ -63,15 +63,52 @@
                                     Voltar
                                 </a>
                             </div>
-                            <div class="d-flex justify-content-center">
-                                <small>
-                                    <a class="link-secondary" href="/">
-                                        <span class="glyphicon glyphicon-question-sign"></span>
-                                        Não possui cadastro? Clique aqui!
-                                    </a>
-                                </small>
-                            </div>
                         </div>
+                        <?php
+
+                        include "php/controller/LoginController.php";
+
+                        use php\controller\LoginController;
+                        use php\PhpUtils as phputils;
+
+                        session_start();
+
+                        $redirect = "/login";
+                        $login = LoginController::getSingleton();
+                        if ($login->isUserSignedUp()) {
+                            header("Location:/account");
+                            return;
+                        }
+
+                        if (isset($_GET["err"])) {
+                            include "php/PhpUtils.php";
+
+                            $utils = phputils::getSingleton();
+                            $err = urldecode($_GET["err"]);
+                            if ($utils->checkPhpInjection($err)) {
+                                $utils->onRawIndexErr("Php Injection detectado!", $redirect);
+                                return;
+                            }
+
+                            echo "
+                        <div class='form-group col mt-4'>
+                            <div class='d-flex justify-content-center small'>
+                                <div class='alert small alert-warning border-danger alert-dismissible fade show col-sm-12'
+                                     style='text-justify: inter-word; text-align: justify' role='alert'>
+                                    <p class='mb-0'>$err</p>
+                                    <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Fechar'></button>
+                                    <hr/>
+                                    <p class='mb-0'>
+                                        <span class='glyphicon glyphicon-question-sign'></span>
+                                        Não possui cadastro? <a class='alert-link' href='/'>Clique aqui!</a>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class='small d-flex justify-content-center'>
+                            </div>
+                        </div>";
+                        }
+                        ?>
                     </form>
                 </div>
             </div>
