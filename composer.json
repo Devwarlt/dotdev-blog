@@ -1,0 +1,15 @@
+{
+  "authors": [
+    {
+      "name": "nadio",
+      "email": "nadio.engsoft@gmail.com"
+    }
+  ],
+  "description": "Projeto Integrado III",
+  "license": "MIT",
+  "minimum-stability": "stable",
+  "name": "projecao/dotdev-blog",
+  "require": {
+    "pear/http_request2": "2.*"
+  }
+}
