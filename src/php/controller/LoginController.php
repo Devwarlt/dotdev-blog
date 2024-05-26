@@ -20,12 +20,8 @@ final class LoginController
 
     private static $singleton;
 
-    private function __construct() { }
-
-    public static function getSingleton(): LoginController
+    private function __construct()
     {
-        if (self::$singleton === null) self::$singleton = new LoginController();
-        return self::$singleton;
     }
 
     public function logIn(string $username, string $password): LoginResultModel
@@ -51,6 +47,13 @@ final class LoginController
         }
 
         return $result;
+    }
+
+    public static function getSingleton(): LoginController
+    {
+        if (self::$singleton === null)
+            self::$singleton = new LoginController();
+        return self::$singleton;
     }
 
     public function signIn(string $username, string $password, string $email): LoginResultModel
