@@ -1,12 +1,15 @@
 <?php
 
-require("..\php\PhpUtils.php");
+namespace php;
+
+include("PhpUtils.php");
+include("controller\LoginController.php");
 
 use php\controller\LoginController as login;
 use php\PhpUtils as utils;
 
-if (count($_POST) === 0 || !isset($_POST["controller"])) {
-    utils::getSingleton()->onRedirectErr("Requisição inválida!", "../");
+if (!isset($_POST["controller"])) {
+    header('HTTP/1.0 407 Proxy Authentication Required', true, 407);
     return;
 }
 
@@ -15,19 +18,14 @@ switch ($controller) {
     default:
         {
             utils::getSingleton()->onRedirectErr(
-                "Controlador não encontrado: <strong>$controller</strong>",
+                "Controlador <strong>$controller</strong> não implementado!",
                 "../"
             );
         }
         break;
     case "logout":
         {
-            require("..\php\controller\LoginController.php");
-
-            if (login::getSingleton()->closeSession())
-                utils::getSingleton()->onRedirectOk("Logout efetuado com êxito!", "../");
-            else
-                utils::getSingleton()->onRedirectErr("Não foi possível efetuar o logout!", "../");
+            utils::getSingleton()->onRedirectOk("Logout efetuado com êxito!", "../");
         }
         break;
     case "login":
@@ -40,8 +38,6 @@ switch ($controller) {
                 );
                 return;
             }
-
-            require("..\php\controller\LoginController.php");
 
             if (login::getSingleton()->isUserSignedUp()) {
                 utils::getSingleton()->onRedirectOk(null, "../");
