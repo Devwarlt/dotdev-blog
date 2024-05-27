@@ -18,6 +18,11 @@
       <path value="$PROJECT_DIR$/vendor/pear/pear_exception" />
     </include_path>
   </component>
+  <component name="PhpProjectServersManager">
+    <servers>
+      <server host="localhost" id="143c53d9-f695-4a32-b0a4-4ef5a178961c" name="local" port="3000" use_path_mappings="true" />
+    </servers>
+  </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.4" />
   <component name="PhpRuntimeConfiguration">
     <extensions>
