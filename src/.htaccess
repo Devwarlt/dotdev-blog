@@ -1,7 +1,36 @@
 php_value display_errors 1
+# php_value include_path 'C:\xampp\php\PEAR;C:\Users\nadio\PhpstormProjects\dotdev-blog\vendor\pear'
 RewriteBase /
 RewriteEngine on
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME}\.php -f
 RewriteRule ^(.*)$ $1.php
+
+RewriteCond %{SCRIPT_FILENAME} -d [OR]
+RewriteCond %{SCRIPT_FILENAME} -f
+RewriteRule "(^|/)\." - [F]
+
+RedirectMatch 404 /\..*$
+
+<FilesMatch "(\.(bak|config|dist|fla|inc|ini|log|psd|sh|sql|swp)|~)$">
+    ## Apache 2.2
+    Order allow,deny
+    Deny from all
+    Satisfy All
+
+    ## Apache 2.4
+    # Require all denied
+</FilesMatch>
+
+Options All -Indexes
+SetEnvIf Request_URI "/starry-night" allow_framing=true
+Header set X-Frame-Options SAMEORIGIN env=!allow_framing
+
+# Use UTF-8 encoding for anything served text/plain or text/html
+AddDefaultCharset utf-8
+
+# Force UTF-8 for a number of file formats
+AddCharset utf-8 .atom .css .js .json .rss .vtt .xml
+
+# Redirect 301 /php/
 # ErrorDocument 404 /error
