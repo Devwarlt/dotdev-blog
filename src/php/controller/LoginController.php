@@ -90,35 +90,33 @@ final class LoginController
         return $result;
     }
 
-    public function beginSession(LoginModel $login): bool
+    public function beginSession(LoginModel $login): void
     {
-        if ($session = session_start()) {
-            $_SESSION[LOGIN_ID] = $login->getId();
-            $_SESSION[LOGIN_NAME] = $login->getUsername();
-            $_SESSION[LOGIN_PASSWORD] = $login->getPassword();
-            $_SESSION[LOGIN_EMAIL] = $login->getEmail();
-            $_SESSION[LOGIN_LEVEL] = $login->getLevel();
-        }
-        return $session;
+        if (session_status() === PHP_SESSION_NONE)
+            session_start();
+
+        $_SESSION[LOGIN_ID] = $login->getId();
+        $_SESSION[LOGIN_NAME] = $login->getUsername();
+        $_SESSION[LOGIN_PASSWORD] = $login->getPassword();
+        $_SESSION[LOGIN_EMAIL] = $login->getEmail();
+        $_SESSION[LOGIN_LEVEL] = $login->getLevel();
     }
 
-    public function closeSession(): bool
+    public function closeSession(): void
     {
-        if (session_start()) {
-            unset($_SESSION[LOGIN_ID]);
-            unset($_SESSION[LOGIN_NAME]);
-            unset($_SESSION[LOGIN_PASSWORD]);
-            unset($_SESSION[LOGIN_EMAIL]);
-            unset($_SESSION[LOGIN_LEVEL]);
+        if (session_status() === PHP_SESSION_NONE)
+            session_start();
 
-            return session_abort();
-        }
-        return false;
+        unset($_SESSION[LOGIN_ID]);
+        unset($_SESSION[LOGIN_NAME]);
+        unset($_SESSION[LOGIN_PASSWORD]);
+        unset($_SESSION[LOGIN_EMAIL]);
+        unset($_SESSION[LOGIN_LEVEL]);
     }
 
     public function isUserSignedUp(): bool
     {
-        if (!isset($_SESSION))
+        if (session_status() === PHP_SESSION_NONE)
             session_start();
 
         return array_key_exists(LOGIN_ID, $_SESSION)
