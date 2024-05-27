@@ -66,8 +66,8 @@
                     </div>
                     <?php
 
-                    require("php\PhpUtils.php");
-                    require("php\controller\LoginController.php");
+                    include("php\controller\LoginController.php");
+                    include("php\PhpUtils.php");
 
                     use php\controller\LoginController as login;
                     use php\PhpUtils as utils;
@@ -77,34 +77,25 @@
                         return;
                     }
 
-                    var_dump($_POST);
-
-                    if (isset($_POST["err"])) {
-                        $err = urldecode($_POST["err"]);
-                        if (utils::getSingleton()->checkPhpInjection($err)) {
-                            utils::getSingleton()->onRedirectErr("Php Injection detectado!", "/");
-                            return;
-                        }
-
+                    if (!is_null($err = utils::getSingleton()->getResponseCookie(RESPONSE_FAILURE, true)))
                         echo "
-                        <div class='form-group col mt-4'>
-                            <div class='d-flex justify-content-center small'>
-                                <div class='alert small alert-warning border-warning alert-dismissible fade show col-sm-12'
-                                     style='text-justify: inter-word; text-align: justify' role='alert'>
-                                    <p class='mb-0'>$err</p>
-                                    <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Fechar'>
-                                    </button>
-                                    <hr/>
-                                    <p class='mb-0'>
-                                        <span class='glyphicon glyphicon-question-sign'></span>
-                                        Não possui cadastro? <a class='alert-link' href='/register'>Clique aqui!</a>
-                                    </p>
-                                </div>
+                    <div class='form-group col mt-4'>
+                        <div class='d-flex justify-content-center small'>
+                            <div class='alert small alert-warning border-warning alert-dismissible fade show col-sm-12'
+                                 style='text-justify: inter-word; text-align: justify' role='alert'>
+                                <p class='mb-0'>" . $err . "</p>
+                                <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Fechar'>
+                                </button>
+                                <hr/>
+                                <p class='mb-0'>
+                                    <span class='glyphicon glyphicon-question-sign'></span>
+                                    Não possui cadastro? <a class='alert-link' href='/register'>Clique aqui!</a>
+                                </p>
                             </div>
-                            <div class='small d-flex justify-content-center'>
-                            </div>
-                        </div>";
-                    }
+                        </div>
+                        <div class='small d-flex justify-content-center'>
+                        </div>
+                    </div>";
                     ?>
                 </form>
             </div>
