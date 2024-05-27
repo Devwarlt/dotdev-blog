@@ -2,8 +2,11 @@
 <module type="WEB_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/php" isTestSource="false" packagePrefix="php\" />
+      <sourceFolder url="file://$MODULE_DIR$/src/php/controller" isTestSource="false" packagePrefix="php\controller\" />
+      <sourceFolder url="file://$MODULE_DIR$/src/php/dao" isTestSource="false" packagePrefix="php\dao\" />
+      <sourceFolder url="file://$MODULE_DIR$/src/php/dao/engine" isTestSource="false" packagePrefix="php\dao\engine\" />
+      <sourceFolder url="file://$MODULE_DIR$/src/php/model" isTestSource="false" packagePrefix="php\model\" />
       <excludeFolder url="file://$MODULE_DIR$/.idea/dataSources" />
       <excludeFolder url="file://$MODULE_DIR$/src/css" />
       <excludeFolder url="file://$MODULE_DIR$/src/js" />
