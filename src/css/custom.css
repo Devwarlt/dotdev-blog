@@ -19,3 +19,17 @@
     border-radius: 5px;
     transition: 1s;
 }
+
+.glyphicon {
+    top: 3px;
+}
+
+code {
+    padding: 3px;
+    font-weight: bold;
+}
+
+.scrollable {
+    overflow-y: auto;
+    max-height: 600px;
+}
