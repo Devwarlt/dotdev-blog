@@ -92,6 +92,7 @@ final class LoginController
 
     public function beginSession(LoginModel $login): void
     {
+        error_reporting(E_ERROR | E_PARSE);
         if (session_status() === PHP_SESSION_NONE)
             session_start();
 
@@ -104,6 +105,7 @@ final class LoginController
 
     public function closeSession(): void
     {
+        error_reporting(E_ERROR | E_PARSE);
         if (session_status() === PHP_SESSION_NONE)
             session_start();
 
@@ -116,10 +118,10 @@ final class LoginController
 
     public function isUserSignedUp(): bool
     {
-        if (session_status() === PHP_SESSION_NONE)
-            session_start();
-
-        return array_key_exists(LOGIN_ID, $_SESSION)
+        error_reporting(E_ERROR | E_PARSE);
+        return session_status() === PHP_SESSION_NONE
+            && session_start()
+            && array_key_exists(LOGIN_ID, $_SESSION)
             && array_key_exists(LOGIN_NAME, $_SESSION)
             && array_key_exists(LOGIN_PASSWORD, $_SESSION);
     }
