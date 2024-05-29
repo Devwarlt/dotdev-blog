@@ -14,41 +14,49 @@ if (!isset($_POST["controller"])) {
 }
 
 $controller = $_POST["controller"];
+$username = $_POST["username"] ?? null;
+$password = $_POST["password"] ?? null;
 switch ($controller) {
     default:
         {
             utils::getSingleton()->onRedirectErr(
-                "Controlador <strong>$controller</strong> não implementado!",
+                "Controlador de rota <strong>$controller</strong> não implementado!",
                 "../"
             );
         }
         break;
-    case "logout":
-        {
-            utils::getSingleton()->onRedirectOk("Logout efetuado com êxito!", "../");
-        }
-        break;
     case "login":
         {
-            if (!isset($_POST["username"]) || !isset($_POST["password"])) {
+            if (!isset($username) || !isset($password)) {
                 utils::getSingleton()->onRedirectErr(
                     "Não foi possível efetuar seu login no sistema! Realize o login com suas credenciais "
                     . "adequadamente.",
-                    "../login"
+                    $_SERVER["REQUEST_URI"]
                 );
                 return;
             }
 
-            if (login::getSingleton()->isUserSignedUp()) {
-                utils::getSingleton()->onRedirectOk(null, "../");
-                return;
-            }
+            if (utils::getSingleton()->checkPhpInjection($username)
+                || utils::getSingleton()->checkPhpInjection())
 
             if (($response = login::getSingleton()->logIn($_POST["username"], $_POST["password"]))->getErr() === null) {
                 login::getSingleton()->beginSession($response->getLogin());
                 utils::getSingleton()->onRedirectOk(null, "../");
             } else
                 utils::getSingleton()->onRedirectErr($response->getErr(), "../");
+        }
+        break;
+    case "register":
+        {
+            $result = utils::getSingleton()->validateCredentials($username, $password, $controller);
+            if (utils::getSingleton()->isErrRedirect($result, "../new_account"))
+                return;
+        }
+        break;
+    case "logout":
+        {
+            login::getSingleton()->closeSession();
+            utils::getSingleton()->onRedirectOk("Logout efetuado com êxito!", "../");
         }
         break;
 }
