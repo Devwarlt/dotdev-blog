@@ -8,10 +8,6 @@
       <sourceFolder url="file://$MODULE_DIR$/src/php/dao/engine" isTestSource="false" packagePrefix="php\dao\engine\" />
       <sourceFolder url="file://$MODULE_DIR$/src/php/model" isTestSource="false" packagePrefix="php\model\" />
       <excludeFolder url="file://$MODULE_DIR$/.idea/dataSources" />
-      <excludeFolder url="file://$MODULE_DIR$/src/css" />
-      <excludeFolder url="file://$MODULE_DIR$/src/js" />
-      <excludeFolder url="file://$MODULE_DIR$/src/assets" />
-      <excludeFolder url="file://$MODULE_DIR$/src/fonts" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/pear/http_request2" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/pear/net_url2" />
