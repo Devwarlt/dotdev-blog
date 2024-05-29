@@ -35,7 +35,7 @@
 </header>
 <div class="container">
     <div class="d-flex mt-5 justify-content-center">
-        <div class="row align-self-center w-50" style="overflow-y: auto; max-height: 400px">
+        <div class="row align-self-center w-50 scrollable">
             <?php
 
             require("php\PhpUtils.php");

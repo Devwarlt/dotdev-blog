@@ -39,7 +39,7 @@
             <div class="card-header text-body-emphasis">
                 <h5>Cadastrar nova conta</h5>
             </div>
-            <div class="card-body" style="overflow-y: auto; max-height: 600px">
+            <div class="card-body scrollable">
                 <form action="php/MVCRouter" method="post">
                     <input type="hidden" name="controller" value="register">
                     <div class="form-group row mt-1">
@@ -65,19 +65,6 @@
                         </div>
                     </div>
                     <div class="form-group col mt-2">
-                        <div class="d-flex justify-content-center small">
-                            <div class="alert small alert-info border-info fade show col-sm-12" role="alert">
-                                <p class="mb-0">Para registrar uma senha forte, siga as instruções abaixo:</p>
-                                <ol>
-                                    <li>Utilize espaço entre a senha para aumentar sua complexidade;</li>
-                                    <li>Letras maiúsculas - <code>ABCDEFGHIJKLMNOPQRSTUVXYWZ</code>;</li>
-                                    <li>Números - <code>0123456789</code>; e</li>
-                                    <li>Símbolos - <code>"!@#$%¨&*</code>.</li>
-                                </ol>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group col mt-0">
                         <div class="d-flex justify-content-center">
                             <button type="submit" class="btn btn-sm btn-success">Registrar</button>
                             &nbsp;&nbsp;

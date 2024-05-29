@@ -31,13 +31,19 @@ switch ($controller) {
                 utils::getSingleton()->onRedirectErr(
                     "Não foi possível efetuar seu login no sistema! Realize o login com suas credenciais "
                     . "adequadamente.",
-                    $_SERVER["REQUEST_URI"]
+                    "../login"
                 );
                 return;
             }
 
             if (utils::getSingleton()->checkPhpInjection($username)
-                || utils::getSingleton()->checkPhpInjection())
+                || utils::getSingleton()->checkPhpInjection($username, $password)) {
+                utils::getSingleton()->onRedirectErr(
+                    "Php Inject detectado em um dos parâmetros enviados ao servidor!",
+                    "../login"
+                );
+                return;
+            }
 
             if (($response = login::getSingleton()->logIn($_POST["username"], $_POST["password"]))->getErr() === null) {
                 login::getSingleton()->beginSession($response->getLogin());
@@ -48,9 +54,22 @@ switch ($controller) {
         break;
     case "register":
         {
-            $result = utils::getSingleton()->validateCredentials($username, $password, $controller);
-            if (utils::getSingleton()->isErrRedirect($result, "../new_account"))
+            if (!isset($username) || !isset($password)) {
+                utils::getSingleton()->onRedirectErr(
+                    "Não foi possível efetuar seu registro no sistema! Realize o seu cadastro novamente.",
+                    "../new_account"
+                );
                 return;
+            }
+
+            if (utils::getSingleton()->checkPhpInjection($username)
+                || utils::getSingleton()->checkPhpInjection($username, $password)) {
+                utils::getSingleton()->onRedirectErr(
+                    "Php Inject detectado em um dos parâmetros enviados ao servidor!",
+                    "../new_account"
+                );
+                return;
+            }
         }
         break;
     case "logout":

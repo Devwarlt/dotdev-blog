@@ -39,7 +39,7 @@
             <div class="card-header text-body-emphasis">
                 <h5>Minha conta</h5>
             </div>
-            <div class="card-body" style="overflow-y: auto; max-height: 600px">
+            <div class="card-body scrollable">
                 <form action="php/MVCRouter" method="post">
                     <input type="hidden" name="controller" value="login">
                     <div class="form-group row mt-1">
