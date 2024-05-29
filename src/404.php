@@ -11,36 +11,35 @@
 <header class="navbar navbar-dark flex-column flex-md-row bg-dark shadow-lg
         opacity-75 border-secondary-subtle border-bottom border-0 border-opacity-10">
     <a class="navbar-brand ms-md-0 ms-md-5" href="/"><strong>.DEV Blog</strong></a>
-    <div class="navbar-nav-scroll navbar-expand">
-        <ul class="navbar-nav flex-md-row">
-            <li class="nav-item">
-                <a class="nav-link" href="/posts">Postagens</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" href="/ranking">Ranking</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/authors">Editores</a>
-            </li>
-        </ul>
-    </div>
 </header>
 <div class="container">
     <div class="d-flex mt-5 justify-content-center">
-        <div class="row align-self-center w-50" style="overflow-y: auto; max-height: 400px">
+        <div class="row align-self-center w-50 scrollable">
             <div class="form-group col mt-0">
                 <div class="d-flex justify-content-center">
-                    <div class="alert alert-danger border-danger fade show col-sm-12">
-                        <h4 class="alert-heading"><span class="glyphicon glyphicon-alert"></span> Página não encontrada!
+                    <div class="alert alert-warning border-danger bg-danger text-light fade show col-sm-12">
+                        <h4 class="alert-heading"><span class="glyphicon glyphicon-alert"></span>
+                            Página não encontrada!
                         </h4>
                         <p class="mb-0 small" style="text-justify: inter-word; text-align: justify">
-                            A página <code class="link-danger bg-dark"><?php echo $_SERVER["REQUEST_URI"]; ?></code>
-                            não existe ou foi movida para outro diretório.
+                            A página <code
+                                    class="link-warning bg-dark rounded-2 shadow-sm"><?php echo $_SERVER["REQUEST_URI"]; ?></code>
+                            não existe ou foi movida para outro diretório. Caso esse erro persista, entre em contato com
+                            o administrador do sistema através do contato abaixo.
                         </p>
-                        <hr/>
+                        <hr class="border-dark"/>
+                        <p class="mb-0 small d-flex justify-content-center">
+                            <?php
+                            $email = $_SERVER["SERVER_ADMIN"];
+                            echo "
+                            <a class='link-warning text-decoration-none' href='mailto:$email'>
+                                <span class='glyphicon glyphicon-envelope shadow-sm'></span>
+                            </a>&nbsp;<code class='link-warning bg-dark rounded-2 shadow-sm'>$email</code>";
+                            ?>
+                        </p>
                         <div class="form-group col mt-3">
                             <div class="d-flex justify-content-center">
-                                <a href="/" class="btn btn-sm btn-outline-secondary" role="button">
+                                <a href="/" class="btn btn-sm btn-outline-light" role="button">
                                     <span class="glyphicon glyphicon-share-alt"></span>
                                     Voltar
                                 </a>
