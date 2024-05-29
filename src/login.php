@@ -14,22 +14,22 @@
     <div class="navbar-nav-scroll navbar-expand">
         <ul class="navbar-nav flex-md-row">
             <li class="nav-item">
-                <a class="nav-link" href="/">Postagens</a>
+                <a class="nav-link" href="/posts">Postagens</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="/">Ranking</a>
+                <a class="nav-link active" href="/ranking">Ranking</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/">Editores</a>
+                <a class="nav-link" href="/authors">Editores</a>
             </li>
         </ul>
     </div>
     <div class="float-end my-lg-auto text-light">
-        <a class="btn btn-outline-success ms-md-0 ms-md-2 disabled" href="/">
+        <a class="btn btn-outline-success ms-md-0 ms-md-2 disabled" href="/login">
             <strong>Entrar</strong>
         </a>
-        <a class="btn btn-outline-secondary ms-md-0 ms-md-2" href="/">
-            <strong>Cadastrar</strong>
+        <a class="btn btn-outline-secondary ms-md-0 ms-md-2" href="/new_account">
+            <strong>Nova conta</strong>
         </a>
     </div>
 </header>
@@ -39,7 +39,7 @@
             <div class="card-header text-body-emphasis">
                 <h5>Minha conta</h5>
             </div>
-            <div class="card-body">
+            <div class="card-body" style="overflow-y: auto; max-height: 600px">
                 <form action="php/MVCRouter" method="post">
                     <input type="hidden" name="controller" value="login">
                     <div class="form-group row mt-1">
@@ -66,8 +66,8 @@
                     </div>
                     <?php
 
-                    include("php\controller\LoginController.php");
-                    include("php\PhpUtils.php");
+                    require("php\controller\LoginController.php");
+                    require("php\PhpUtils.php");
 
                     use php\controller\LoginController as login;
                     use php\PhpUtils as utils;
@@ -89,11 +89,9 @@
                                 <hr/>
                                 <p class='mb-0'>
                                     <span class='glyphicon glyphicon-question-sign'></span>
-                                    Não possui cadastro? <a class='alert-link' href='/register'>Clique aqui!</a>
+                                    Não possui cadastro? <a class='alert-link' href='/new_account'>Clique aqui!</a>
                                 </p>
                             </div>
-                        </div>
-                        <div class='small d-flex justify-content-center'>
                         </div>
                     </div>";
                     ?>
