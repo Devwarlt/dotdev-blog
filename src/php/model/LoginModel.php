@@ -43,4 +43,23 @@ final class LoginModel
     {
         return $this->level;
     }
+
+    public function getLevelHumanReadable(): string
+    {
+        switch ($this->level) {
+            case 0:
+            default:
+            {
+                return "normal";
+            }
+            case 1:
+            {
+                return "moderador";
+            }
+            case 2:
+            {
+                return "adminstrador";
+            }
+        }
+    }
 }
