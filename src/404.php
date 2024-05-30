@@ -10,7 +10,11 @@
 <body class="bg-image">
 <header class="navbar navbar-dark flex-column flex-md-row bg-dark shadow-lg
         opacity-75 border-secondary-subtle border-bottom border-0 border-opacity-10">
-    <a class="navbar-brand ms-md-0 ms-md-5" href="/"><strong>.DEV Blog</strong></a>
+    <a class="navbar-brand ms-md-0 ms-md-5 shadow-sm link-light" href="/">
+        <span class="glyphicon glyphicon-console bg-black rounded-top-1"
+              style="padding: 4px 8px 4px 8px; border-top: 6px solid goldenrod"></span>&nbsp;
+        <strong>.DEV Blog</strong>
+    </a>
 </header>
 <div class="container">
     <div class="d-flex mt-5 justify-content-center">
@@ -51,12 +55,14 @@
         </div>
     </div>
 </div>
-<footer class="card-footer py-3 mt-auto bg-body-secondary fixed-bottom border-success-subtle border-top border-5">
+<footer class="card-footer py-3 mt-auto bg-body-secondary small fixed-bottom border-success-subtle border-top border-5">
     <div class="container py-4">
         <div class="row">
             <div class="col-lg-5 mb-0">
                 <a class="d-inline-flex align-items-center mb-2 link-dark text-decoration-none" href="/"
                    aria-label=".DEV Blog">
+                    <span class="glyphicon glyphicon-console text-light bg-secondary rounded-top-1"
+                          style="padding: 4px 8px 4px 8px; border-top: 6px solid darkslategray"></span>&nbsp;
                     <span class="fs-5">.DEV Blog</span>
                 </a>
                 <ul class="list-unstyled small text-muted">
