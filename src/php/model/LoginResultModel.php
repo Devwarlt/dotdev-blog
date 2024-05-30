@@ -5,7 +5,7 @@ namespace php\model;
 final class LoginResultModel
 {
     private ?LoginModel $login;
-    private string $err;
+    private string $err = "";
     private bool $status = false;
 
     public function __construct()
