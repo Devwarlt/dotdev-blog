@@ -1,17 +1,17 @@
 function passwordContainsLowercaseLetter(value) {
-    return (/[a-z]/).test(value);
+    return /[a-z]/.test(value);
 }
 
 function passwordContainsUppercaseLetter(value) {
-    return (/[A-Z]/).test(value);
+    return /[A-Z]/.test(value);
 }
 
 function passwordContainsSpaces(value) {
-    return (/ /).test(value);
+    return / /.test(value);
 }
 
 function passwordContainsNumber(value) {
-    return (/[0-9]/).test(value);
+    return /[0-9]/.test(value);
 }
 
 function passwordContainsSymbol(value) {
