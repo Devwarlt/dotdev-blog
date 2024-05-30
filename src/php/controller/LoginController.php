@@ -12,11 +12,15 @@ define("LOGIN_PASSWORD", "login-password");
 define("LOGIN_EMAIL", "login-email");
 define("LOGIN_LEVEL", "login-level");
 
+define("LOGIN_LEVEL_USER", 0);
+define("LOGIN_LEVEL_MOD", 1);
+define("LOGIN_LEVEL_ADMIN", 2);
+
 final class LoginController
 {
     private static string $NAME_REGEX_PATTERN = "/^[a-zA-ZáàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]{3,255}$/";
     private static string $PASSWORD_REGEX_PATTERN = "/^[a-zA-Z0-9'\"!@#$%¨&*()_+¹²³£¢¬§=-]{3,255}$/";
-    private static string $GMAIL_REGEX_PATTERN = "^[0-9a-zA-Z_]+@gmail\.com{,320}$/";
+    private static string $GMAIL_REGEX_PATTERN = "/^^[0-9a-zA-Z_]+(@gmail\.com)$/";
 
     private static $singleton;
 
@@ -70,7 +74,7 @@ final class LoginController
             return $result;
         }
 
-        if (!preg_match(self::$GMAIL_REGEX_PATTERN, $email)) {
+        if (!preg_match(self::$GMAIL_REGEX_PATTERN, $email) || strlen($email) > 320) {
             $result->setErr("E-mail inválido! Apenas e-mails Google estão permitidos.");
             return $result;
         }
@@ -101,6 +105,21 @@ final class LoginController
         $_SESSION[LOGIN_PASSWORD] = $login->getPassword();
         $_SESSION[LOGIN_EMAIL] = $login->getEmail();
         $_SESSION[LOGIN_LEVEL] = $login->getLevel();
+    }
+
+    public function fetchLogin(): LoginModel
+    {
+        error_reporting(E_ERROR | E_PARSE);
+        if (session_status() === PHP_SESSION_NONE)
+            session_start();
+
+        return new LoginModel(
+            $_SESSION[LOGIN_ID],
+            $_SESSION[LOGIN_NAME],
+            $_SESSION[LOGIN_PASSWORD],
+            $_SESSION[LOGIN_EMAIL],
+            $_SESSION[LOGIN_LEVEL]
+        );
     }
 
     public function closeSession(): void
