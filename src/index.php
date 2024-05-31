@@ -7,7 +7,7 @@ require("php\controller\LoginController.php");
 use php\controller\LoginController as login;
 use php\PhpUtils as utils;
 
-if ($_SERVER["HTTP_REFERER"] !== $_SERVER["REQUEST_URI"])
+if (isset($_SERVER["HTTP_REFERER"]) && $_SERVER["HTTP_REFERER"] !== $_SERVER["REQUEST_URI"])
     utils::getSingleton()->flushResponseCookies();
 
 $isLoggedIn = login::getSingleton()->isUserSignedUp();
@@ -19,6 +19,7 @@ $isLoggedIn = login::getSingleton()->isUserSignedUp();
     <title>.DEV Blog - Início</title>
     <link rel="stylesheet" href="css/bootstrap.min.css?t=<?php echo time(); ?>"/>
     <link rel="stylesheet" href="css/glyphicons.css?t=<?php echo time(); ?>"/>
+    <link rel="stylesheet" href="css/jquery.toast.css?t=<?php echo time(); ?>"/>
     <link rel="stylesheet" href="css/custom.css?t=<?php echo time(); ?>"/>
 </head>
 <body class="bg-image">
@@ -61,86 +62,58 @@ $isLoggedIn = login::getSingleton()->isUserSignedUp();
     </div>
 </header>
 <?php if ($isLoggedIn) { ?>
-    <div class="text-light small mt-1 rounded-1 col-sm-3"
-         style="padding: 4px 8px 4px 8px; float: right;">
-        <div class="card text-center border-secondary">
-            <div class="card-header btn bg-dark text-light shadow-sm">
-                <h5 class="card-title">
-                    <span class="glyphicon glyphicon-tasks"></span>
-                    Painel de Controle
-                </h5>
-            </div>
-            <div class="card-body">
-                <p class="card-text">
-                    Seja bem-vindo(a)
-                    <strong>
+    <div class="form-group col bg-dark-subtle resizable-content">
+        <div class="text-light small rounded-1 col-sm-3" style="padding: 4px 4px 0 4px; float: right;">
+            <div class="card text-center border-secondary">
+                <div class="card-header bg-dark text-light shadow-sm">
+                    <h5 class="card-title">
+                        <span class="glyphicon glyphicon-tasks"></span>
+                        Painel de Controle
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        Seja bem-vindo(a)
+                        <strong>
                         <span class="text-warning"><?php echo login::getSingleton()->fetchLogin()->getUsername(); ?>
                         </span>
-                    </strong>!
-                    <br/>
-                    <small>
-                        Nível de acesso:
-                        <code class="bg-warning-subtle rounded-2 text-secondary-emphasis">
-                            <?php echo login::getSingleton()->fetchLogin()->getLevelHumanReadable(); ?>
-                        </code>
-                    </small>
-                </p>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item btn-sm btn-outline-success">
-                        <a class="btn btn-sm" role="button" href="/my_posts">
-                            <span class="glyphicon glyphicon-search"></span>
-                            Minhas postagens
-                        </a>
-                    </li>
-                    <?php if (login::getSingleton()->fetchLogin()->getLevel() === LOGIN_LEVEL_ADMIN) { ?>
-                        <li class="list-group-item btn-sm btn-outline-warning">
-                            <a class="btn btn-sm" role="button" href="/my_moderators">
-                                <span class="glyphicon glyphicon-user"></span>
-                                Ver moderadores
+                        </strong>!
+                        <br/>
+                        <small>
+                            Nível de acesso:
+                            <code class="bg-warning-subtle rounded-2 text-secondary-emphasis">
+                                <?php echo login::getSingleton()->fetchLogin()->getLevelHumanReadable(); ?>
+                            </code>
+                        </small>
+                    </p>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item btn-sm btn-outline-primary disabled">
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                            <a class="btn btn-sm active" role="button" href="/">
+                                <span class="glyphicon glyphicon-home"></span>
+                                Início
                             </a>
                         </li>
-                    <?php } ?>
-                </ul>
+                        <li class="list-group-item btn-sm btn-outline-success">
+                            <a class="btn btn-sm" role="button" href="/my_posts">
+                                <span class="glyphicon glyphicon-search"></span>
+                                Minhas postagens
+                            </a>
+                        </li>
+                        <?php if (login::getSingleton()->fetchLogin()->getLevel() === LOGIN_LEVEL_ADMIN) { ?>
+                            <li class="list-group-item btn-sm btn-outline-warning">
+                                <a class="btn btn-sm" role="button" href="/my_moderators">
+                                    <span class="glyphicon glyphicon-user"></span>
+                                    Ver moderadores
+                                </a>
+                            </li>
+                        <?php } ?>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
 <?php } ?>
-<div class="container">
-    <div class="d-flex mt-5 justify-content-center">
-        <div class="row align-self-center w-50 scrollable">
-            <?php if (!is_null($err = utils::getSingleton()->getResponseCookie(RESPONSE_FAILURE, true))) { ?>
-                <div class="form-group col mt-3">
-                    <div class="d-flex justify-content-center small">
-                        <div class="alert small alert-info border-info alert-dismissible
-                                    fade show col-sm-12 shadow"
-                             style="text-justify: inter-word; text-align: justify" role="alert">
-                            <p class="mb-0">
-                                <span class="glyphicon glyphicon-info-sign"></span> <?php echo $err; ?>
-                            </p>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar">
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            <?php }
-            if (!is_null($ok = utils::getSingleton()->getResponseCookie(RESPONSE_SUCCESS, true))) { ?>
-                <div class="form-group col mt-3">
-                    <div class="d-flex justify-content-center small">
-                        <div class="alert small alert-success border-success alert-dismissible
-                                    fade show col-sm-12 shadow"
-                             style="text-justify: inter-word; text-align: justify" role="alert">
-                            <p class="mb-0">
-                                <span class="glyphicon glyphicon-ok-sign"></span> <?php echo $ok; ?>
-                            </p>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar">
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            <?php } ?>
-        </div>
-    </div>
-</div>
 <footer class="card-footer py-3 mt-auto bg-body-secondary small fixed-bottom border-success-subtle border-top border-5">
     <div class="container py-4">
         <div class="row">
@@ -168,7 +141,33 @@ $isLoggedIn = login::getSingleton()->isUserSignedUp();
         </div>
     </div>
 </footer>
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="js/jquery-3.7.1.min.js?t=<?php echo time(); ?>"></script>
+<script type="text/javascript" src="js/jquery.toast.js?t=<?php echo time(); ?>"></script>
+<script type="text/javascript" src="js/bootstrap.bundle.min.js?t=<?php echo time(); ?>"></script>
+<script type="text/javascript" src="js/custom.js?t=<?php echo time(); ?>"></script>
+<script type="text/javascript">
+    $(function () {
+        <?php if (!is_null($err = utils::getSingleton()->getResponseCookie(RESPONSE_FAILURE, true))) { ?>
+        $.toast({
+            heading: '<span class="glyphicon glyphicon-ok-sign"></span> <strong>Notificação</strong>',
+            text: <?php echo $err;?>,
+            showHideTransition: 'slide',
+            position: 'bottom-right',
+            hideAfter: false,
+            bgColor: 'bg-success text-white rounded-2 border-success-subtle'
+        });
+        <?php }
+        if (!is_null($ok = utils::getSingleton()->getResponseCookie(RESPONSE_SUCCESS, true))) { ?>
+        $.toast({
+            heading: '<span class="glyphicon glyphicon-info-sign"></span> <strong>Atenção</strong>',
+            text: <?php echo $ok;?>,
+            showHideTransition: 'slide',
+            position: 'bottom-right',
+            hideAfter: false,
+            bgColor: 'bg-warning text-secondary rounded-2 border-warning-subtle'
+        });
+        <?php } ?>
+    });
+</script>
 </body>
 </html>
