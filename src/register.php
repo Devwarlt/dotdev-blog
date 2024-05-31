@@ -14,7 +14,7 @@ if (login::getSingleton()->isUserSignedUp()) {
     return;
 }
 
-if ($_SERVER["HTTP_REFERER"] !== $_SERVER["REQUEST_URI"])
+if (isset($_SERVER["HTTP_REFERER"]) && $_SERVER["HTTP_REFERER"] !== $_SERVER["REQUEST_URI"])
     utils::getSingleton()->flushResponseCookies();
 ?>
 <!DOCTYPE html>
@@ -74,7 +74,8 @@ if ($_SERVER["HTTP_REFERER"] !== $_SERVER["REQUEST_URI"])
                     <div class="form-group row mt-1">
                         <label for="password" class="col-sm-3 col-form-label">Senha</label>
                         <div class="col-sm-8">
-                            <input type="password" class="form-control" id="password" name="password">
+                            <input type="password" class="form-control" id="password" name="password"
+                                   oninput="passwordInputHandler(this)">
                         </div>
                     </div>
                     <div class="form-group row mt-2">
@@ -85,12 +86,6 @@ if ($_SERVER["HTTP_REFERER"] !== $_SERVER["REQUEST_URI"])
                                 <div role="progressbar" aria-valuenow="0"
                                      aria-valuemin="0" aria-valuemax="100" id="power-point"></div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="form-group row mt-2">
-                        <label for="email" class="col-sm-3 col-form-label">E-mail</label>
-                        <div class="col-sm-8">
-                            <input type="email" class="form-control" id="email" name="email">
                         </div>
                     </div>
                     <div class="form-group col mt-3">
