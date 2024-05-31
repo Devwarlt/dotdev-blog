@@ -14,7 +14,7 @@ if (login::getSingleton()->isUserSignedUp()) {
     return;
 }
 
-if ($_SERVER["HTTP_REFERER"] !== $_SERVER["REQUEST_URI"])
+if (isset($_SERVER["HTTP_REFERER"]) && $_SERVER["HTTP_REFERER"] !== $_SERVER["REQUEST_URI"])
     utils::getSingleton()->flushResponseCookies();
 ?>
 <!DOCTYPE html>
@@ -136,7 +136,7 @@ if ($_SERVER["HTTP_REFERER"] !== $_SERVER["REQUEST_URI"])
 </footer>
 <script type="text/javascript" src="js/jquery-3.7.1.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
-<script>
+<script type="text/javascript">
     $(function () {
         $('#login-box').hide().fadeIn('slow');
     });
