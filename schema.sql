@@ -6,11 +6,10 @@ USE `dotdev-db`;
 
 CREATE TABLE IF NOT EXISTS `users`
 (
-    `id`       INT          NOT NULL AUTO_INCREMENT,
-    `username` TINYTEXT     NOT NULL,
-    `password` VARCHAR(64)  NOT NULL,
-    `email`    VARCHAR(320) NOT NULL,
-    `level`    TINYINT      NOT NULL DEFAULT 0, -- 0: default / 1: mod / 2: admin
+    `id`       INT         NOT NULL AUTO_INCREMENT,
+    `username` TINYTEXT    NOT NULL,
+    `password` VARCHAR(64) NOT NULL,
+    `level`    TINYINT     NOT NULL DEFAULT 0, -- 0: default / 1: mod / 2: admin
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;
 
@@ -34,5 +33,5 @@ ALTER TABLE `posts`
     ADD CONSTRAINT `posts_owner_id_users_id` FOREIGN KEY (`owner_id`) REFERENCES `users` (`id`)
         ON DELETE CASCADE;
 
-INSERT INTO `users` (`username`, `password`, `email`, `level`)
-VALUES ('root', SHA2('toor', 256), 'nadio.engsoft@gmail.com', 2);
+INSERT INTO `users` (`username`, `password`, `level`)
+VALUES ('root', SHA2('toor', 256), 2);
