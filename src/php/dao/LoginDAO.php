@@ -20,12 +20,11 @@ final class LoginDAO
         $mysql = MySQLDatabase::getSingleton();
         return $mysql->insert(
             new SQLQuery(
-                "INSERT INTO `users`(`username`, `password`, `email`, `level`)
-                    VALUES (':username', SHA2(':password', 256), ':email', :level)",
+                "INSERT INTO `users`(`username`, `password`, `level`)
+                    VALUES (':username', SHA2(':password', 256), :level)",
                 [
                     ":username" => $login->getUsername(),
                     ":password" => $login->getPassword(),
-                    ":email" => $login->getEmail(),
                     ":level" => $login->getLevel()
                 ]
             )
@@ -58,7 +57,6 @@ final class LoginDAO
             $data->id,
             $login->getUsername(),
             $login->getPassword(),
-            $data->email,
             $data->level
         );
     }
@@ -69,12 +67,11 @@ final class LoginDAO
         return $mysql->update(
             new SQLQuery(
                 "UPDATE `users` SET `username` = ':username', `password` = SHA2(':password', 256),
-                   `email` = ':email', `level` = :level WHERE `id` = :id",
+                   `level` = :level WHERE `id` = :id",
                 [
                     ":id" => $login->getId(),
                     ":username" => $login->getUsername(),
                     ":password" => $login->getPassword(),
-                    ":email" => $login->getEmail(),
                     ":level" => $login->getLevel()
                 ]
             )

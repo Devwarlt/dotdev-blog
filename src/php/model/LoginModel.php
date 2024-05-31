@@ -7,15 +7,13 @@ final class LoginModel
     private int $id;
     private string $username;
     private string $password;
-    private ?string $email;
     private int $level;
 
-    public function __construct(int $id, string $username, string $password, ?string $email, int $level)
+    public function __construct(int $id, string $username, string $password, int $level)
     {
         $this->id = $id;
         $this->username = $username;
         $this->password = $password;
-        $this->email = $email;
         $this->level = $level;
     }
 
@@ -32,11 +30,6 @@ final class LoginModel
     public function getPassword(): string
     {
         return $this->password;
-    }
-
-    public function getEmail(): string
-    {
-        return $this->email;
     }
 
     public function getLevel(): int
