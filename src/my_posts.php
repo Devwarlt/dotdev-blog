@@ -15,7 +15,7 @@ if (!($isLoggedIn = login::getSingleton()->isUserSignedUp())) {
     return;
 }
 
-if ($_SERVER["HTTP_REFERER"] !== $_SERVER["REQUEST_URI"])
+if (isset($_SERVER["HTTP_REFERER"]) && $_SERVER["HTTP_REFERER"] !== $_SERVER["REQUEST_URI"])
     utils::getSingleton()->flushResponseCookies();
 ?>
 <!DOCTYPE html>
@@ -57,131 +57,8 @@ if ($_SERVER["HTTP_REFERER"] !== $_SERVER["REQUEST_URI"])
         </form>
     </div>
 </header>
-<div class="form-group col mt-1">
-    <div class="text-light small rounded-1 col-sm-3"
-         style="padding: 0 4px 0 4px; float: right;">
-        <div class="card text-center border-secondary">
-            <div class="card-header bg-dark text-light shadow-sm">
-                <h5 class="card-title">
-                    <span class="glyphicon glyphicon-tasks"></span>
-                    Painel de Controle
-                </h5>
-            </div>
-            <div class="card-body">
-                <p class="card-text">
-                    Seja bem-vindo(a)
-                    <strong>
-                        <span class="text-warning"><?php echo login::getSingleton()->fetchLogin()->getUsername(); ?>
-                        </span>
-                    </strong>!
-                    <br/>
-                    <small>
-                        Nível de acesso:
-                        <code class="bg-warning-subtle rounded-2 text-secondary-emphasis">
-                            <?php echo login::getSingleton()->fetchLogin()->getLevelHumanReadable(); ?>
-                        </code>
-                    </small>
-                </p>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item btn-sm btn-outline-success disabled">
-                        <a class="btn btn-sm active" role="button" href="/my_posts">
-                            <span class="glyphicon glyphicon-search"></span>
-                            Minhas postagens
-                        </a>
-                    </li>
-                    <?php if (login::getSingleton()->fetchLogin()->getLevel() === LOGIN_LEVEL_ADMIN) { ?>
-                        <li class="list-group-item btn-sm btn-outline-warning">
-                            <a class="btn btn-sm" role="button" href="/my_moderators">
-                                <span class="glyphicon glyphicon-user"></span>
-                                Ver moderadores
-                            </a>
-                        </li>
-                    <?php } ?>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="card text-center border-secondary">
-        <div class="card-header bg-dark text-light shadow-sm">
-            <h5 class="card-title">
-                <span class="glyphicon glyphicon-search"></span>
-                Minhas postagens
-            </h5>
-        </div>
-        <div class="card-body">
-            <div class="accordion accordion-flush" style="padding: 4px 0 4px 8px;" id="accordionFlushExample">
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="flush-headingOne">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#flush-collapseOne" aria-expanded="false"
-                                aria-controls="flush-collapseOne">
-                            Accordion Item #1
-                        </button>
-                    </h2>
-                    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
-                         data-bs-parent="#accordionFlushExample">
-                        <div class="accordion-body">Placeholder content for this accordion, which is intended to
-                            demonstrate
-                            the <code>.accordion-flush</code> class. This is the first item's accordion body.
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="flush-headingTwo">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#flush-collapseTwo" aria-expanded="false"
-                                aria-controls="flush-collapseTwo">
-                            Accordion Item #2
-                        </button>
-                    </h2>
-                    <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo"
-                         data-bs-parent="#accordionFlushExample">
-                        <div class="accordion-body">Placeholder content for this accordion, which is intended to
-                            demonstrate
-                            the <code>.accordion-flush</code> class. This is the second item's accordion body. Let's
-                            imagine
-                            this being filled with some actual content.
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="flush-headingThree">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#flush-collapseThree" aria-expanded="false"
-                                aria-controls="flush-collapseThree">
-                            Accordion Item #3
-                        </button>
-                    </h2>
-                    <div id="flush-collapseThree" class="accordion-collapse collapse"
-                         aria-labelledby="flush-headingThree"
-                         data-bs-parent="#accordionFlushExample">
-                        <div class="accordion-body">Placeholder content for this accordion, which is intended to
-                            demonstrate
-                            the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing
-                            more
-                            exciting happening here in terms of content, but just filling up the space to make it look,
-                            at
-                            least at first glance, a bit more representative of how this would look in a real-world
-                            application.
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <hr/>
-            <nav>
-                <ul class="pagination pagination-sm justify-content-center">
-                    <li class="page-item active" aria-current="page">
-                        <span class="page-link">1</span>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                </ul>
-            </nav>
-        </div>
-    </div>
-</div>
 <div class="container">
-    <div class="d-flex row mt-5 justify-content-center">
+    <div class="d-flex row mt-1 justify-content-center">
         <div class="form-group row mt-2">
             <div class="col align-self-center w-50 scrollable">
                 <?php if (!is_null($err = utils::getSingleton()->getResponseCookie(RESPONSE_FAILURE, true))) { ?>
@@ -218,6 +95,139 @@ if ($_SERVER["HTTP_REFERER"] !== $_SERVER["REQUEST_URI"])
         </div>
     </div>
 </div>
+<div class="form-group col bg-dark-subtle resizable-content">
+    <div class="text-light small rounded-1 col-sm-3" style="padding: 4px 4px 0 4px; float: right;">
+        <div class="card text-center border-secondary">
+            <div class="card-header bg-dark text-light shadow-sm">
+                <h5 class="card-title">
+                    <span class="glyphicon glyphicon-tasks"></span>
+                    Painel de Controle
+                </h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">
+                    Seja bem-vindo(a)
+                    <strong>
+                        <span class="text-warning"><?php echo login::getSingleton()->fetchLogin()->getUsername(); ?>
+                        </span>
+                    </strong>!
+                    <br/>
+                    <small>
+                        Nível de acesso:
+                        <code class="bg-warning-subtle rounded-2 text-secondary-emphasis">
+                            <?php echo login::getSingleton()->fetchLogin()->getLevelHumanReadable(); ?>
+                        </code>
+                    </small>
+                </p>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item btn-sm btn-outline-primary">
+                        <a class="btn btn-sm" role="button" href="/">
+                            <span class="glyphicon glyphicon-home"></span>
+                            Início
+                        </a>
+                    </li>
+                    <li class="list-group-item btn-sm btn-outline-success disabled">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                        <a class="btn btn-sm active" role="button" href="/my_posts">
+                            <span class="glyphicon glyphicon-search"></span>
+                            Minhas postagens
+                        </a>
+                    </li>
+                    <?php if (login::getSingleton()->fetchLogin()->getLevel() === LOGIN_LEVEL_ADMIN) { ?>
+                        <li class="list-group-item btn-sm btn-outline-warning">
+                            <a class="btn btn-sm" role="button" href="/my_moderators">
+                                <span class="glyphicon glyphicon-user"></span>
+                                Ver moderadores
+                            </a>
+                        </li>
+                    <?php } ?>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="scrollable" style="padding: 4px 0 0 4px;">
+        <div class="card text-center border-secondary">
+            <div class="card-header bg-dark text-light shadow-sm">
+                <h5 class="card-title">
+                    <span class="glyphicon glyphicon-search"></span>
+                    Minhas postagens
+                </h5>
+            </div>
+            <div class="card-body">
+                <ul class="nav nav-pills nav-fill">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Nova postagem</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Remover postagens</a>
+                    </li>
+                </ul>
+                <hr/>
+                <table class="table table-borderless table-striped table-hover table-sm accordion accordion-flush">
+                    <thead>
+                    <tr style="vertical-align: middle">
+                        <th scope="col" class="d-flex justify-content-center">
+                            <div class="form-check form-switch" onclick="toggleAll(this)">
+                                <input class="form-check-input" type="checkbox">
+                            </div>
+                        </th>
+                        <th scope="col">Ações</th>
+                        <th scope="col">Postagens</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row" style="vertical-align: middle">
+                            <input class="form-check-input checkbox-child" type="checkbox" id="checkboxNoLabel"
+                                   value="">
+                        </th>
+                        <td style="vertical-align: middle">
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-warning">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </button>
+                                <button type="button" class="btn btn-danger">
+                                    <span class="glyphicon glyphicon-remove-sign"></span>
+                                </button>
+                            </div>
+                        </td>
+                        <td style="width: 75%">
+                            <div class="accordion accordion-flush" id="accordionFlushExample">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="flush-headingOne">
+                                        <button class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#flush-collapseOne"
+                                                aria-expanded="false" aria-controls="flush-collapseOne">
+                                            Accordion Item #1
+                                        </button>
+                                    </h2>
+                                    <div id="flush-collapseOne" class="accordion-collapse collapse"
+                                         aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">Placeholder content for this accordion, which is
+                                            intended to demonstrate the <code>.accordion-flush</code> class. This is the
+                                            first item's accordion body.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <hr/>
+                <nav>
+                    <ul class="pagination pagination-sm justify-content-center">
+                        <li class="page-item active" aria-current="page">
+                            <span class="page-link">1</span>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
 <footer class="card-footer py-3 mt-auto bg-body-secondary small fixed-bottom border-success-subtle border-top border-5">
     <div class="container py-4">
         <div class="row">
@@ -245,7 +255,9 @@ if ($_SERVER["HTTP_REFERER"] !== $_SERVER["REQUEST_URI"])
         </div>
     </div>
 </footer>
+<script type="text/javascript" src="jquery-3.7.1.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="js/custom.js"></script>
 </body>
 </html>
