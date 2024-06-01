@@ -35,6 +35,10 @@ code {
     padding-top: 2em;
 }
 
+strong > .glyphicon {
+    top: .175em;
+}
+
 .resizable-content {
     display: inline;
     width: 100%;
