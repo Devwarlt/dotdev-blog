@@ -140,28 +140,28 @@
 	$(() => {
 		<?php if (!is_null($err = utils::getSingleton()->getResponseCookie(RESPONSE_FAILURE, true))) { ?>
 		$.toast({
-			heading: '<span class="glyphicon glyphicon-info-sign"></span> <strong>Atenção</strong>',
-			text: '<?= $err ?>',
-			showHideTransition: 'slide',
-			position: 'bottom-right',
-			hideAfter: false,
-			bgColor: 'bg-warning text-secondary rounded-2 border-warning-subtle',
-			afterShown: function () {
+			"afterShown"() {
 				removeCookieByName('<?= RESPONSE_FAILURE ?>');
-			}
+			},
+			"bgColor": 'bg-warning text-secondary rounded-2 border-warning-subtle',
+			"heading": '<span class="glyphicon glyphicon-info-sign"></span> <strong>Atenção</strong>',
+			"hideAfter": false,
+			"position": 'bottom-right',
+			"showHideTransition": 'slide',
+			"text": '<?= $err ?>'
 		});
 		<?php }
 		if (!is_null($ok = utils::getSingleton()->getResponseCookie(RESPONSE_SUCCESS, true))) { ?>
 		$.toast({
-			heading: '<span class="glyphicon glyphicon-ok-sign"></span> <strong>Notificação</strong>',
-			text: '<?= $ok;?>',
-			showHideTransition: 'slide',
-			position: 'bottom-right',
-			hideAfter: false,
-			bgColor: 'bg-success text-white rounded-2 border-success-subtle',
-			afterShown: function () {
+			"afterShown"() {
 				removeCookieByName('<?= RESPONSE_SUCCESS ?>');
-			}
+			},
+			"bgColor": 'bg-success text-white rounded-2 border-success-subtle',
+			"heading": '<span class="glyphicon glyphicon-ok-sign"></span> <strong>Notificação</strong>',
+			"hideAfter": false,
+			"position": 'bottom-right',
+			"showHideTransition": 'slide',
+			"text": '<?= $ok;?>'
 		});
 		<?php } ?>
 	});
