@@ -9,7 +9,10 @@ final class LoginModel
     private string $password;
     private int $level;
 
-    public function __construct(int $id, string $username, string $password, int $level)
+    public function __construct(int $id,
+        string $username,
+        string $password,
+        int $level)
     {
         $this->id = $id;
         $this->username = $username;

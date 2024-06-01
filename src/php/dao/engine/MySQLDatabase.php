@@ -6,10 +6,10 @@ use PDO;
 use PDOException;
 use PDOStatement;
 
-define("DB_HOST", "localhost");
-define("DB_SCHEMA", "dotdev-db");
-define("DB_USER", "root");
-define("DB_PASSWORD", 'toor');
+define("DB_HOST","localhost");
+define("DB_SCHEMA","dotdev-db");
+define("DB_USER","root");
+define("DB_PASSWORD",'toor');
 
 final class MySQLDatabase
 {
@@ -30,7 +30,7 @@ final class MySQLDatabase
                     DB_USER,
                     DB_PASSWORD
                 );
-                $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
                 self::$singleton = new MySQLDatabase($pdo);
             }
         } catch (PDOException $e) {
@@ -64,7 +64,7 @@ final class MySQLDatabase
         <div class='card-footer'>
             <h5>Stack trace:</h5>
             <pre class='text-warning bg-dark border-warning rounded'>"
-            . json_encode($exception->getTrace(), JSON_PRETTY_PRINT) .
+            . json_encode($exception->getTrace(),JSON_PRETTY_PRINT) .
             "</pre>
         </div>
     </div>

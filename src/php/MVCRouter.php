@@ -17,7 +17,7 @@ use php\controller\LoginController as login;
 use php\PhpUtils as utils;
 
 if (!isset($_POST["controller"])) {
-    header('HTTP/1.0 407 Proxy Authentication Required', true, 407);
+    header('HTTP/1.0 407 Proxy Authentication Required',true,407);
     return;
 }
 
@@ -44,7 +44,7 @@ switch ($controller) {
                 return;
             }
 
-            if (utils::getSingleton()->checkPhpInjection($username, $password)) {
+            if (utils::getSingleton()->checkPhpInjection($username,$password)) {
                 utils::getSingleton()->onRedirectErr(
                     "Php Inject detectado em um dos parâmetros enviados ao servidor!",
                     "../login"
@@ -52,11 +52,11 @@ switch ($controller) {
                 return;
             }
 
-            if (($response = login::getSingleton()->logIn($username, $password))->getStatus()) {
+            if (($response = login::getSingleton()->logIn($username,$password))->getStatus()) {
                 login::getSingleton()->beginSession($response->getLogin());
-                utils::getSingleton()->onRedirectOk("Login efetuado com êxito!", "../");
+                utils::getSingleton()->onRedirectOk("Login efetuado com êxito!","../");
             } else
-                utils::getSingleton()->onRedirectErr($response->getErr(), "../");
+                utils::getSingleton()->onRedirectErr($response->getErr(),"../");
         }
         break;
     case "register":
@@ -69,7 +69,7 @@ switch ($controller) {
                 return;
             }
 
-            if (utils::getSingleton()->checkPhpInjection($username, $password)) {
+            if (utils::getSingleton()->checkPhpInjection($username,$password)) {
                 utils::getSingleton()->onRedirectErr(
                     "Php Inject detectado em um dos parâmetros enviados ao servidor!",
                     "../register"
@@ -77,17 +77,17 @@ switch ($controller) {
                 return;
             }
 
-            if (($response = login::getSingleton()->signIn($username, $password))->getStatus()) {
+            if (($response = login::getSingleton()->signIn($username,$password))->getStatus()) {
                 login::getSingleton()->beginSession($response->getLogin());
-                utils::getSingleton()->onRedirectOk("Registro de nova conta efetuado com êxito!", "../");
+                utils::getSingleton()->onRedirectOk("Registro de nova conta efetuado com êxito!","../");
             } else
-                utils::getSingleton()->onRedirectErr($response->getErr(), "../register");
+                utils::getSingleton()->onRedirectErr($response->getErr(),"../register");
         }
         break;
     case "logout":
         {
             login::getSingleton()->closeSession();
-            utils::getSingleton()->onRedirectOk("Logout efetuado com êxito!", "../");
+            utils::getSingleton()->onRedirectOk("Logout efetuado com êxito!","../");
         }
         break;
 }

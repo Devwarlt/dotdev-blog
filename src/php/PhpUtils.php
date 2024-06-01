@@ -2,9 +2,9 @@
 
 namespace php;
 
-define("RESPONSE_SUCCESS", "ok_response");
-define("RESPONSE_FAILURE", "err_response");
-define("RESPONSE_COOLDOWN", "1 days");
+define("RESPONSE_SUCCESS","ok_response");
+define("RESPONSE_FAILURE","err_response");
+define("RESPONSE_COOLDOWN","1 days");
 
 final class PhpUtils
 {
@@ -23,18 +23,21 @@ final class PhpUtils
         return self::$singleton;
     }
 
-    public function onRedirectOk(?string $msg, string $ref): void
+    public function onRedirectOk(?string $msg,
+        string $ref): void
     {
-        self::setResponseCookie(RESPONSE_SUCCESS, $msg);
+        self::setResponseCookie(RESPONSE_SUCCESS,$msg);
         header("Location:$ref");
     }
 
-    private function setResponseCookie(string $name, string $msg): void
+    private function setResponseCookie(string $name,
+        string $msg): void
     {
-        setcookie($name, $msg, strtotime("+" . RESPONSE_COOLDOWN), "/");
+        setcookie($name,$msg,strtotime("+" . RESPONSE_COOLDOWN),"/");
     }
 
-    public function getResponseCookie(string $name, bool $unset): ?string
+    public function getResponseCookie(string $name,
+        bool $unset): ?string
     {
         $value = $_COOKIE[$name] ?? null;
 
@@ -47,7 +50,7 @@ final class PhpUtils
     public function unsetResponseCookie(string $name): void
     {
         if (isset($_COOKIE[$name]))
-            setcookie($name, "", 0, "/");
+            setcookie($name,"",0,"/");
     }
 
     public function checkPhpInjection(string...$params): bool
@@ -55,15 +58,16 @@ final class PhpUtils
         $matches = function (array $args): array {
             $result = [];
             foreach ($args as $arg)
-                $result[] = preg_match(self::$PHP_INJECTION_REGEX_PATTERN, $arg);
+                $result[] = preg_match(self::$PHP_INJECTION_REGEX_PATTERN,$arg);
             return $result;
         };
-        return in_array(true, $matches($params));
+        return in_array(true,$matches($params));
     }
 
-    public function onRedirectErr(string $msg, string $ref): void
+    public function onRedirectErr(string $msg,
+        string $ref): void
     {
-        self::setResponseCookie(RESPONSE_FAILURE, $msg);
+        self::setResponseCookie(RESPONSE_FAILURE,$msg);
         header("Location:$ref");
     }
 

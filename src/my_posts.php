@@ -23,10 +23,10 @@ if (isset($_SERVER["HTTP_REFERER"]) && $_SERVER["HTTP_REFERER"] !== $_SERVER["RE
 <head>
     <meta charset="UTF-8">
     <title>.DEV Blog - Minhas postagens</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css?t=<?php echo time(); ?>"/>
-    <link rel="stylesheet" href="css/glyphicons.css?t=<?php echo time(); ?>"/>
-    <link rel="stylesheet" href="css/jquery.toast.css?t=<?php echo time(); ?>"/>
-    <link rel="stylesheet" href="css/custom.css?t=<?php echo time(); ?>"/>
+    <link rel="stylesheet" href="css/bootstrap.min.css?t=<?php echo time(); ?>" />
+    <link rel="stylesheet" href="css/glyphicons.css?t=<?php echo time(); ?>" />
+    <link rel="stylesheet" href="css/jquery.toast.css?t=<?php echo time(); ?>" />
+    <link rel="stylesheet" href="css/custom.css?t=<?php echo time(); ?>" />
 </head>
 <body class="bg-image">
 <header class="navbar navbar-dark flex-column flex-md-row bg-dark shadow-lg
@@ -34,8 +34,7 @@ if (isset($_SERVER["HTTP_REFERER"]) && $_SERVER["HTTP_REFERER"] !== $_SERVER["RE
     <a class="navbar-brand ms-md-0 ms-md-5 shadow-sm link-light" href="/">
         <span class="glyphicon glyphicon-console bg-black rounded-top-1"
               style="padding: 4px 8px 4px 8px; border-top: 6px solid goldenrod"></span>&nbsp;
-        <strong>.DEV Blog</strong>
-    </a>
+        <strong>.DEV Blog</strong> </a>
     <div class="navbar-nav-scroll navbar-expand navbar-toggler">
         <ul class="navbar-nav flex-md-row">
             <li class="nav-item">
@@ -63,44 +62,31 @@ if (isset($_SERVER["HTTP_REFERER"]) && $_SERVER["HTTP_REFERER"] !== $_SERVER["RE
         <div class="card text-center border-secondary">
             <div class="card-header bg-dark text-light shadow-sm">
                 <h5 class="card-title">
-                    <span class="glyphicon glyphicon-tasks"></span>
-                    Painel de Controle
+                    <span class="glyphicon glyphicon-tasks"></span> Painel de Controle
                 </h5>
             </div>
             <div class="card-body">
                 <p class="card-text">
-                    Seja bem-vindo(a)
-                    <strong>
+                    Seja bem-vindo(a) <strong>
                         <span class="text-warning"><?php echo login::getSingleton()->fetchLogin()->getUsername(); ?>
-                        </span>
-                    </strong>!
-                    <br/>
-                    <small>
-                        Nível de acesso:
+                        </span> </strong>! <br /> <small> Nível de acesso:
                         <code class="bg-warning-subtle rounded-2 text-secondary-emphasis">
                             <?php echo login::getSingleton()->fetchLogin()->getLevelHumanReadable(); ?>
-                        </code>
-                    </small>
+                        </code> </small>
                 </p>
                 <ul class="list-group list-group-flush small">
                     <li class="list-group-item btn-sm btn-outline-primary">
                         <a class="btn btn-sm" role="button" href="/">
-                            <span class="glyphicon glyphicon-home small"></span>
-                            <small>Início</small>
-                        </a>
+                            <span class="glyphicon glyphicon-home small"></span> <small>Início</small> </a>
                     </li>
                     <li class="list-group-item btn-sm btn-outline-success">
                         <a class="btn btn-sm disabled" role="button" href="/my_posts">
-                            <span class="glyphicon glyphicon-search small"></span>
-                            <small>Minhas postagens</small>
-                        </a>
+                            <span class="glyphicon glyphicon-search small"></span> <small>Minhas postagens</small> </a>
                     </li>
                     <?php if (login::getSingleton()->fetchLogin()->getLevel() === LOGIN_LEVEL_ADMIN) { ?>
                         <li class="list-group-item btn-sm btn-outline-warning">
                             <a class="btn btn-sm" role="button" href="/my_moderators">
-                                <span class="glyphicon glyphicon-user small"></span>
-                                <small>Ver moderadores</small>
-                            </a>
+                                <span class="glyphicon glyphicon-user small"></span> <small>Ver moderadores</small> </a>
                         </li>
                     <?php } ?>
                 </ul>
@@ -111,16 +97,14 @@ if (isset($_SERVER["HTTP_REFERER"]) && $_SERVER["HTTP_REFERER"] !== $_SERVER["RE
         <div class="card text-center border-secondary">
             <div class="card-header bg-dark text-light shadow-sm">
                 <h5 class="card-title">
-                    <span class="glyphicon glyphicon-search"></span>
-                    Minhas postagens
+                    <span class="glyphicon glyphicon-search"></span> Minhas postagens
                 </h5>
             </div>
             <div class="card-body">
                 <ul class="nav nav-pills nav-fill">
                     <li class="nav-item">
                         <button type="button" class="btn btn-success">
-                            <span class="glyphicon glyphicon-plus-sign"></span>
-                            Nova postagem
+                            <span class="glyphicon glyphicon-plus-sign"></span> Nova postagem
                         </button>
                     </li>
                     <li class="nav-item">
@@ -133,7 +117,7 @@ if (isset($_SERVER["HTTP_REFERER"]) && $_SERVER["HTTP_REFERER"] !== $_SERVER["RE
                         </button>
                     </li>
                 </ul>
-                <hr/>
+                <hr />
                 <table class="table table-borderless table-striped table-hover table-sm accordion accordion-flush">
                     <thead>
                     <tr style="vertical-align: middle">
@@ -183,8 +167,9 @@ if (isset($_SERVER["HTTP_REFERER"]) && $_SERVER["HTTP_REFERER"] !== $_SERVER["RE
                                     <div id="flush-collapseOne" class="accordion-collapse collapse"
                                          aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
                                         <div class="accordion-body">Placeholder content for this accordion, which is
-                                            intended to demonstrate the <code>.accordion-flush</code> class. This is the
-                                            first item's accordion body.
+                                                                    intended to demonstrate the
+                                            <code>.accordion-flush</code> class. This is the first item's accordion
+                                                                    body.
                                         </div>
                                     </div>
                                 </div>
@@ -193,7 +178,7 @@ if (isset($_SERVER["HTTP_REFERER"]) && $_SERVER["HTTP_REFERER"] !== $_SERVER["RE
                     </tr>
                     </tbody>
                 </table>
-                <hr/>
+                <hr />
                 <nav>
                     <ul class="pagination pagination-sm justify-content-center">
                         <li class="page-item active" aria-current="page">
@@ -215,8 +200,7 @@ if (isset($_SERVER["HTTP_REFERER"]) && $_SERVER["HTTP_REFERER"] !== $_SERVER["RE
                    aria-label=".DEV Blog">
                     <span class="glyphicon glyphicon-console text-light bg-secondary rounded-top-1"
                           style="padding: 4px 8px 4px 8px; border-top: 6px solid darkslategray"></span>&nbsp;
-                    <span class="fs-5">.DEV Blog</span>
-                </a>
+                    <span class="fs-5">.DEV Blog</span> </a>
                 <ul class="list-unstyled small text-muted">
                     <li class="mb-2">
                         <strong>Projeto Integrado III</strong>
@@ -225,9 +209,8 @@ if (isset($_SERVER["HTTP_REFERER"]) && $_SERVER["HTTP_REFERER"] !== $_SERVER["RE
                         <strong>Aluno:</strong> Nádio Dib Fernandes Pontes [matrícula: <code>201918579</code>]
                     </li>
                     <li class="mb-2">
-                        Código licenciado pelo
-                        <a class="alert-link"
-                           href="https://github.com/Devwarlt/dotdev-blog#MIT-1-ov-file">MIT</a>.
+                        Código licenciado pelo <a class="alert-link"
+                                                  href="https://github.com/Devwarlt/dotdev-blog#MIT-1-ov-file">MIT</a>.
                     </li>
                 </ul>
             </div>
@@ -240,7 +223,7 @@ if (isset($_SERVER["HTTP_REFERER"]) && $_SERVER["HTTP_REFERER"] !== $_SERVER["RE
 <script type="text/javascript" src="js/custom.js?t=<?php echo time(); ?>"></script>
 <script type="text/javascript">
     $(function () {
-        <?php if (!is_null($err = utils::getSingleton()->getResponseCookie(RESPONSE_FAILURE, true))) { ?>
+        <?php if (!is_null($err = utils::getSingleton()->getResponseCookie(RESPONSE_FAILURE,true))) { ?>
         $.toast({
             heading: '<span class="glyphicon glyphicon-info-sign"></span> <strong>Atenção</strong>',
             text: '<?php echo $err;?>',
@@ -253,7 +236,7 @@ if (isset($_SERVER["HTTP_REFERER"]) && $_SERVER["HTTP_REFERER"] !== $_SERVER["RE
             }
         });
         <?php }
-        if (!is_null($ok = utils::getSingleton()->getResponseCookie(RESPONSE_SUCCESS, true))) { ?>
+        if (!is_null($ok = utils::getSingleton()->getResponseCookie(RESPONSE_SUCCESS,true))) { ?>
         $.toast({
             heading: '<span class="glyphicon glyphicon-ok-sign"></span> <strong>Notificação</strong>',
             text: '<?php echo $ok;?>',

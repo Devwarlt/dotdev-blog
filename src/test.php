@@ -136,8 +136,7 @@
         <li><a href="#toast-generator">Generator</a> <span class="muted">A generator for you to <strong>easily generate the code for the kind of toast you want</strong>, so that <strong>you don't have to go through the documentation!</strong></span>
         </li>
         <li>
-            <a href="#options">Options</a>
-            <span class="muted">Each of the options is accompanied by a demo explaining that option.</span>
+            <a href="#options">Options</a> <span class="muted">Each of the options is accompanied by a demo explaining that option.</span>
             <ul>
                 <li><a href="#toast-head">Specifying the heading</a></li>
                 <li><a href="#sticky-toast">Making them sticky</a></li>
@@ -165,7 +164,7 @@
         </div>
 
         <p>Loader is enabled by default. In order to disable it or change the color, use the `loader` and `loaderBg`
-            options. Have a look at the demo below</p>
+           options. Have a look at the demo below</p>
 
         <div class="code-runner" style="margin-left: 0px; margin-right: 0px;">
             <a class="eval-js" href="#">Run code</a>
@@ -231,7 +230,7 @@
 
     <h1 id="options">Options</h1>
     <p>Of course that is not all what you can do using this plugin, there are a lot of other options. Let's start
-        explaining each, one by one</p>
+       explaining each, one by one</p>
     <p>You should note that, whenever you are going to use options, you have to pass an <span
                 class="code">options</span> object and specify the text as follows:</p>
 
@@ -271,7 +270,7 @@
 
     <h2 id="toast-head"><span class="muted">1.</span> Specifying the heading of toast message</h2>
     <p>You can use the heading to set the <span class="code">heading</span> property to set the heading of the toast
-        message</p>
+       message</p>
     <div class="code-runner">
         <a href="#" class="eval-js">Run Code</a>
         <pre><code>$.toast({
@@ -294,11 +293,12 @@
     </div>
 
     <p><sup>*</sup> <span class="code">hideAfter</span> property is basically used to set the timer after which the
-        toast will get hidden. But you can set it to false in order to achieve the sticky toasts.</p>
+                                                        toast will get hidden. But you can set it to false in order to
+                                                        achieve the sticky toasts.</p>
 
     <h2 id="toast-timer"><span class="muted">3.</span> Changing the toast hide timer</h2>
     <p>You can use the property from the above option i.e. <span class="code">hideAfter</span> to change the timer after
-        which toast gets hidden. You have to specify the timer in milliseconds</p>
+       which toast gets hidden. You have to specify the timer in milliseconds</p>
 
     <div class="code-runner">
         <a href="#" class="eval-js">Run Code</a>
@@ -310,7 +310,7 @@
 
     <h2 id="showhide-animation"><span class="muted">4.</span> Changing the show/hide animation</h2>
     <p>You can use <span class="code">showHideTransition</span> property to set the animation. Following are the
-        available options:</p>
+       available options:</p>
     <ul>
         <li><span class="code">fade</span> for fade transitions</li>
         <li><span class="code">slide</span> for slide up and down transitions</li>
@@ -346,7 +346,7 @@
 
     <h2 id="closeable-toasts"><span class="muted">5.</span> Making the toast closeable or not</h2>
     <p>You can use <span class="code">allowToastClose</span> to allow the user to close the toast or not. The only thing
-        that this option does is make that little cross button show or hide itself</p>
+       that this option does is make that little cross button show or hide itself</p>
 
     <div class="code-runner">
         <a href="#" class="eval-js">Run Code</a>
@@ -368,7 +368,7 @@
 
     <h2 id="toasts-stack"><span class="muted">6.</span> Setting the toast stack</h2>
     <p><span class="code">stack</span> property can be used to specify how many maximum toasts you want to show at any
-        point of time. By default this property is set to 5</p>
+                                       point of time. By default this property is set to 5</p>
 
     <div class="code-runner">
         <a href="#" class="eval-js">Run Code</a>
@@ -392,7 +392,7 @@
 
     <h2 id="toasts-positioning"><span class="muted">7.</span> Positioning the toast</h2>
     <p><span class="code">position</span> property can be used to specify the position. There are following predefined
-        positions which you can use:</p>
+                                          positions which you can use:</p>
     <ul>
         <li><span class="code">bottom-left</span> value to show the toast at bottom left position</li>
         <li><span class="code">bottom-right</span> value to show the toast at bottom right position</li>
@@ -402,7 +402,8 @@
         <li><span class="code">top-center</span> value to..</li>
         <li><span class="code">mid-center</span> value to..</li>
         <li><span class="code">{ top: '-', bottom: '-', left: '-', right: '-' }</span> javascript object with
-            positioning properties as you set in CSS
+                                                                                       positioning properties as you set
+                                                                                       in CSS
         </li>
     </ul>
 
@@ -490,9 +491,10 @@
     </div>
 
     <p><strong>Note</strong> It should be noted that, once you change the position of toast by using the `position`
-        property, you'll have to reset the position for the next toasts, if you want them to appear at their default
-        position i.e. the bottom left corner. Or else, each new toast generated will be appearing at the last position
-        i.e. where you displayed the last positioned toast. You can reset the toast position by.</p>
+                             property, you'll have to reset the position for the next toasts, if you want them to appear
+                             at their default position i.e. the bottom left corner. Or else, each new toast generated
+                             will be appearing at the last position i.e. where you displayed the last positioned toast.
+                             You can reset the toast position by.</p>
 
     <div class="code-runner">
         <a href="#" class="eval-js">Run Code</a>
@@ -501,7 +503,7 @@
 
     <h2 id="toasts-icons"><span class="muted">8.</span> Messages with icons</h2>
     <p><span class="code">icon</span> property can be used to specify the predefined types of toasts. Following are the
-        predefined types:</p>
+                                      predefined types:</p>
     <ul>
         <li><span class="code">info</span> generates a toast with information icon</li>
         <li><span class="code">warning</span> generates a toast with warning icon</li>
@@ -547,9 +549,9 @@
 
     <h2 id="toasts-bg-color"><span class="muted">9.</span> Background &amp; text color</h2>
     <p><span class="code">bgColor</span> property is used to specify the background color of the toast message. Default
-        is '#444'</p>
+                                         is '#444'</p>
     <p><span class="code">textColor</span> property is used to specify the text color of the toast message. Default is
-        '#eee'</p>
+                                           '#eee'</p>
 
     <div class="code-runner">
         <a href="#" class="eval-js">Run Code</a>
@@ -563,7 +565,7 @@
 
     <h2 id="toasts-text-alignment"><span class="muted">10.</span> Setting the text alignment</h2>
     <p><span class="code">textAlign</span> property is used to set the alignment of text inside the toast. Permitted
-        values are:</p>
+                                           values are:</p>
     <ul>
         <li><span class="code">left</span></li>
         <li><span class="code">right</span></li>
@@ -629,7 +631,7 @@
 
     <h2 id="updating-toasts"><span class="muted">12.</span> Updating Toasts</h2>
     <p>If you have a reference to a toast and want to update that, you can do so by calling the <span class="code">update</span>
-        method on the instance.</p>
+       method on the instance.</p>
 
     <div class="code-runner">
         <a href="#" class="eval-js">Run Code</a>
@@ -676,9 +678,8 @@ $.toast().reset('all');
         <h1 id="toast-generator">Customize Plugin</h1>
 
         <p>
-            <label for="toast-text">Text</label>
-            <input type="text" id="toast-text" class="toast-text"
-                   value="Don't forget to star the repository if you like it.">
+            <label for="toast-text">Text</label> <input type="text" id="toast-text" class="toast-text"
+                                                        value="Don't forget to star the repository if you like it.">
         </p>
         <p>
             <label for="toast-heading">Heading</label>
@@ -744,16 +745,14 @@ $.toast().reset('all');
             <label for="custom-toast-position">Custom Toast Position</label>
             <ul>
                 <li>
-                    <label for="left-position">Left</label>
-                    <input type="text" class="left-position" id="left-position">
+                    <label for="left-position">Left</label> <input type="text" class="left-position" id="left-position">
                 </li>
                 <li>
                     <label for="right-position">Right</label>
                     <input type="text" class="right-position" id="right-position">
                 </li>
                 <li>
-                    <label for="top-position">Top</label>
-                    <input type="text" class="top-position" id="top-position">
+                    <label for="top-position">Top</label> <input type="text" class="top-position" id="top-position">
                 </li>
                 <li>
                     <label for="bottom-position">Bottom</label>
@@ -763,8 +762,7 @@ $.toast().reset('all');
         </div>
 
         <p class="">
-            <label for="text-align">Icon</label>
-            <select name="icon-type" id="icon-type" class="text-align">
+            <label for="text-align">Icon</label> <select name="icon-type" id="icon-type" class="text-align">
                 <option value="">-- No icon --</option>
                 <option selected="selected" value="warning">Warning</option>
                 <option value="success">Success</option>
@@ -786,8 +784,7 @@ $.toast().reset('all');
         </div>
 
         <p class="">
-            <label for="text-align">Text Alignment</label>
-            <select name="text-align" id="text-align" class="text-align">
+            <label for="text-align">Text Alignment</label> <select name="text-align" id="text-align" class="text-align">
                 <option value="left">Left</option>
                 <option value="right">Right</option>
                 <option value="center">Center</option>

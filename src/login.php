@@ -22,10 +22,10 @@ if (isset($_SERVER["HTTP_REFERER"]) && $_SERVER["HTTP_REFERER"] !== $_SERVER["RE
 <head>
     <meta charset="UTF-8">
     <title>.DEV Blog - Entrar</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css?t=<?php echo time(); ?>"/>
-    <link rel="stylesheet" href="css/glyphicons.css?t=<?php echo time(); ?>"/>
-    <link rel="stylesheet" href="css/jquery.toast.css?t=<?php echo time(); ?>"/>
-    <link rel="stylesheet" href="css/custom.css?t=<?php echo time(); ?>"/>
+    <link rel="stylesheet" href="css/bootstrap.min.css?t=<?php echo time(); ?>" />
+    <link rel="stylesheet" href="css/glyphicons.css?t=<?php echo time(); ?>" />
+    <link rel="stylesheet" href="css/jquery.toast.css?t=<?php echo time(); ?>" />
+    <link rel="stylesheet" href="css/custom.css?t=<?php echo time(); ?>" />
 </head>
 <body class="bg-image">
 <header class="navbar navbar-dark flex-column flex-md-row bg-dark shadow-lg
@@ -33,8 +33,7 @@ if (isset($_SERVER["HTTP_REFERER"]) && $_SERVER["HTTP_REFERER"] !== $_SERVER["RE
     <a class="navbar-brand ms-md-0 ms-md-5 shadow-sm link-light" href="/">
         <span class="glyphicon glyphicon-console bg-black rounded-top-1"
               style="padding: 4px 8px 4px 8px; border-top: 6px solid goldenrod"></span>&nbsp;
-        <strong>.DEV Blog</strong>
-    </a>
+        <strong>.DEV Blog</strong> </a>
     <div class="navbar-nav-scroll navbar-expand navbar-toggler">
         <ul class="navbar-nav flex-md-row">
             <li class="nav-item">
@@ -49,12 +48,10 @@ if (isset($_SERVER["HTTP_REFERER"]) && $_SERVER["HTTP_REFERER"] !== $_SERVER["RE
         </ul>
     </div>
     <div class="float-end my-lg-auto text-light" style="padding-right: 4px">
-        <a class="btn btn-sm btn-outline-success ms-md-0 ms-md-2 active disabled" href="/login">
-            <strong>Entrar</strong> <span class="glyphicon glyphicon-log-in"></span>
-        </a>
-        <a class="btn btn-sm btn-outline-secondary ms-md-0 ms-md-2" href="/register">
-            <strong>Registrar</strong> <span class="glyphicon glyphicon-info-sign"></span>
-        </a>
+        <a class="btn btn-sm btn-outline-success ms-md-0 ms-md-2 active disabled" href="/login"> <strong>Entrar</strong>
+            <span class="glyphicon glyphicon-log-in"></span> </a>
+        <a class="btn btn-sm btn-outline-secondary ms-md-0 ms-md-2" href="/register"> <strong>Registrar</strong>
+            <span class="glyphicon glyphicon-info-sign"></span> </a>
     </div>
 </header>
 <div class="container">
@@ -83,9 +80,7 @@ if (isset($_SERVER["HTTP_REFERER"]) && $_SERVER["HTTP_REFERER"] !== $_SERVER["RE
                             <button type="submit" class="btn btn-sm btn-primary">Entrar</button>
                             &nbsp;&nbsp;
                             <a href="/" class="btn btn-sm btn-outline-secondary" role="button">
-                                <span class="glyphicon glyphicon-share-alt"></span>
-                                Voltar
-                            </a>
+                                <span class="glyphicon glyphicon-share-alt"></span> Voltar </a>
                         </div>
                     </div>
                 </form>
@@ -101,8 +96,7 @@ if (isset($_SERVER["HTTP_REFERER"]) && $_SERVER["HTTP_REFERER"] !== $_SERVER["RE
                    aria-label=".DEV Blog">
                     <span class="glyphicon glyphicon-console text-light bg-secondary rounded-top-1"
                           style="padding: 4px 8px 4px 8px; border-top: 6px solid darkslategray"></span>&nbsp;
-                    <span class="fs-5">.DEV Blog</span>
-                </a>
+                    <span class="fs-5">.DEV Blog</span> </a>
                 <ul class="list-unstyled small text-muted">
                     <li class="mb-2">
                         <strong>Projeto Integrado III</strong>
@@ -111,9 +105,8 @@ if (isset($_SERVER["HTTP_REFERER"]) && $_SERVER["HTTP_REFERER"] !== $_SERVER["RE
                         <strong>Aluno:</strong> Nádio Dib Fernandes Pontes [matrícula: <code>201918579</code>]
                     </li>
                     <li class="mb-2">
-                        Código licenciado pelo
-                        <a class="alert-link"
-                           href="https://github.com/Devwarlt/dotdev-blog#MIT-1-ov-file">MIT</a>.
+                        Código licenciado pelo <a class="alert-link"
+                                                  href="https://github.com/Devwarlt/dotdev-blog#MIT-1-ov-file">MIT</a>.
                     </li>
                 </ul>
             </div>
@@ -127,7 +120,7 @@ if (isset($_SERVER["HTTP_REFERER"]) && $_SERVER["HTTP_REFERER"] !== $_SERVER["RE
 <script type="text/javascript">
     $(function () {
         $('#login-box').hide().fadeIn('slow');
-        <?php if (!is_null($err = utils::getSingleton()->getResponseCookie(RESPONSE_FAILURE, true))) { ?>
+        <?php if (!is_null($err = utils::getSingleton()->getResponseCookie(RESPONSE_FAILURE,true))) { ?>
         $.toast({
             heading: '<span class="glyphicon glyphicon-info-sign"></span> <strong>Atenção</strong>',
             text: '<?php echo $err;?>',
@@ -140,7 +133,7 @@ if (isset($_SERVER["HTTP_REFERER"]) && $_SERVER["HTTP_REFERER"] !== $_SERVER["RE
             }
         });
         <?php }
-        if (!is_null($ok = utils::getSingleton()->getResponseCookie(RESPONSE_SUCCESS, true))) { ?>
+        if (!is_null($ok = utils::getSingleton()->getResponseCookie(RESPONSE_SUCCESS,true))) { ?>
         $.toast({
             heading: '<span class="glyphicon glyphicon-ok-sign"></span> <strong>Notificação</strong>',
             text: '<?php echo $ok;?>',

@@ -19,15 +19,12 @@ const passwordContainsLowercaseLetter = (value) => {
     return value.split(/ +/).length - 1;
 }, toggleAll = (masterBox) => {
     let children = document.getElementsByClassName('checkbox-child');
-    for (let i = 0; i < children.length; i++)
-        if (children[i].type === 'checkbox')
-            children[i].checked = masterBox.checked;
+    for (let i = 0; i < children.length; i++) if (children[i].type === 'checkbox') children[i].checked = masterBox.checked;
 }, updateSelectedCheckboxes = (targetBadge, targetButton, targetLabel, singleText, multipleText) => {
     let children = document.getElementsByClassName('checkbox-child');
     let countElements = 0;
     $.each(children, function (_, child) {
-        if (child.checked)
-            return countElements++;
+        if (child.checked) return countElements++;
     });
     if (countElements > 0) {
         targetLabel.text(countElements > 1 ? multipleText : singleText);
@@ -45,8 +42,7 @@ const passwordContainsLowercaseLetter = (value) => {
     let children = document.getElementsByClassName('checkbox-child');
     let countElements = 0;
     $.each(children, function (_, child) {
-        if (child !== currentCheckbox && child.checked)
-            return countElements++;
+        if (child !== currentCheckbox && child.checked) return countElements++;
     });
     masterCheckbox.checked = countElements > 0;
     updateSelectedCheckboxes(targetBadge, targetLabel, singleText, multipleText);
@@ -61,14 +57,7 @@ const passwordContainsLowercaseLetter = (value) => {
         containsUppercaseLetter: 2,
         containsNumber: 4,
         containsSymbol: 5,
-        colors: [
-            ["bg-light", "muito fraco"],
-            ["bg-secondary", "fraco"],
-            ["bg-info", "normal"],
-            ["bg-success", "forte"],
-            ["bg-warning", "muito forte"],
-            ["bg-danger", "extremamente forte"]
-        ]
+        colors: [["bg-light", "muito fraco"], ["bg-secondary", "fraco"], ["bg-info", "normal"], ["bg-success", "forte"], ["bg-warning", "muito forte"], ["bg-danger", "extremamente forte"]]
     };
 
     let score = password.value.length * options.forEachCharacter;
@@ -85,8 +74,7 @@ const passwordContainsLowercaseLetter = (value) => {
     power.style.width = `${roundedScore}%`;
 
     let adjustedIndexOffset = Math.round(options.colors.length * rawScore);
-    adjustedIndexOffset = adjustedIndexOffset >= options.colors.length
-        ? options.colors.length - 1 : adjustedIndexOffset;
+    adjustedIndexOffset = adjustedIndexOffset >= options.colors.length ? options.colors.length - 1 : adjustedIndexOffset;
     power.className = `${options.cssCustom} ${options.colors[adjustedIndexOffset][0]} ${options.cssExtra}`;
     power.innerHTML = options.colors[adjustedIndexOffset][1];
 }, fetchCookieByName = (name) => {
