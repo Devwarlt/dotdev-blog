@@ -118,10 +118,19 @@ if (isset($_SERVER["HTTP_REFERER"]) && $_SERVER["HTTP_REFERER"] !== $_SERVER["RE
             <div class="card-body">
                 <ul class="nav nav-pills nav-fill">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Nova postagem</a>
+                        <button type="button" class="btn btn-success">
+                            <span class="glyphicon glyphicon-plus-sign"></span>
+                            Nova postagem
+                        </button>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Remover postagens</a>
+                        <button id="count-button" type="button" class="btn btn-secondary position-relative disabled">
+                            <label id="count-label" for="count-button">Remover postagem</label>
+                            <span id="count-checkboxes"
+                                  class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                                  style="display:none;">
+                            </span>
+                        </button>
                     </li>
                 </ul>
                 <hr/>
@@ -129,8 +138,12 @@ if (isset($_SERVER["HTTP_REFERER"]) && $_SERVER["HTTP_REFERER"] !== $_SERVER["RE
                     <thead>
                     <tr style="vertical-align: middle">
                         <th scope="col" class="d-flex justify-content-center">
-                            <div class="form-check form-switch" onclick="toggleAll(this)">
-                                <input class="form-check-input" type="checkbox">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox"
+                                       onclick="toggleAll(this);
+                                       updateSelectedCheckboxes(
+                                           $('#count-checkboxes'), $('#count-button'), $('#count-label'),
+                                           'Remover postagem', 'Remover postagens')">
                             </div>
                         </th>
                         <th scope="col">Ações</th>

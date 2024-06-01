@@ -18,10 +18,29 @@ const passwordContainsLowercaseLetter = (value) => {
 }, countSpaces = (value) => {
     return value.split(/ +/).length - 1;
 }, toggleAll = (masterBox) => {
-    let checkBoxes = document.getElementsByTagName('input');
-    for (let i = 0; i < checkBoxes.length; i++)
-        if (checkBoxes[i].className.includes('checkbox-child'))
-            checkBoxes[i].checked = masterBox.checked;
+    let children = document.getElementsByClassName('checkbox-child');
+    for (let i = 0; i < children.length; i++)
+        if (children[i].type === 'checkbox')
+            children[i].checked = masterBox.checked;
+}, updateSelectedCheckboxes = (targetBadge, targetButton, targetLabel, singleText, multipleText) => {
+    let children = document.getElementsByClassName('checkbox-child');
+    let countElements = 0;
+    $.each(children, function (_, child) {
+        if (child.checked)
+            return countElements++;
+    });
+    if (countElements > 0) {
+        targetLabel.text(countElements > 1 ? multipleText : singleText);
+        targetButton.addClass('btn-primary');
+        targetButton.removeClass(['btn-secondary', 'disabled']);
+        targetBadge.css('display', 'inline');
+    } else {
+        targetLabel.text(singleText);
+        targetButton.removeClass('btn-primary');
+        targetButton.addClass(['btn-secondary', 'disabled']);
+        targetBadge.css('display', 'none');
+    }
+    targetBadge.html(countElements);
 }, passwordInputHandler = (password) => {
     const power = document.getElementById("power-point"), options = {
         cssCustom: "progress-bar bg-secondary rounded-2",
