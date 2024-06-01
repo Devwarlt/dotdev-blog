@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>.DEV Blog - Página inexistente</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css?t=<?php echo time(); ?>"/>
-    <link rel="stylesheet" href="css/glyphicons.css?t=<?php echo time(); ?>"/>
-    <link rel="stylesheet" href="css/jquery.toast.css?t=<?php echo time(); ?>"/>
-    <link rel="stylesheet" href="css/custom.css?t=<?php echo time(); ?>"/>
+    <link rel="stylesheet" href="css/bootstrap.min.css?t=<?php echo time(); ?>" />
+    <link rel="stylesheet" href="css/glyphicons.css?t=<?php echo time(); ?>" />
+    <link rel="stylesheet" href="css/jquery.toast.css?t=<?php echo time(); ?>" />
+    <link rel="stylesheet" href="css/custom.css?t=<?php echo time(); ?>" />
 </head>
 <body class="bg-image">
 <header class="navbar navbar-dark flex-column flex-md-row bg-dark shadow-lg
@@ -14,8 +14,7 @@
     <a class="navbar-brand ms-md-0 ms-md-5 shadow-sm link-light" href="/">
         <span class="glyphicon glyphicon-console bg-black rounded-top-1"
               style="padding: 4px 8px 4px 8px; border-top: 6px solid goldenrod"></span>&nbsp;
-        <strong>.DEV Blog</strong>
-    </a>
+        <strong>.DEV Blog</strong> </a>
 </header>
 <div class="container">
     <div class="d-flex mt-5 justify-content-center">
@@ -23,8 +22,7 @@
             <div class="form-group col mt-0">
                 <div class="d-flex justify-content-center">
                     <div class="alert alert-warning border-danger bg-danger text-light fade show col-sm-12">
-                        <h4 class="alert-heading"><span class="glyphicon glyphicon-alert"></span>
-                            Página não encontrada!
+                        <h4 class="alert-heading"><span class="glyphicon glyphicon-alert"></span> Página não encontrada!
                         </h4>
                         <p class="mb-0 small" style="text-justify: inter-word; text-align: justify">
                             A página <code
@@ -32,7 +30,7 @@
                             não existe ou foi movida para outro diretório. Caso esse erro persista, entre em contato com
                             o administrador do sistema através do contato abaixo.
                         </p>
-                        <hr class="border-dark"/>
+                        <hr class="border-dark" />
                         <p class="mb-0 small d-flex justify-content-center">
                             <?php
                             $email = $_SERVER["SERVER_ADMIN"];
@@ -45,9 +43,7 @@
                         <div class="form-group col mt-3">
                             <div class="d-flex justify-content-center">
                                 <a href="/" class="btn btn-sm btn-outline-light" role="button">
-                                    <span class="glyphicon glyphicon-share-alt"></span>
-                                    Voltar
-                                </a>
+                                    <span class="glyphicon glyphicon-share-alt"></span> Voltar </a>
                             </div>
                         </div>
                     </div>
@@ -64,8 +60,7 @@
                    aria-label=".DEV Blog">
                     <span class="glyphicon glyphicon-console text-light bg-secondary rounded-top-1"
                           style="padding: 4px 8px 4px 8px; border-top: 6px solid darkslategray"></span>&nbsp;
-                    <span class="fs-5">.DEV Blog</span>
-                </a>
+                    <span class="fs-5">.DEV Blog</span> </a>
                 <ul class="list-unstyled small text-muted">
                     <li class="mb-2">
                         <strong>Projeto Integrado III</strong>
@@ -74,9 +69,8 @@
                         <strong>Aluno:</strong> Nádio Dib Fernandes Pontes [matrícula: <code>201918579</code>]
                     </li>
                     <li class="mb-2">
-                        Código licenciado pelo
-                        <a class="alert-link"
-                           href="https://github.com/Devwarlt/dotdev-blog#MIT-1-ov-file">MIT</a>.
+                        Código licenciado pelo <a class="alert-link"
+                                                  href="https://github.com/Devwarlt/dotdev-blog#MIT-1-ov-file">MIT</a>.
                     </li>
                 </ul>
             </div>
