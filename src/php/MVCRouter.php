@@ -52,7 +52,7 @@ switch ($controller) {
                 return;
             }
 
-            if ((($response = login::getSingleton()->logIn($username, $password))->getStatus())) {
+            if (($response = login::getSingleton()->logIn($username, $password))->getStatus()) {
                 login::getSingleton()->beginSession($response->getLogin());
                 utils::getSingleton()->onRedirectOk("Login efetuado com êxito!", "../");
             } else
@@ -77,7 +77,7 @@ switch ($controller) {
                 return;
             }
 
-            if ((($response = login::getSingleton()->signIn($username, $password))->getStatus())) {
+            if (($response = login::getSingleton()->signIn($username, $password))->getStatus()) {
                 login::getSingleton()->beginSession($response->getLogin());
                 utils::getSingleton()->onRedirectOk("Registro de nova conta efetuado com êxito!", "../");
             } else
