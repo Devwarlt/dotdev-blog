@@ -30,6 +30,11 @@ code {
     max-height: 600px;
 }
 
+.glyphicon:before {
+    letter-spacing: -0.085em;
+    padding-top: 2em;
+}
+
 .resizable-content {
     display: inline;
     width: 100%;
