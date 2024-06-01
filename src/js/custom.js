@@ -41,6 +41,15 @@ const passwordContainsLowercaseLetter = (value) => {
         targetBadge.css('display', 'none');
     }
     targetBadge.html(countElements);
+}, updateSingleCheckbox = (currentCheckbox, masterCheckbox, targetBadge, targetLabel, singleText, multipleText) => {
+    let children = document.getElementsByClassName('checkbox-child');
+    let countElements = 0;
+    $.each(children, function (_, child) {
+        if (child !== currentCheckbox && child.checked)
+            return countElements++;
+    });
+    masterCheckbox.checked = countElements > 0;
+    updateSelectedCheckboxes(targetBadge, targetLabel, singleText, multipleText);
 }, passwordInputHandler = (password) => {
     const power = document.getElementById("power-point"), options = {
         cssCustom: "progress-bar bg-secondary rounded-2",

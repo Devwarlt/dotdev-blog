@@ -139,7 +139,7 @@ if (isset($_SERVER["HTTP_REFERER"]) && $_SERVER["HTTP_REFERER"] !== $_SERVER["RE
                     <tr style="vertical-align: middle">
                         <th scope="col" class="d-flex justify-content-center">
                             <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox"
+                                <input id="checkbox-master" class="form-check-input" type="checkbox"
                                        onclick="toggleAll(this);
                                        updateSelectedCheckboxes(
                                            $('#count-checkboxes'), $('#count-button'), $('#count-label'),
@@ -154,7 +154,11 @@ if (isset($_SERVER["HTTP_REFERER"]) && $_SERVER["HTTP_REFERER"] !== $_SERVER["RE
                     <tr>
                         <th scope="row" style="vertical-align: middle">
                             <input class="form-check-input checkbox-child" type="checkbox" id="checkboxNoLabel"
-                                   value="">
+                                   value="" onclick="
+                                       updateSingleCheckbox(
+                                           this, $('#checkbox-master'),
+                                           $('#count-checkboxes'), $('#count-button'), $('#count-label'),
+                                           'Remover postagem', 'Remover postagens')">
                         </th>
                         <td style="vertical-align: middle">
                             <div class="btn-group" role="group">
