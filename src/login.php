@@ -24,6 +24,7 @@ if (isset($_SERVER["HTTP_REFERER"]) && $_SERVER["HTTP_REFERER"] !== $_SERVER["RE
     <title>.DEV Blog - Entrar</title>
     <link rel="stylesheet" href="css/bootstrap.min.css?t=<?php echo time(); ?>"/>
     <link rel="stylesheet" href="css/glyphicons.css?t=<?php echo time(); ?>"/>
+    <link rel="stylesheet" href="css/jquery.toast.css?t=<?php echo time(); ?>"/>
     <link rel="stylesheet" href="css/custom.css?t=<?php echo time(); ?>"/>
 </head>
 <body class="bg-image">
@@ -87,21 +88,6 @@ if (isset($_SERVER["HTTP_REFERER"]) && $_SERVER["HTTP_REFERER"] !== $_SERVER["RE
                             </a>
                         </div>
                     </div>
-                    <?php if (!is_null($err = utils::getSingleton()->getResponseCookie(RESPONSE_FAILURE, true))) { ?>
-                        <div class="form-group col mt-3">
-                            <div class="d-flex justify-content-center small">
-                                <div class="alert small alert-info border-info alert-dismissible
-                                    fade show col-sm-12 shadow"
-                                     style="text-justify: inter-word; text-align: justify" role="alert">
-                                    <p class="mb-0">
-                                        <span class="glyphicon glyphicon-info-sign"></span> <?php echo $err; ?>
-                                    </p>
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar">
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    <?php } ?>
                 </form>
             </div>
         </div>
@@ -134,11 +120,39 @@ if (isset($_SERVER["HTTP_REFERER"]) && $_SERVER["HTTP_REFERER"] !== $_SERVER["RE
         </div>
     </div>
 </footer>
-<script type="text/javascript" src="js/jquery-3.7.1.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="js/jquery-3.7.1.min.js?t=<?php echo time(); ?>"></script>
+<script type="text/javascript" src="js/jquery.toast.js?t=<?php echo time(); ?>"></script>
+<script type="text/javascript" src="js/bootstrap.bundle.min.js?t=<?php echo time(); ?>"></script>
+<script type="text/javascript" src="js/custom.js?t=<?php echo time(); ?>"></script>
 <script type="text/javascript">
     $(function () {
         $('#login-box').hide().fadeIn('slow');
+        <?php if (!is_null($err = utils::getSingleton()->getResponseCookie(RESPONSE_FAILURE, true))) { ?>
+        $.toast({
+            heading: '<span class="glyphicon glyphicon-info-sign"></span> <strong>Atenção</strong>',
+            text: '<?php echo $err;?>',
+            showHideTransition: 'slide',
+            position: 'bottom-right',
+            hideAfter: false,
+            bgColor: 'bg-warning text-secondary rounded-2 border-warning-subtle',
+            afterShown: function () {
+                removeCookieByName('<?php echo RESPONSE_FAILURE;?>');
+            }
+        });
+        <?php }
+        if (!is_null($ok = utils::getSingleton()->getResponseCookie(RESPONSE_SUCCESS, true))) { ?>
+        $.toast({
+            heading: '<span class="glyphicon glyphicon-ok-sign"></span> <strong>Notificação</strong>',
+            text: '<?php echo $ok;?>',
+            showHideTransition: 'slide',
+            position: 'bottom-right',
+            hideAfter: false,
+            bgColor: 'bg-success text-white rounded-2 border-success-subtle',
+            afterShown: function () {
+                removeCookieByName('<?php echo RESPONSE_SUCCESS;?>');
+            }
+        });
+        <?php } ?>
     });
 </script>
 </body>

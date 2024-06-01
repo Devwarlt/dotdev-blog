@@ -25,6 +25,7 @@ if (isset($_SERVER["HTTP_REFERER"]) && $_SERVER["HTTP_REFERER"] !== $_SERVER["RE
     <title>.DEV Blog - Minhas postagens</title>
     <link rel="stylesheet" href="css/bootstrap.min.css?t=<?php echo time(); ?>"/>
     <link rel="stylesheet" href="css/glyphicons.css?t=<?php echo time(); ?>"/>
+    <link rel="stylesheet" href="css/jquery.toast.css?t=<?php echo time(); ?>"/>
     <link rel="stylesheet" href="css/custom.css?t=<?php echo time(); ?>"/>
 </head>
 <body class="bg-image">
@@ -57,44 +58,6 @@ if (isset($_SERVER["HTTP_REFERER"]) && $_SERVER["HTTP_REFERER"] !== $_SERVER["RE
         </form>
     </div>
 </header>
-<div class="container">
-    <div class="d-flex row mt-1 justify-content-center">
-        <div class="form-group row mt-2">
-            <div class="col align-self-center w-50 scrollable">
-                <?php if (!is_null($err = utils::getSingleton()->getResponseCookie(RESPONSE_FAILURE, true))) { ?>
-                    <div class="form-group col mt-3">
-                        <div class="d-flex justify-content-center small">
-                            <div class="alert small alert-info border-info alert-dismissible
-                                    fade show col-sm-12 shadow"
-                                 style="text-justify: inter-word; text-align: justify" role="alert">
-                                <p class="mb-0">
-                                    <span class="glyphicon glyphicon-info-sign"></span> <?php echo $err; ?>
-                                </p>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar">
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                <?php }
-                if (!is_null($ok = utils::getSingleton()->getResponseCookie(RESPONSE_SUCCESS, true))) { ?>
-                    <div class="form-group col mt-3">
-                        <div class="d-flex justify-content-center small">
-                            <div class="alert small alert-success border-success alert-dismissible
-                                    fade show col-sm-12 shadow"
-                                 style="text-justify: inter-word; text-align: justify" role="alert">
-                                <p class="mb-0">
-                                    <span class="glyphicon glyphicon-ok-sign"></span> <?php echo $ok; ?>
-                                </p>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar">
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                <?php } ?>
-            </div>
-        </div>
-    </div>
-</div>
 <div class="form-group col bg-dark-subtle resizable-content">
     <div class="text-light small rounded-1 col-sm-3" style="padding: 4px 4px 0 4px; float: right;">
         <div class="card text-center border-secondary">
@@ -119,25 +82,24 @@ if (isset($_SERVER["HTTP_REFERER"]) && $_SERVER["HTTP_REFERER"] !== $_SERVER["RE
                         </code>
                     </small>
                 </p>
-                <ul class="list-group list-group-flush">
+                <ul class="list-group list-group-flush small">
                     <li class="list-group-item btn-sm btn-outline-primary">
                         <a class="btn btn-sm" role="button" href="/">
-                            <span class="glyphicon glyphicon-home"></span>
-                            Início
+                            <span class="glyphicon glyphicon-home small"></span>
+                            <small>Início</small>
                         </a>
                     </li>
-                    <li class="list-group-item btn-sm btn-outline-success disabled">
-                        <span class="glyphicon glyphicon-chevron-right"></span>
-                        <a class="btn btn-sm active" role="button" href="/my_posts">
-                            <span class="glyphicon glyphicon-search"></span>
-                            Minhas postagens
+                    <li class="list-group-item btn-sm btn-outline-success">
+                        <a class="btn btn-sm disabled" role="button" href="/my_posts">
+                            <span class="glyphicon glyphicon-search small"></span>
+                            <small>Minhas postagens</small>
                         </a>
                     </li>
                     <?php if (login::getSingleton()->fetchLogin()->getLevel() === LOGIN_LEVEL_ADMIN) { ?>
                         <li class="list-group-item btn-sm btn-outline-warning">
                             <a class="btn btn-sm" role="button" href="/my_moderators">
-                                <span class="glyphicon glyphicon-user"></span>
-                                Ver moderadores
+                                <span class="glyphicon glyphicon-user small"></span>
+                                <small>Ver moderadores</small>
                             </a>
                         </li>
                     <?php } ?>
@@ -255,9 +217,39 @@ if (isset($_SERVER["HTTP_REFERER"]) && $_SERVER["HTTP_REFERER"] !== $_SERVER["RE
         </div>
     </div>
 </footer>
-<script type="text/javascript" src="jquery-3.7.1.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
-<script type="text/javascript" src="js/custom.js"></script>
+<script type="text/javascript" src="js/jquery-3.7.1.min.js?t=<?php echo time(); ?>"></script>
+<script type="text/javascript" src="js/jquery.toast.js?t=<?php echo time(); ?>"></script>
+<script type="text/javascript" src="js/bootstrap.bundle.min.js?t=<?php echo time(); ?>"></script>
+<script type="text/javascript" src="js/custom.js?t=<?php echo time(); ?>"></script>
+<script type="text/javascript">
+    $(function () {
+        <?php if (!is_null($err = utils::getSingleton()->getResponseCookie(RESPONSE_FAILURE, true))) { ?>
+        $.toast({
+            heading: '<span class="glyphicon glyphicon-info-sign"></span> <strong>Atenção</strong>',
+            text: '<?php echo $err;?>',
+            showHideTransition: 'slide',
+            position: 'bottom-right',
+            hideAfter: false,
+            bgColor: 'bg-warning text-secondary rounded-2 border-warning-subtle',
+            afterShown: function () {
+                removeCookieByName('<?php echo RESPONSE_FAILURE;?>');
+            }
+        });
+        <?php }
+        if (!is_null($ok = utils::getSingleton()->getResponseCookie(RESPONSE_SUCCESS, true))) { ?>
+        $.toast({
+            heading: '<span class="glyphicon glyphicon-ok-sign"></span> <strong>Notificação</strong>',
+            text: '<?php echo $ok;?>',
+            showHideTransition: 'slide',
+            position: 'bottom-right',
+            hideAfter: false,
+            bgColor: 'bg-success text-white rounded-2 border-success-subtle',
+            afterShown: function () {
+                removeCookieByName('<?php echo RESPONSE_SUCCESS;?>');
+            }
+        });
+        <?php } ?>
+    });
+</script>
 </body>
 </html>

@@ -63,4 +63,6 @@ const passwordContainsLowercaseLetter = (value) => {
     power.innerHTML = options.colors[adjustedIndexOffset][1];
 }, fetchCookieByName = (name) => {
     return document.cookie.split("; ").find((row) => row.startsWith(`${name}=`))?.split("=")[1];
+}, removeCookieByName = (name) => {
+    document.cookie = name + '=; Path=/; Max-Age=0;';
 };

@@ -86,25 +86,24 @@ $isLoggedIn = login::getSingleton()->isUserSignedUp();
                             </code>
                         </small>
                     </p>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item btn-sm btn-outline-primary disabled">
-                            <span class="glyphicon glyphicon-chevron-right"></span>
-                            <a class="btn btn-sm active" role="button" href="/">
-                                <span class="glyphicon glyphicon-home"></span>
-                                Início
+                    <ul class="list-group list-group-flush small">
+                        <li class="list-group-item btn-sm btn-outline-primary">
+                            <a class="btn btn-sm disabled" role="button" href="/">
+                                <span class="glyphicon glyphicon-home small"></span>
+                                <small>Início</small>
                             </a>
                         </li>
                         <li class="list-group-item btn-sm btn-outline-success">
                             <a class="btn btn-sm" role="button" href="/my_posts">
-                                <span class="glyphicon glyphicon-search"></span>
-                                Minhas postagens
+                                <span class="glyphicon glyphicon-search small"></span>
+                                <small>Minhas postagens</small>
                             </a>
                         </li>
                         <?php if (login::getSingleton()->fetchLogin()->getLevel() === LOGIN_LEVEL_ADMIN) { ?>
                             <li class="list-group-item btn-sm btn-outline-warning">
                                 <a class="btn btn-sm" role="button" href="/my_moderators">
-                                    <span class="glyphicon glyphicon-user"></span>
-                                    Ver moderadores
+                                    <span class="glyphicon glyphicon-user small"></span>
+                                    <small>Ver moderadores</small>
                                 </a>
                             </li>
                         <?php } ?>
@@ -149,22 +148,28 @@ $isLoggedIn = login::getSingleton()->isUserSignedUp();
     $(function () {
         <?php if (!is_null($err = utils::getSingleton()->getResponseCookie(RESPONSE_FAILURE, true))) { ?>
         $.toast({
-            heading: '<span class="glyphicon glyphicon-ok-sign"></span> <strong>Notificação</strong>',
-            text: <?php echo $err;?>,
+            heading: '<span class="glyphicon glyphicon-info-sign"></span> <strong>Atenção</strong>',
+            text: '<?php echo $err;?>',
             showHideTransition: 'slide',
             position: 'bottom-right',
             hideAfter: false,
-            bgColor: 'bg-success text-white rounded-2 border-success-subtle'
+            bgColor: 'bg-warning text-secondary rounded-2 border-warning-subtle',
+            afterShown: function () {
+                removeCookieByName('<?php echo RESPONSE_FAILURE;?>');
+            }
         });
         <?php }
         if (!is_null($ok = utils::getSingleton()->getResponseCookie(RESPONSE_SUCCESS, true))) { ?>
         $.toast({
-            heading: '<span class="glyphicon glyphicon-info-sign"></span> <strong>Atenção</strong>',
-            text: <?php echo $ok;?>,
+            heading: '<span class="glyphicon glyphicon-ok-sign"></span> <strong>Notificação</strong>',
+            text: '<?php echo $ok;?>',
             showHideTransition: 'slide',
             position: 'bottom-right',
             hideAfter: false,
-            bgColor: 'bg-warning text-secondary rounded-2 border-warning-subtle'
+            bgColor: 'bg-success text-white rounded-2 border-success-subtle',
+            afterShown: function () {
+                removeCookieByName('<?php echo RESPONSE_SUCCESS;?>');
+            }
         });
         <?php } ?>
     });

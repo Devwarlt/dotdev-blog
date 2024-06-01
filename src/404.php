@@ -5,6 +5,7 @@
     <title>.DEV Blog - Página inexistente</title>
     <link rel="stylesheet" href="css/bootstrap.min.css?t=<?php echo time(); ?>"/>
     <link rel="stylesheet" href="css/glyphicons.css?t=<?php echo time(); ?>"/>
+    <link rel="stylesheet" href="css/jquery.toast.css?t=<?php echo time(); ?>"/>
     <link rel="stylesheet" href="css/custom.css?t=<?php echo time(); ?>"/>
 </head>
 <body class="bg-image">
@@ -82,7 +83,9 @@
         </div>
     </div>
 </footer>
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="js/jquery-3.7.1.min.js?t=<?php echo time(); ?>"></script>
+<script type="text/javascript" src="js/jquery.toast.js?t=<?php echo time(); ?>"></script>
+<script type="text/javascript" src="js/bootstrap.bundle.min.js?t=<?php echo time(); ?>"></script>
+<script type="text/javascript" src="js/custom.js?t=<?php echo time(); ?>"></script>
 </body>
 </html>
