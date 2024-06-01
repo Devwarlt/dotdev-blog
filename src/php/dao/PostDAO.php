@@ -1,6 +1,7 @@
 <?php
 	namespace php\dao
 	{
+
 		use php\dao\engine\MySQLDatabase;
 		use php\dao\engine\SQLQuery;
 		use php\model\PostModel;

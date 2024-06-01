@@ -1,6 +1,7 @@
 <?php
 	namespace php\model
 	{
+
 		use DateTime;
 
 		final class PostModel

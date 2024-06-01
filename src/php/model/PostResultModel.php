@@ -1,6 +1,5 @@
 <?php
 	namespace php\model;
-
 	final class PostResultModel
 	{
 		private ?PostModel $post;

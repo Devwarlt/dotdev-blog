@@ -116,7 +116,7 @@
 <script type="text/javascript" src="js/bootstrap.bundle.min.js?t=<?= time() ?>"></script>
 <script type="text/javascript" src="js/custom.js?t=<?= time() ?>"></script>
 <script type="text/javascript">
-	$(function () {
+	$(() => {
 		$('#login-box').hide().fadeIn('slow');
 		<?php if (!is_null($err = utils::getSingleton()->getResponseCookie(RESPONSE_FAILURE, true))) { ?>
 		$.toast({

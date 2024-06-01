@@ -1,6 +1,7 @@
 <?php
 	namespace php\controller
 	{
+
 		use php\model\PostResultModel;
 
 		final class PostController
