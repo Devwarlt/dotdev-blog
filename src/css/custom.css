@@ -3,14 +3,25 @@
     backdrop-filter: blur(8px);
     height: 100%;
     background-position: center;
-    background-repeat: no-repeat;
+    background-repeat: repeat-y;
     background-size: cover;
+}
+
+body {
+    display: flex;
+    margin: 0;
+    flex-direction: column;
 }
 
 .power-container {
     background-color: var(--bs-secondary-bg-subtle);
     width: 100%;
     border-radius: 5px;
+}
+
+.accordion-body {
+    text-align: justify;
+    word-break: break-word;
 }
 
 .power-container #power-point {
@@ -27,7 +38,9 @@ code {
 
 .scrollable {
     overflow-y: auto;
-    max-height: 600px;
+    scrollbar-width: none;
+    max-height: fit-content;
+    height: 100%;
 }
 
 .glyphicon:before {

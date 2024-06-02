@@ -20,32 +20,30 @@ const passwordContainsLowercaseLetter = (value) => {
 }, toggleAll = (masterBox) => {
 	let children = document.getElementsByClassName('checkbox-child');
 	for (let i = 0; i < children.length; i++) if (children[i].type === 'checkbox') children[i].checked = masterBox.checked;
-}, updateSelectedCheckboxes = (targetBadge, targetButton, targetLabel, singleText, multipleText) => {
+}, toggleMaster = () => {
+	let masterBox = document.getElementById("checkbox-master");
 	let children = document.getElementsByClassName('checkbox-child');
 	let countElements = 0;
 	$.each(children, (_, child) => {
-		if (child.checked) return countElements++;
+		if (child.checked) countElements++;
+	});
+	masterBox.checked = countElements === children.length;
+}, updateCheckboxes = (targetBadge, targetButton) => {
+	let children = document.getElementsByClassName('checkbox-child');
+	let countElements = 0;
+	$.each(children, (_, child) => {
+		if (child.checked) countElements++;
 	});
 	if (countElements > 0) {
-		targetLabel.text(countElements > 1 ? multipleText : singleText);
 		targetButton.addClass('btn-primary');
 		targetButton.removeClass(['btn-secondary', 'disabled']);
 		targetBadge.css('display', 'inline');
 	} else {
-		targetLabel.text(singleText);
 		targetButton.removeClass('btn-primary');
 		targetButton.addClass(['btn-secondary', 'disabled']);
 		targetBadge.css('display', 'none');
 	}
 	targetBadge.html(countElements);
-}, updateSingleCheckbox = (currentCheckbox, masterCheckbox, targetBadge, targetLabel, singleText, multipleText) => {
-	let children = document.getElementsByClassName('checkbox-child');
-	let countElements = 0;
-	$.each(children, (_, child) => {
-		if (child !== currentCheckbox && child.checked) return countElements++;
-	});
-	masterCheckbox.checked = countElements > 0;
-	updateSelectedCheckboxes(targetBadge, targetLabel, singleText, multipleText);
 }, passwordInputHandler = (password) => {
 	const power = document.getElementById("power-point"), options = {
 		"colors": [["bg-light", "muito fraco"], ["bg-secondary", "fraco"], ["bg-info", "normal"], ["bg-success", "forte"], ["bg-warning", "muito forte"], ["bg-danger", "extremamente forte"]],

@@ -52,7 +52,7 @@
 			<strong>Registrar</strong> <span class="glyphicon glyphicon-info-sign"></span> </a>
 	</div>
 </header>
-<div class="container">
+<div class="form-group col resizable-content">
 	<div class="d-flex mt-5 justify-content-center h-100">
 		<div id="register-box" class="row card m-md-5 align-self-center border-secondary w-50 shadow-lg">
 			<div class="card-header text-body-emphasis">
@@ -97,7 +97,7 @@
 		</div>
 	</div>
 </div>
-<footer class="card-footer py-3 mt-auto bg-body-secondary small fixed-bottom border-success-subtle border-top border-5">
+<footer class="card-footer py-3 mt-4 bg-body-secondary small border-top border-5">
 	<div class="container py-4">
 		<div class="row">
 			<div class="col-lg-5 mb-0">

@@ -67,9 +67,9 @@
 			} ?>
 	</div>
 </header>
-<?php
-	if ($isLoggedIn) { ?>
-		<div class="form-group col bg-dark-subtle resizable-content">
+<div class="form-group col resizable-content">
+	<?php
+		if ($isLoggedIn) { ?>
 			<div class="text-light small rounded-1 col-sm-3" style="padding: 4px 4px 0 4px; float: right;">
 				<div class="card text-center border-secondary">
 					<div class="card-header bg-dark text-light shadow-sm">
@@ -111,10 +111,10 @@
 					</div>
 				</div>
 			</div>
-		</div>
-		<?php
-	} ?>
-<footer class="card-footer py-3 mt-auto bg-body-secondary small fixed-bottom border-success-subtle border-top border-5">
+			<?php
+		} ?>
+</div>
+<footer class="card-footer py-3 mt-4 bg-body-secondary small border-top border-5">
 	<div class="container py-4">
 		<div class="row">
 			<div class="col-lg-5 mb-0">

@@ -16,8 +16,8 @@
               style="padding: 4px 8px 4px 8px; border-top: 6px solid goldenrod"></span>&nbsp;
 		<strong>.DEV Blog</strong> </a>
 </header>
-<div class="container">
-	<div class="d-flex mt-5 justify-content-center">
+<div class="resizable-content">
+	<div class="d-flex mt-5 justify-content-center text-center">
 		<div class="row align-self-center w-50 scrollable">
 			<div class="form-group col mt-0">
 				<div class="d-flex justify-content-center">
@@ -53,7 +53,7 @@
 		</div>
 	</div>
 </div>
-<footer class="card-footer py-3 mt-auto bg-body-secondary small fixed-bottom border-success-subtle border-top border-5">
+<footer class="card-footer py-3 mt-4 bg-body-secondary small border-top border-5">
 	<div class="container py-4">
 		<div class="row">
 			<div class="col-lg-5 mb-0">
