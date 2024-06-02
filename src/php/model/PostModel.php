@@ -7,8 +7,8 @@
 		final class PostModel
 		{
 			private int $id;
-			private string $title;
-			private string $text;
+			private ?string $title;
+			private ?string $text;
 			private int $owner_id;
 			private int $views;
 			private int $total_votes;
@@ -20,8 +20,8 @@
 
 			public function __construct(
 				int $id,
-				string $title,
-				string $text,
+				?string $title,
+				?string $text,
 				int $owner_id,
 				int $views,
 				int $total_votes,
@@ -48,13 +48,13 @@
 
 			public function setId(int $id) : void { $this->id = $id; }
 
-			public function getTitle() : string { return $this->title; }
+			public function getTitle() : ?string { return $this->title; }
 
-			public function setTitle(string $title) : void { $this->title = $title; }
+			public function setTitle(?string $title) : void { $this->title = $title; }
 
-			public function getText() : string { return $this->text; }
+			public function getText() : ?string { return $this->text; }
 
-			public function setText(string $text) : void { $this->text = $text; }
+			public function setText(?string $text) : void { $this->text = $text; }
 
 			public function getOwnerId() : int { return $this->owner_id; }
 
