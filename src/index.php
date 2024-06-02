@@ -1,9 +1,16 @@
 <?php
 	require('php\PhpUtils.php');
-	require("php\model\LoginModel.php");
-	require("php\controller\LoginController.php");
+	require('php\dao\PostDAO.php');
+	require('php\dao\engine\SQLQuery.php');
+	require('php\dao\engine\MySQLDatabase.php');
+	require('php\model\LoginModel.php');
+	require('php\model\PostModel.php');
+	require('php\model\PostResultModel.php');
+	require('php\controller\LoginController.php');
+	require('php\controller\PostController.php');
 
 	use php\controller\LoginController as login;
+	use php\controller\PostController as post;
 	use php\PhpUtils as utils;
 
 	if (isset($_SERVER["HTTP_REFERER"]) && $_SERVER["HTTP_REFERER"] !== $_SERVER["REQUEST_URI"]) {
@@ -87,8 +94,12 @@
 							</li>
 							<li class="list-group-item btn-sm btn-outline-success">
 								<a class="btn btn-sm" role="button" href="/my_posts">
-									<span class="glyphicon glyphicon-search small"></span> <small>Minhas
-									                                                              postagens</small> </a>
+									<span class="glyphicon glyphicon-search small"></span> <small>Minhas postagens <span
+												class="badge bg-success-subtle"><?= post::getSingleton()
+									                                                    ->count(login::getSingleton()
+									                                                                 ->fetchLogin())
+									                                                    ->getCount() ?></span></small>
+								</a>
 							</li>
 							<?php
 								if (login::getSingleton()->fetchLogin()->getLevel() === LOGIN_LEVEL_ADMIN) { ?>
