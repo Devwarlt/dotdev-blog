@@ -39,6 +39,10 @@ strong > .glyphicon {
     top: .175em;
 }
 
+span .badge + span .badge .rounded-pill {
+    padding: .5em;
+}
+
 .resizable-content {
     display: inline;
     width: 100%;
