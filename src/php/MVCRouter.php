@@ -3,13 +3,18 @@
 	{
 		require('PhpUtils.php');
 		require('controller\LoginController.php');
+		require('controller\PostController.php');
 		require('dao\LoginDAO.php');
+		require('dao\PostDAO.php');
 		require('dao\engine\SQLQuery.php');
 		require('dao\engine\MySQLDatabase.php');
 		require('model\LoginModel.php');
 		require('model\LoginResultModel.php');
+		require('model\PostModel.php');
+		require('model\PostResultModel.php');
 
 		use php\controller\LoginController as login;
+		use php\controller\PostController as post;
 		use php\PhpUtils as utils;
 
 		if (!isset($_POST["controller"])) {
@@ -19,6 +24,8 @@
 		$controller = $_POST["controller"];
 		$username = $_POST["username"] ?? "";
 		$password = $_POST["password"] ?? "";
+		$postCreateTitle = $_POST["post-create-title"] ?? "";
+		$postCreateText = $_POST["post-create-text"] ?? "";
 		switch ($controller) {
 			default:
 				{
@@ -31,7 +38,7 @@
 				{
 					if (empty($username) || empty($password)) {
 						utils::getSingleton()->onRedirectErr("Não foi possível efetuar seu login no sistema! 
-						Realize o login com suas credenciais adequadamente.",
+							Realize o login com suas credenciais adequadamente.",
 							"../login");
 						return;
 					}
@@ -54,7 +61,7 @@
 				{
 					if (empty($username) || empty($password)) {
 						utils::getSingleton()->onRedirectErr("Não foi possível efetuar seu registro no sistema! 
-						Realize o seu cadastro novamente.",
+							Realize o seu cadastro novamente.",
 							"../register");
 						return;
 					}
@@ -77,6 +84,27 @@
 				{
 					login::getSingleton()->closeSession();
 					utils::getSingleton()->onRedirectOk("Logout efetuado com êxito!", "../");
+				}
+				break;
+			case "create-post":
+				{
+					if (empty($postCreateTitle) || empty($postCreateText)) {
+						utils::getSingleton()->onRedirectErr("Não foi possível efetuar a criação da sua nova 
+							postagem. Tente novamente, preenchendo todos os campos do formulário.",
+							"../my_posts");
+						return;
+					}
+					$login = login::getSingleton()->fetchLogin();
+					if (
+						($response = post::getSingleton()->create(urlencode($postCreateTitle),
+							urlencode($postCreateText),
+							$login))->getStatus()
+					) {
+						utils::getSingleton()->onRedirectOk("Sua postagem foi criada com êxito!", "../my_posts");
+					}
+					else {
+						utils::getSingleton()->onRedirectErr($response->getErr(), "../my_posts");
+					}
 				}
 				break;
 		}
