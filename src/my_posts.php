@@ -103,13 +103,16 @@
 			<div class="card-body">
 				<ul class="nav nav-pills nav-fill">
 					<li class="nav-item">
-						<button type="button" class="btn btn-success">
+						<button type="button" class="btn btn-success" data-bs-toggle="modal"
+						        data-bs-target="#create-post-modal">
 							<span class="glyphicon glyphicon-plus-sign"></span> Nova postagem
 						</button>
 					</li>
 					<li class="nav-item">
 						<button id="count-button" type="button" class="btn btn-secondary position-relative disabled">
-							<label id="count-label" for="count-button">Remover postagem</label>
+							<span class="glyphicon glyphicon-remove-sign"></span> <label id="count-label"
+							                                                             for="count-button">Remover
+							                                                                                postagem</label>
 							<span id="count-checkboxes"
 							      class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
 							      style="display:none;">
@@ -189,6 +192,54 @@
 					</ul>
 				</nav>
 			</div>
+		</div>
+	</div>
+</div>
+<div class="modal"
+     id="create-post-modal"
+     tabindex="-1"
+     aria-labelledby="exampleModalLiveLabel"
+     aria-modal="true"
+     role="dialog"
+     style="display: none;">
+	<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+		<div class="modal-content">
+			<form action="php/MVCRouter" method="post">
+				<input type="hidden" name="controller" value="create-post">
+				<div class="modal-header">
+					<h5 class="modal-title">Nova postagem</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+				</div>
+				<div class="modal-body">
+					<div class="mb-3">
+						<label for="post-create-username" class="form-label">Autor</label>
+						<input class="form-control bg-secondary-subtle"
+						       type="text"
+						       id="post-create-username"
+						       value="<?= login::getSingleton()->fetchLogin()->getUsername() ?>"
+						       aria-label="readonly input"
+						       readonly>
+					</div>
+					<div class="mb-3">
+						<label for="post-create-title" class="form-label">Título</label> <input class="form-control"
+						                                                                        id="post-create-title"
+						                                                                        name="post-create-title"
+						                                                                        type="text"
+						                                                                        value=""
+						                                                                        aria-label="input">
+					</div>
+					<div class="mb-3">
+						<label for="post-create-text" class="form-label">Texto</label> <textarea
+								class="form-control"
+								id="post-create-text"
+								name="post-create-text"
+								rows="3"></textarea>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-success">Criar</button>
+				</div>
+			</form>
 		</div>
 	</div>
 </div>
