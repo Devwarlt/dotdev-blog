@@ -20,37 +20,23 @@
 				$this->level = $level;
 			}
 
-			public function getId() : int {
-				return $this->id;
-			}
+			public function getId() : int { return $this->id; }
 
-			public function getUsername() : string {
-				return $this->username;
-			}
+			public function getUsername() : string { return $this->username; }
 
-			public function getPassword() : string {
-				return $this->password;
-			}
+			public function getPassword() : string { return $this->password; }
 
-			public function getLevel() : int {
-				return $this->level;
-			}
+			public function getLevel() : int { return $this->level; }
 
 			public function getLevelHumanReadable() : string {
 				switch ($this->level) {
 					case 0:
 					default:
-						{
-							return "normal";
-						}
+						return "normal";
 					case 1:
-						{
-							return "moderador";
-						}
+						return "moderador";
 					case 2:
-						{
-							return "adminstrador";
-						}
+						return "adminstrador";
 				}
 			}
 		}

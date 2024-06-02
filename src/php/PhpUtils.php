@@ -9,8 +9,7 @@
 		public static $singleton;
 		private static string $PHP_INJECTION_REGEX_PATTERN = '/^(?=.*<\?)|(?=.*\?>).*$/';
 
-		private function __construct() {
-		}
+		private function __construct() { }
 
 		public static function getSingleton() : PhpUtils {
 			if (self::$singleton === null) {

@@ -20,8 +20,7 @@
 			private static string $PASSWORD_REGEX_PATTERN = "/^[a-zA-Z0-9'\"!@#$%¨&*()_+¹²³£¢¬§=-]{3,255}$/";
 			private static $singleton;
 
-			private function __construct() {
-			}
+			private function __construct() { }
 
 			public function logIn(
 				string $username,
@@ -39,8 +38,7 @@
 					return $result;
 				}
 				$login = new LoginModel(-1, $username, $password, -1);
-				$dao = LoginDAO::getSingleton();
-				$result->setLogin($dao->signUp($login));
+				$result->setLogin(LoginDAO::getSingleton()->signUp($login));
 				if ($result->getLogin() === null) {
 					$result->setErr("Credenciais não autenticadas!");
 					$result->setStatus(false);
