@@ -132,14 +132,15 @@
 		<?php if (!is_null($err = utils::getSingleton()->getResponseCookie(RESPONSE_FAILURE, true))) { ?>
 		$.toast({
 			"afterShown"() {
-				removeCookieByName('<?=RESPONSE_FAILURE ?>');
+				removeCookieByName('<?= RESPONSE_FAILURE ?>');
 			},
-			"bgColor": 'bg-warning text-secondary rounded-2 border-warning-subtle',
-			"heading": '<span class="glyphicon glyphicon-info-sign"></span> <strong>Atenção</strong>',
+			"heading": '<span class="glyphicon glyphicon-info-sign text-warning-emphasis"></span> ' +
+				'<strong>Atenção</strong>',
 			"hideAfter": false,
 			"position": 'bottom-right',
 			"showHideTransition": 'slide',
-			"text": '<?= $err ?>'
+			"text": '<?= $err ?>',
+			"class": 'bg-warning rounded-2 border-warning-subtle'
 		});
 		<?php }
 		if (!is_null($ok = utils::getSingleton()->getResponseCookie(RESPONSE_SUCCESS, true))) { ?>
@@ -147,12 +148,13 @@
 			"afterShown"() {
 				removeCookieByName('<?= RESPONSE_SUCCESS ?>');
 			},
-			"bgColor": 'bg-success text-white rounded-2 border-success-subtle',
-			"heading": '<span class="glyphicon glyphicon-ok-sign"></span> <strong>Notificação</strong>',
+			"heading": '<span class="glyphicon glyphicon-ok-sign text-success-emphasis"></span> ' +
+				'<strong>Notificação</strong>',
 			"hideAfter": false,
 			"position": 'bottom-right',
 			"showHideTransition": 'slide',
-			"text": '<?= $ok ?>'
+			"text": '<?= $ok;?>',
+			"class": 'bg-success text-light rounded-2 border-success-subtle'
 		});
 		<?php } ?>
 	});
