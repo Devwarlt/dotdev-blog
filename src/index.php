@@ -10,7 +10,6 @@
 	require('php\controller\PostController.php');
 
 	use php\controller\LoginController as login;
-	use php\controller\PostController as post;
 	use php\PhpUtils as utils;
 
 	if (isset($_SERVER["HTTP_REFERER"]) && $_SERVER["HTTP_REFERER"] !== $_SERVER["REQUEST_URI"]) {
@@ -82,10 +81,10 @@
 						<p class="card-text">
 							Seja bem-vindo(a) <strong>
                         <span class="text-warning"><?= login::getSingleton()->fetchLogin()->getUsername() ?>
-                        </span> </strong>! <br /> <small> Nível de acesso:
-								<code class="bg-warning-subtle rounded-2 text-secondary-emphasis">
-									<?= login::getSingleton()->fetchLogin()->getLevelHumanReadable() ?>
-								</code> </small>
+                        </span> </strong>! <br /> <span class="mt-1 d-flex justify-content-center badge bg-primary
+                        me-auto">
+							<?= login::getSingleton()->fetchLogin()->getLevelHumanReadable() ?>
+						</span>
 						</p>
 						<ul class="list-group list-group-flush small">
 							<li class="list-group-item btn-sm btn-outline-primary">
@@ -94,11 +93,8 @@
 							</li>
 							<li class="list-group-item btn-sm btn-outline-success">
 								<a class="btn btn-sm" role="button" href="/my_posts">
-									<span class="glyphicon glyphicon-search small"></span> <small>Minhas postagens <span
-												class="badge bg-success-subtle"><?= post::getSingleton()
-									                                                    ->count(login::getSingleton()
-									                                                                 ->fetchLogin())
-									                                                    ->getCount() ?></span></small>
+									<span class="glyphicon glyphicon-search small"></span> <small>Minhas
+									                                                              postagens </small>
 								</a>
 							</li>
 							<?php
@@ -154,12 +150,13 @@
 			"afterShown"() {
 				removeCookieByName('<?= RESPONSE_FAILURE ?>');
 			},
-			"bgColor": 'bg-warning text-secondary rounded-2 border-warning-subtle',
-			"heading": '<span class="glyphicon glyphicon-info-sign"></span> <strong>Atenção</strong>',
+			"heading": '<span class="glyphicon glyphicon-info-sign text-warning-emphasis"></span> ' +
+				'<strong>Atenção</strong>',
 			"hideAfter": false,
 			"position": 'bottom-right',
 			"showHideTransition": 'slide',
-			"text": '<?= $err ?>'
+			"text": '<?= $err ?>',
+			"class": 'bg-warning rounded-2 border-warning-subtle'
 		});
 		<?php }
 		if (!is_null($ok = utils::getSingleton()->getResponseCookie(RESPONSE_SUCCESS, true))) { ?>
@@ -167,12 +164,13 @@
 			"afterShown"() {
 				removeCookieByName('<?= RESPONSE_SUCCESS ?>');
 			},
-			"bgColor": 'bg-success text-white rounded-2 border-success-subtle',
-			"heading": '<span class="glyphicon glyphicon-ok-sign"></span> <strong>Notificação</strong>',
+			"heading": '<span class="glyphicon glyphicon-ok-sign text-success-emphasis"></span> ' +
+				'<strong>Notificação</strong>',
 			"hideAfter": false,
 			"position": 'bottom-right',
 			"showHideTransition": 'slide',
-			"text": '<?= $ok;?>'
+			"text": '<?= $ok;?>',
+			"class": 'bg-success text-light rounded-2 border-success-subtle'
 		});
 		<?php } ?>
 	});

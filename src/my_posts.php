@@ -14,7 +14,7 @@
 	use php\PhpUtils as utils;
 
 	if (!($isLoggedIn = login::getSingleton()->isUserSignedUp())) {
-		utils::getSingleton()->onRedirectOk("É necessário realizar o login para acessar esta página.",
+		utils::getSingleton()->onRedirectErr("É necessário realizar o login para acessar esta página.",
 			"/login");
 		return;
 	}
@@ -73,16 +73,11 @@
 				<p class="card-text">
 					Seja bem-vindo(a) <strong>
                         <span class="text-warning"><?= login::getSingleton()->fetchLogin()->getUsername() ?>
-                        </span> </strong>! <br /> <span class="d-flex justify-content-center badge bg-primary
+                        </span> </strong>! <br /> <span class="mt-1 d-flex justify-content-center badge bg-primary
                         me-auto">
 							<?= login::getSingleton()->fetchLogin()->getLevelHumanReadable() ?>
-						</span> <span class="mt-2 badge bg-dark me-auto">Postagens:
-					<span
-							class="badge rounded-pill bg-secondary"><?= post::getSingleton()
-					                                                        ->count(login::getSingleton()->fetchLogin())
-					                                                        ->getCount() ?></span></span>
+						</span>
 				</p>
-				<hr />
 				<ul class="list-group list-group-flush small">
 					<li class="list-group-item btn-sm btn-outline-primary">
 						<a class="btn btn-sm" role="button" href="/">
@@ -115,16 +110,21 @@
 			<div class="card-body">
 				<ul class="nav nav-pills nav-fill">
 					<li class="nav-item">
-						<button type="button" class="btn btn-success" data-bs-toggle="modal"
+						<button type="button" class="btn btn-lg btn-success" data-bs-toggle="modal"
 						        data-bs-target="#create-post-modal">
-							<span class="glyphicon glyphicon-plus-sign"></span> Nova postagem
+							<span class="glyphicon small glyphicon-plus-sign"></span> Nova postagem <small><span
+										class="badge bg-success-subtle text-success-emphasis"><?= post::getSingleton()
+							                                                                          ->count(login::getSingleton()
+							                                                                                       ->fetchLogin())
+							                                                                          ->getCount() ?></span></small>
 						</button>
 					</li>
 					<li class="nav-item">
-						<button id="count-button" type="button" class="btn btn-secondary position-relative disabled">
-							<span class="glyphicon glyphicon-remove-sign"></span> <label id="count-label"
-							                                                             for="count-button">Remover
-							                                                                                postagem</label>
+						<button id="count-button" type="button" class="btn btn-lg btn-secondary position-relative
+						disabled">
+							<span class="glyphicon small glyphicon-remove-sign"></span> <label id="count-label"
+							                                                                   for="count-button">Remover
+							                                                                                      postagem</label>
 							<span id="count-checkboxes"
 							      class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
 							      style="display:none;">
@@ -291,12 +291,13 @@
 			"afterShown"() {
 				removeCookieByName('<?= RESPONSE_FAILURE ?>');
 			},
-			"bgColor": 'bg-warning text-secondary rounded-2 border-warning-subtle',
-			"heading": '<span class="glyphicon glyphicon-info-sign"></span> <strong>Atenção</strong>',
+			"heading": '<span class="glyphicon glyphicon-info-sign text-warning-emphasis"></span> ' +
+				'<strong>Atenção</strong>',
 			"hideAfter": false,
 			"position": 'bottom-right',
 			"showHideTransition": 'slide',
-			"text": '<?= $err ?>'
+			"text": '<?= $err ?>',
+			"class": 'bg-warning rounded-2 border-warning-subtle'
 		});
 		<?php }
 		if (!is_null($ok = utils::getSingleton()->getResponseCookie(RESPONSE_SUCCESS, true))) { ?>
@@ -304,12 +305,13 @@
 			"afterShown"() {
 				removeCookieByName('<?= RESPONSE_SUCCESS ?>');
 			},
-			"bgColor": 'bg-success text-white rounded-2 border-success-subtle',
-			"heading": '<span class="glyphicon glyphicon-ok-sign"></span> <strong>Notificação</strong>',
+			"heading": '<span class="glyphicon glyphicon-ok-sign text-success-emphasis"></span> ' +
+				'<strong>Notificação</strong>',
 			"hideAfter": false,
 			"position": 'bottom-right',
 			"showHideTransition": 'slide',
-			"text": '<?= $ok ?>'
+			"text": '<?= $ok;?>',
+			"class": 'bg-success text-light rounded-2 border-success-subtle'
 		});
 		<?php } ?>
 	});
