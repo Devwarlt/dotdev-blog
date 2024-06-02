@@ -1,9 +1,16 @@
 <?php
 	require('php\PhpUtils.php');
-	require("php\model\LoginModel.php");
-	require("php\controller\LoginController.php");
+	require('php\dao\PostDAO.php');
+	require('php\dao\engine\SQLQuery.php');
+	require('php\dao\engine\MySQLDatabase.php');
+	require('php\model\LoginModel.php');
+	require('php\model\PostModel.php');
+	require('php\model\PostResultModel.php');
+	require('php\controller\LoginController.php');
+	require('php\controller\PostController.php');
 
 	use php\controller\LoginController as login;
+	use php\controller\PostController as post;
 	use php\PhpUtils as utils;
 
 	if (!($isLoggedIn = login::getSingleton()->isUserSignedUp())) {
@@ -66,11 +73,16 @@
 				<p class="card-text">
 					Seja bem-vindo(a) <strong>
                         <span class="text-warning"><?= login::getSingleton()->fetchLogin()->getUsername() ?>
-                        </span> </strong>! <br /> <small> Nível de acesso:
-						<code class="bg-warning-subtle rounded-2 text-secondary-emphasis">
+                        </span> </strong>! <br /> <span class="d-flex justify-content-center badge bg-primary
+                        me-auto">
 							<?= login::getSingleton()->fetchLogin()->getLevelHumanReadable() ?>
-						</code> </small>
+						</span> <span class="mt-2 badge bg-dark me-auto">Postagens:
+					<span
+							class="badge rounded-pill bg-secondary"><?= post::getSingleton()
+					                                                        ->count(login::getSingleton()->fetchLogin())
+					                                                        ->getCount() ?></span></span>
 				</p>
+				<hr />
 				<ul class="list-group list-group-flush small">
 					<li class="list-group-item btn-sm btn-outline-primary">
 						<a class="btn btn-sm" role="button" href="/">
@@ -78,7 +90,7 @@
 					</li>
 					<li class="list-group-item btn-sm btn-outline-success">
 						<a class="btn btn-sm disabled" role="button" href="/my_posts">
-							<span class="glyphicon glyphicon-search small"></span> <small>Minhas postagens</small> </a>
+							<span class="glyphicon glyphicon-search small"></span> <small>Minhas postagens </small> </a>
 					</li>
 					<?php
 						if (login::getSingleton()->fetchLogin()->getLevel() === LOGIN_LEVEL_ADMIN) { ?>
