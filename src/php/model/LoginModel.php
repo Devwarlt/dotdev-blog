@@ -32,11 +32,23 @@
 				switch ($this->level) {
 					case 0:
 					default:
-						return "normal";
+						return "Normal";
 					case 1:
-						return "moderador";
+						return "Moderador";
 					case 2:
-						return "adminstrador";
+						return "Adminstrador";
+				}
+			}
+
+			public function getIconLevel() : string {
+				switch ($this->level) {
+					case 0:
+					default:
+						return "glyphicon-user";
+					case 1:
+						return "glyphicon-wrench";
+					case 2:
+						return "glyphicon-king";
 				}
 			}
 		}
