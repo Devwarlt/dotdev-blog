@@ -55,7 +55,7 @@
 <div class="form-group col resizable-content">
 	<div class="d-flex mt-5 justify-content-center h-100">
 		<div id="login-box" class="row card m-md-5 align-self-center border-secondary w-50 shadow-lg">
-			<div class="card-header text-body-emphasis">
+			<div class="card-header bg-dark text-light text-center">
 				<h5>Minha conta</h5>
 			</div>
 			<div class="card-body scrollable">

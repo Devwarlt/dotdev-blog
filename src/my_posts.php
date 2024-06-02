@@ -66,7 +66,7 @@
 		<div class="card text-center border-secondary">
 			<div class="card-header bg-dark text-light shadow-sm">
 				<h5 class="card-title">
-					<span class="glyphicon glyphicon-tasks"></span> Painel de Controle
+					<span class="small glyphicon glyphicon-tasks"></span> Painel de Controle
 				</h5>
 			</div>
 			<div class="card-body">
@@ -104,7 +104,7 @@
 		<div class="card text-center border-secondary">
 			<div class="card-header bg-dark text-light shadow-sm">
 				<h5 class="card-title">
-					<span class="glyphicon glyphicon-search"></span> Minhas postagens
+					<span class="small glyphicon glyphicon-search"></span> Minhas postagens
 				</h5>
 			</div>
 			<div class="card-body">
