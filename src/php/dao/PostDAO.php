@@ -58,16 +58,16 @@
 				if ($result === null) return null;
 				$posts = [];
 				foreach ($result->fetchAll(PDO::FETCH_OBJ) as $data) {
-					$posts[] += new PostModel($data->id,
-						$data->title,
-						$data->text,
+					$posts[] = new PostModel($data->id,
+						urldecode($data->title),
+						urldecode($data->text),
 						$data->owner_id,
 						$data->views,
 						$data->total_votes,
 						$data->average_score,
-						$data->creation_date,
-						$data->last_updated,
-						$data->last_updated_user_id,
+						date_create($data->creation_date),
+						date_create($data->last_updated),
+						$data->last_update_user_id,
 						$data->hidden);
 				}
 				return $posts;

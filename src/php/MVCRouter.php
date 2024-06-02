@@ -97,7 +97,7 @@
 					$login = login::getSingleton()->fetchLogin();
 					if (
 						($response = post::getSingleton()->create(urlencode($postCreateTitle),
-							urlencode($postCreateText),
+							urlencode(nl2br($postCreateText)),
 							$login))->getStatus()
 					) {
 						utils::getSingleton()->onRedirectOk("Sua postagem foi criada com êxito!", "../my_posts");

@@ -61,7 +61,7 @@
 		</form>
 	</div>
 </header>
-<div class="form-group col bg-dark-subtle resizable-content">
+<div class="form-group col resizable-content">
 	<div class="text-light small rounded-1 col-sm-3" style="padding: 4px 4px 0 4px; float: right;">
 		<div class="card text-center border-secondary">
 			<div class="card-header bg-dark text-light shadow-sm">
@@ -126,71 +126,90 @@
 							                                                                   for="count-button">Remover
 							                                                                                      postagem</label>
 							<span id="count-checkboxes"
-							      class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-							      style="display:none;">
+							      class="position-absolute start-100 translate-middle badge rounded-pill bg-danger"
+							      style="display:none; padding-top: -2px">
                             </span>
 						</button>
 					</li>
 				</ul>
 				<hr />
-				<table class="table table-borderless table-striped table-hover table-sm accordion accordion-flush">
+				<table class="table table-borderless table-striped table-hover table-sm">
 					<thead>
 					<tr style="vertical-align: middle">
 						<th scope="col" class="d-flex justify-content-center">
 							<div class="form-check form-switch">
 								<input id="checkbox-master" class="form-check-input" type="checkbox"
 								       onclick="toggleAll(this);
-                                       updateSelectedCheckboxes(
-                                           $('#count-checkboxes'), $('#count-button'), $('#count-label'),
-                                           'Remover postagem', 'Remover postagens')">
+									   updateCheckboxes($('#count-checkboxes'), $('#count-button'))">
 							</div>
 						</th>
-						<th scope="col">Ações</th>
 						<th scope="col">Postagens</th>
+						<th scope="col">Ações</th>
 					</tr>
 					</thead>
 					<tbody>
-					<tr>
-						<th scope="row" style="vertical-align: middle">
-							<input class="form-check-input checkbox-child" type="checkbox" id="checkboxNoLabel"
-							       value="" onclick="
-                                       updateSingleCheckbox(
-                                           this, $('#checkbox-master'),
-                                           $('#count-checkboxes'), $('#count-button'), $('#count-label'),
-                                           'Remover postagem', 'Remover postagens')">
-						</th>
-						<td style="vertical-align: middle">
-							<div class="btn-group" role="group">
-								<button type="button" class="btn btn-warning">
-									<span class="glyphicon glyphicon-pencil"></span>
-								</button>
-								<button type="button" class="btn btn-danger">
-									<span class="glyphicon glyphicon-remove-sign"></span>
-								</button>
-							</div>
-						</td>
-						<td style="width: 75%">
-							<div class="accordion accordion-flush" id="accordionFlushExample">
-								<div class="accordion-item">
-									<h2 class="accordion-header" id="flush-headingOne">
-										<button class="accordion-button collapsed" type="button"
-										        data-bs-toggle="collapse" data-bs-target="#flush-collapseOne"
-										        aria-expanded="false" aria-controls="flush-collapseOne">
-											Accordion Item #1
-										</button>
-									</h2>
-									<div id="flush-collapseOne" class="accordion-collapse collapse"
-									     aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-										<div class="accordion-body">Placeholder content for this accordion, which is
-										                            intended to demonstrate the
-											<code>.accordion-flush</code> class. This is the first item's accordion
-										                            body.
+					<?php
+						if (post::getSingleton()->count(login::getSingleton()->fetchLogin())->getCount() === 0) { ?>
+							<tr>
+								<td colspan="3" class="small">
+									Você não possui nenhuma postagem.
+								</td>
+							</tr>
+							<?php
+						}
+						else {
+							foreach (post::getSingleton()
+							             ->fetch(login::getSingleton()->fetchLogin(), 0, 1000)
+							             ->getPosts() as $post) { ?>
+								<tr>
+									<td style="vertical-align: top">
+										<input class="mt-3 form-check-input checkbox-child"
+										       type="checkbox"
+										       id="post-id-<?= $post->getId() ?>"
+										       value=""
+										       onclick="toggleMaster();
+											   updateCheckboxes($('#count-checkboxes'), $('#count-button'))">
+									</td>
+									<td style="width: 75%">
+										<div class="accordion accordion-flush">
+											<div class="accordion-item"
+											     id="accordion-flush-post-id-<?= $post->getId() ?>">
+												<h2 class="accordion-header"
+												    id="accordion-header-post-id-<?= $post->getId() ?>">
+													<button class="accordion-button collapsed"
+													        type="button"
+													        data-bs-toggle="collapse"
+													        data-bs-target="#accordion-post-id-<?= $post->getId() ?>"
+													        aria-expanded="false"
+													        aria-controls="accordion-post-id-<?= $post->getId() ?>">
+														<?= $post->getTitle() ?>
+													</button>
+												</h2>
+												<div id="accordion-post-id-<?= $post->getId() ?>"
+												     class="accordion-collapse collapse"
+												     aria-labelledby="accordion-header-post-id-<?= $post->getId() ?>"
+												     data-bs-parent="#accordion-flush-post-id-<?= $post->getId() ?>">
+													<div class="accordion-body">
+														<?= $post->getText() ?>
+													</div>
+												</div>
+											</div>
 										</div>
-									</div>
-								</div>
-							</div>
-						</td>
-					</tr>
+									</td>
+									<td style="vertical-align: top">
+										<div class="mt-2 btn-group btn-group-sm" role="group">
+											<button type="button" class="btn btn-warning">
+												<span class="small glyphicon glyphicon-pencil"></span>
+											</button>
+											<button type="button" class="btn btn-danger">
+												<span class="small glyphicon glyphicon-remove-sign"></span>
+											</button>
+										</div>
+									</td>
+								</tr>
+								<?php
+							}
+						} ?>
 					</tbody>
 				</table>
 				<hr />
@@ -245,7 +264,7 @@
 								class="form-control"
 								id="post-create-text"
 								name="post-create-text"
-								rows="3"></textarea>
+								rows="3" style="white-space: pre-line"></textarea>
 					</div>
 				</div>
 				<div class="modal-footer">
@@ -255,7 +274,7 @@
 		</div>
 	</div>
 </div>
-<footer class="card-footer py-3 mt-auto bg-body-secondary small fixed-bottom border-success-subtle border-top border-5">
+<footer class="card-footer py-3 mt-4 bg-body-secondary small border-top border-5">
 	<div class="container py-4">
 		<div class="row">
 			<div class="col-lg-5 mb-0">
