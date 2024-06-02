@@ -165,23 +165,17 @@ if (typeof Object.create !== 'function') Object.create = obj => {
 		},
 		"setup"() {
 			this._toastEl = this._toastEl || $('<div></div>', {
-				"class": 'toast' + (this.options.bgColor !== false ? ' ' + this.options.bgColor : ''), "role": 'alert'
+				"class": 'toast', "role": 'alert'
 			});
 
 			let _toastContent = '<span class="jq-toast-loader"></span>';
 			if (this.options.allowToastClose) _toastContent += '<button type="button" class="btn-close me-2 close-jq-toast-single" style="margin: .6rem .5rem"></button>';
 			if (this.options.heading) _toastContent += '<div class="toast-header" style="padding: .5rem .75rem"><strong class="me-auto">' + this.options.heading + '</strong>' + '<small style="padding-right: 1.75rem">' + new Date().toLocaleTimeString() + '</small></div>'
 
-			if (this.options.text instanceof Array) {
-				_toastContent += '<ul class="jq-toast-ul">';
-				for (let i = 0; i < this.options.text.length; i++) _toastContent += '<li class="jq-toast-li" id="jq-toast-item-' + i + '">' + this.options.text[i] + '</li>';
-				_toastContent += '</ul>';
-
-			} else _toastContent += '<div class="toast-body" style="padding: .75rem; word-wrap: break-word; text-justify: inter-word; text-align: justify">' + this.options.text + '</div>';
+			_toastContent += '<div class="toast-body" style="padding: .75rem; word-wrap: break-word; text-justify: inter-word; text-align: justify">' + this.options.text + '</div>';
 
 			this._toastEl.html(_toastContent);
 
-			if (this.options.textColor !== false) this._toastEl.css("color", this.options.textColor);
 			if (this.options.textAlign) this._toastEl.css('text-align', this.options.textAlign);
 			if (this.options.class !== false) this._toastEl.addClass(this.options.class)
 		},
