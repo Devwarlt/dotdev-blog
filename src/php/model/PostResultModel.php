@@ -10,8 +10,16 @@
 
 		public function __construct() { }
 
+		/**
+		 * @return PostModel[]|null
+		 */
 		public function getPosts() : ?array { return $this->posts; }
 
+		/**
+		 * @param PostModel[]|null $posts
+		 *
+		 * @return void
+		 */
 		public function setPosts(?array $posts) : void { $this->posts = $posts; }
 
 		public function getCount() : ?int { return $this->count; }
