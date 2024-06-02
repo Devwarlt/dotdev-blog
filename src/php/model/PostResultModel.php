@@ -5,8 +5,18 @@
 		private ?PostModel $post;
 		private string $err = "";
 		private bool $status = false;
+		private ?array $posts;
+		private ?int $count;
 
 		public function __construct() { }
+
+		public function getPosts() : ?array { return $this->posts; }
+
+		public function setPosts(?array $posts) : void { $this->posts = $posts; }
+
+		public function getCount() : ?int { return $this->count; }
+
+		public function setCount(?int $count) : void { $this->count = $count; }
 
 		public function getPost() : ?PostModel { return $this->post; }
 
