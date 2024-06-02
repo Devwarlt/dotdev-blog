@@ -69,13 +69,12 @@
 					return $result;
 				}
 				$result->setLogin($login = new LoginModel(-1, $username, $password, 0));
-				$dao = LoginDAO::getSingleton();
-				if ($dao->signUp($login) !== null) {
+				if (LoginDAO::getSingleton()->signUp($login) !== null) {
 					$result->setErr("Já existe um cadastro com esses dados. Efetue o login para continuar.");
 					$result->setStatus(false);
 					return $result;
 				}
-				$result->setStatus($dao->signIn($login));
+				$result->setStatus(LoginDAO::getSingleton()->signIn($login));
 				if (!$result->getStatus()) $result->setErr("Não foi possível criar o usuário!");
 				return $result;
 			}
