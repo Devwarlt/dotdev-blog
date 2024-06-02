@@ -13,19 +13,18 @@
 
 			private function __construct() { }
 
-			public function create(PostModel $post) : bool {
-				return MySQLDatabase::getSingleton()->insert(new SQLQuery("
-					INSERT INTO
-						posts(title,
-						      text,
-						      owner_id)
-					       VALUES(':title',
-					              ':text',
-					              :owner_id)", [
-					":title"    => $post->getTitle(),
-					":text"     => $post->getText(),
-					":owner_id" => $post->getOwnerId()
+			public function count(int $ownerId) : ?int {
+				$result = MySQLDatabase::getSingleton()->select(new SQLQuery("
+					SELECT COUNT(id) AS 'total_posts'
+					FROM
+						posts
+					WHERE
+						owner_id = :owner_id", [
+					":owner_id" => $ownerId
 				]));
+				if ($result === null) return null;
+				$data = $result->fetch(PDO::FETCH_OBJ);
+				return $data->total_posts;
 			}
 
 			public static function getSingleton() : PostDAO {
@@ -33,7 +32,7 @@
 				return self::$singleton;
 			}
 
-			public function fetch(PostModel $post, int $min, int $max) : ?array {
+			public function fetch(int $ownerId, int $min, int $max) : ?array {
 				$result = MySQLDatabase::getSingleton()->select(new SQLQuery("
 					SELECT
 						id,
@@ -52,7 +51,7 @@
 					WHERE
 						owner_id = ':owner_id'
 					LIMIT :min, :max", [
-					":owner_id" => $post->getOwnerId(),
+					":owner_id" => $ownerId,
 					":min"      => $min,
 					":max"      => $max
 				]));
@@ -72,6 +71,21 @@
 						$data->hidden);
 				}
 				return $posts;
+			}
+
+			public function create(PostModel $post) : bool {
+				return MySQLDatabase::getSingleton()->insert(new SQLQuery("
+					INSERT INTO
+						posts(title,
+						      text,
+						      owner_id)
+					       VALUES(':title',
+					              ':text',
+					              :owner_id)", [
+					":title"    => $post->getTitle(),
+					":text"     => $post->getText(),
+					":owner_id" => $post->getOwnerId()
+				]));
 			}
 		}
 	}
