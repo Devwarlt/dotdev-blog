@@ -31,5 +31,24 @@
 				if (self::$singleton === null) self::$singleton = new PostController();
 				return self::$singleton;
 			}
+
+			public function count(LoginModel $login) : PostResultModel {
+				$result = new PostResultModel();
+				$result->setCount($count = PostDAO::getSingleton()->count($login->getId()));
+				$result->setStatus($count === null);
+				if ($result->getStatus()) {
+					$result->setErr("Não foi possível consultar o número de postagens do usuário especificado.");
+					$result->setCount(0);
+				}
+				return $result;
+			}
+
+			public function fetch(LoginModel $login, int $min, int $max) : PostResultModel {
+				$result = new PostResultModel();
+				$result->setPosts($posts = PostDAO::getSingleton()->fetch($login->getId(), $min, $max));
+				$result->setStatus($posts === null);
+				if ($result->getStatus()) $result->setPosts([]);
+				return $result;
+			}
 		}
 	}
