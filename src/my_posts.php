@@ -1,5 +1,6 @@
 <?php
 	require('php\PhpUtils.php');
+	require('php\dao\LoginDAO.php');
 	require('php\dao\PostDAO.php');
 	require('php\dao\engine\SQLQuery.php');
 	require('php\dao\engine\MySQLDatabase.php');
@@ -133,14 +134,32 @@
 					</li>
 				</ul>
 				<hr />
-				<table class="table table-borderless table-striped table-hover table-sm">
-					<thead>
-					<tr style="vertical-align: middle">
-						<th scope="col" class="d-flex justify-content-center">
+				<table class="table
+				<?= post::getSingleton()->count(login::getSingleton()->fetchLogin())->getCount() === 0
+					? "table-light"
+					: "table-hover table-secondary" ?> table-sm">
+					<caption class="small fst-italic blockquote blockquote-footer"
+					         style="margin: var(--bs-accordion-body-padding-x) var(--bs-accordion-body-padding-y);
+					         text-justify: inter-word; text-align: justify"><span
+								class="small fst-italic
+					glyphicon
+					glyphicon-info-sign"></span> Aqui se encontram todas suas publicações. Também é possível consultar a
+					                             quantidade de visualizações, total de pontos avaliados por outros
+					                             usuários e opções de pré-visualização. <br /><br />Todas essas
+					                             funcionalidades estão disponíveis aqui pelo seu <strong>Painel de
+					                                                                                     Controle</strong>.
+					</caption>
+					<thead class="table-bordered table-primary">
+					<tr style="vertical-align: middle" class="bg-light">
+						<th scope="col" class="d-flex justify-content-center" style="margin-top: -0.04rem !important">
 							<div class="form-check form-switch">
 								<input id="checkbox-master" class="form-check-input" type="checkbox"
 								       onclick="toggleAll(this);
-									   updateCheckboxes($('#count-checkboxes'), $('#count-button'))">
+									   updateCheckboxes($('#count-checkboxes'), $('#count-button'))"
+									<?= post::getSingleton()->count(login::getSingleton()->fetchLogin())->getCount() ===
+									    0
+										? "disabled"
+										: "" ?>>
 							</div>
 						</th>
 						<th scope="col">Postagens</th>
@@ -149,6 +168,7 @@
 					</thead>
 					<tbody>
 					<?php
+						$powerScripts = [];
 						if (post::getSingleton()->count(login::getSingleton()->fetchLogin())->getCount() === 0) { ?>
 							<tr>
 								<td colspan="3" class="small">
@@ -160,19 +180,49 @@
 						else {
 							foreach (post::getSingleton()
 							             ->fetch(login::getSingleton()->fetchLogin(), 0, 1000)
-							             ->getPosts() as $post) { ?>
+							             ->getPosts() as $post) {
+								$powerScripts["power-point-id-" . $post->getId()] = $post->getAverageScore(); ?>
 								<tr>
 									<td style="vertical-align: top">
-										<input class="mt-3 form-check-input checkbox-child"
+										<input class="mt-5 form-check-input checkbox-child"
 										       type="checkbox"
 										       id="post-id-<?= $post->getId() ?>"
 										       value=""
 										       onclick="toggleMaster();
 											   updateCheckboxes($('#count-checkboxes'), $('#count-button'))">
 									</td>
-									<td style="width: 75%">
+									<td style="width: 75%; padding-bottom: 1rem;">
 										<div class="accordion accordion-flush">
-											<div class="accordion-item"
+											<small class="small text-secondary post-labels">
+												<?= utils::getSingleton()->numberFormat($post->getViews()) ?>
+												<span class="glyphicon glyphicon-stats small"></span></small><small
+													class="small text-secondary post-labels"> Visível
+												<?= utils::getSingleton()->numberFormat($post->isHidden())
+													? "somente para você"
+													: "para todos" ?>
+												<span class="glyphicon glyphicon-eye-<?= utils::getSingleton()
+												                                              ->numberFormat($post->isHidden())
+													? "close"
+													: "open" ?> small"></span></small><small
+													class="small text-secondary post-labels">Última alteração em
+												<u><?= $post->getLastUpdated()->format(DEFAULT_DATEFORMAT) ?></u> por
+												<strong><?= $post->getLastUpdateUserId() !== -1 &&
+												            $post->getLastUpdateUserId() !== $post->getOwnerId()
+														? login::getSingleton()
+														       ->fetchUsername($post->getLastUpdateUserId())
+														: "você" ?></strong>
+												<span class="glyphicon glyphicon-pencil small"></span></small>
+											<div class="col-form-label-sm">
+												<div class="bg-dark-subtle power-container progress progress-bar-animated progress-bar-striped scrollable">
+													<div role="progressbar"
+													     aria-valuenow="0"
+													     aria-valuemin="0"
+													     aria-valuemax="100"
+													     id="power-point-id-<?= $post->getId() ?>"></div>
+												</div>
+											</div>
+											<div class="accordion-item bg-info-subtle border border-primary-subtle
+											mt-2 rounded-bottom-1 shadow-sm"
 											     id="accordion-flush-post-id-<?= $post->getId() ?>">
 												<h2 class="accordion-header"
 												    id="accordion-header-post-id-<?= $post->getId() ?>">
@@ -196,8 +246,10 @@
 											</div>
 										</div>
 									</td>
-									<td style="vertical-align: top">
-										<div class="mt-2 btn-group btn-group-sm" role="group">
+									<td style="vertical-align: top;">
+										<div class="btn-group btn-group-sm"
+										     role="group"
+										     style="margin-top: 2.75rem !important">
 											<button type="button" class="btn btn-warning">
 												<span class="small glyphicon glyphicon-pencil"></span>
 											</button>
@@ -305,7 +357,12 @@
 <script type="text/javascript" src="js/custom.js?t=<?= time() ?>"></script>
 <script type="text/javascript">
 	$(() => {
-		<?php if (!is_null($err = utils::getSingleton()->getResponseCookie(RESPONSE_FAILURE, true))) { ?>
+		<?php
+		if (!empty($powerScripts))
+		{foreach ($powerScripts as $powerId => $powerScore) {?>
+		scoreHandler('<?= $powerId ?>', '<?= $powerScore ?>');
+		<?php
+		}} if (!is_null($err = utils::getSingleton()->getResponseCookie(RESPONSE_FAILURE, true))) { ?>
 		$.toast({
 			"afterShown"() {
 				removeCookieByName('<?= RESPONSE_FAILURE ?>');
@@ -318,8 +375,7 @@
 			"text": '<?= $err ?>',
 			"class": 'bg-warning rounded-2 border-warning-subtle'
 		});
-		<?php }
-		if (!is_null($ok = utils::getSingleton()->getResponseCookie(RESPONSE_SUCCESS, true))) { ?>
+		<?php } if (!is_null($ok = utils::getSingleton()->getResponseCookie(RESPONSE_SUCCESS, true))) { ?>
 		$.toast({
 			"afterShown"() {
 				removeCookieByName('<?= RESPONSE_SUCCESS ?>');
