@@ -61,6 +61,21 @@ span .badge + span .badge .rounded-pill {
     width: 100%;
 }
 
+.post-labels {
+    vertical-align: middle;
+    margin: var(--bs-accordion-body-padding-x) var(--bs-accordion-body-padding-y) 0
+}
+
+.post-icons {
+    vertical-align: middle;
+    margin: 0 var(--bs-accordion-body-padding-x) 0 var(--bs-accordion-body-padding-x)
+}
+
+u {
+    text-decoration: none;
+    border-bottom: 1px dotted
+}
+
 ::-webkit-scrollbar {
     width: 12px;
 }
