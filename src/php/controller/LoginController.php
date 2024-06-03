@@ -79,6 +79,11 @@
 				return $result;
 			}
 
+			public function fetchUsername(int $userId) : string {
+				$result = LoginDAO::getSingleton()->fetchUsername($userId);
+				return $result ?? "usuário desconhecido (ID: $userId)";
+			}
+
 			public function beginSession(LoginModel $login) : void {
 				error_reporting(E_ERROR | E_PARSE);
 				if (session_status() === PHP_SESSION_NONE) session_start();
