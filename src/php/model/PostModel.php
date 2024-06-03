@@ -18,14 +18,25 @@
 			private int $last_update_user_id;
 			private bool $hidden;
 
+			/**
+			 * @param int            $id
+			 * @param string|null    $title
+			 * @param string|null    $text
+			 * @param int            $owner_id
+			 * @param int            $views
+			 * @param float[]        $all_scores
+			 * @param \DateTime|null $creation_date
+			 * @param \DateTime|null $last_updated
+			 * @param int            $last_update_user_id
+			 * @param bool           $hidden
+			 */
 			public function __construct(
 				int $id,
 				?string $title,
 				?string $text,
 				int $owner_id,
 				int $views,
-				int $total_votes,
-				float $average_score,
+				array $all_scores,
 				?DateTime $creation_date,
 				?DateTime $last_updated,
 				int $last_update_user_id,
@@ -36,8 +47,8 @@
 				$this->text = $text;
 				$this->owner_id = $owner_id;
 				$this->views = $views;
-				$this->total_votes = $total_votes;
-				$this->average_score = $average_score;
+				$this->total_votes = count($all_scores);
+				$this->average_score = round(array_sum($all_scores) / $this->total_votes, 2);
 				$this->creation_date = $creation_date;
 				$this->last_updated = $last_updated;
 				$this->last_update_user_id = $last_update_user_id;
