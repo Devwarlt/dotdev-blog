@@ -16,7 +16,7 @@
 			public function create(string $title, string $text, LoginModel $login) : PostResultModel {
 				$result = new PostResultModel();
 				$result->setPost(
-					$post = new PostModel(-1, $title, $text, $login->getId(), 0, 0, 0, null, null, -1, false));
+					$post = new PostModel(-1, $title, $text, $login->getId(), 0, [0.00], null, null, -1, false));
 				$dao = PostDAO::getSingleton();
 				$result->setStatus($dao->create($post));
 				if (!$result->getStatus()) {
