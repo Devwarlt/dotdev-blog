@@ -40,8 +40,7 @@
 						text,
 						owner_id,
 						views,
-						total_votes,
-						average_score,
+						all_scores,
 						creation_date,
 						last_updated,
 						last_update_user_id,
@@ -49,7 +48,7 @@
 					FROM
 						posts
 					WHERE
-						owner_id = ':owner_id'
+						owner_id = :owner_id
 					LIMIT :min, :max", [
 					":owner_id" => $ownerId,
 					":min"      => $min,
@@ -63,8 +62,7 @@
 						urldecode($data->text),
 						$data->owner_id,
 						$data->views,
-						$data->total_votes,
-						$data->average_score,
+						json_decode($data->all_scores),
 						date_create($data->creation_date),
 						date_create($data->last_updated),
 						$data->last_update_user_id,
