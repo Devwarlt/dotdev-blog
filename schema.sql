@@ -15,17 +15,19 @@ CREATE TABLE IF NOT EXISTS `users`
 
 CREATE TABLE IF NOT EXISTS `posts`
 (
-	`id`                  INT         NOT NULL AUTO_INCREMENT,
-	`title`               TEXT(512)   NOT NULL,
-	`text`                LONGTEXT    NOT NULL,
-	`owner_id`            INT         NOT NULL,
-	`views`               INT         NOT NULL DEFAULT 0,
-	`total_votes`         INT         NOT NULL DEFAULT 0,
-	`average_score`       FLOAT(2, 2) NOT NULL DEFAULT 0.00,
-	`creation_date`       DATETIME    NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	`last_updated`        DATETIME    NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	`last_update_user_id` INT         NOT NULL DEFAULT -1,
-	`hidden`              BOOLEAN     NOT NULL DEFAULT 0,
+	`id`                  INT       NOT NULL AUTO_INCREMENT,
+	`title`               TEXT(512) NOT NULL,
+	`text`                LONGTEXT  NOT NULL,
+	`owner_id`            INT       NOT NULL,
+	`views`               INT       NOT NULL DEFAULT 0,
+	`all_scores`          JSON      NOT NULL DEFAULT '[
+      0.00
+    ]',
+	`creation_date`       DATETIME  NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	`last_updated`        DATETIME  NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	`last_update_user_id` INT       NOT NULL DEFAULT -1,
+	`hidden`              BOOLEAN   NOT NULL DEFAULT 0,
+	CHECK (JSON_VALID(`all_scores`)),
 	PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;
 
