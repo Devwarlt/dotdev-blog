@@ -75,6 +75,29 @@ const passwordContainsLowercaseLetter = (value) => {
 	adjustedIndexOffset = adjustedIndexOffset >= options.colors.length ? options.colors.length - 1 : adjustedIndexOffset;
 	power.className = `${options.cssCustom} ${options.colors[adjustedIndexOffset][0]} ${options.cssExtra}`;
 	power.innerHTML = options.colors[adjustedIndexOffset][1];
+}, scoreHandler = (powerId, score) => {
+	const power = document.getElementById(powerId), options = {
+		"colors": ["bg-danger", "bg-warning", "bg-secondary", "bg-info", "bg-primary", "bg-success"],
+		"cssCustom": "border-2 d-inline progress-bar progress-bar-animated progress-bar-striped rounded-2",
+		"maxScore": 5.00,
+		"minScorePercentage": 17.5
+	};
+
+	let parsedScore = parseFloat(score);
+	let rawScore = parsedScore / options.maxScore;
+	let roundedScore = Math.round(rawScore * 100);
+	roundedScore = roundedScore > 100 ? 100 : roundedScore;
+	if (roundedScore < options.minScorePercentage) roundedScore = options.minScorePercentage;
+	power.ariaValueNow = roundedScore;
+	power.style.width = `${roundedScore}%`;
+	power.style.verticalAlign = "middle";
+
+	let adjustedIndexOffset = Math.round(options.colors.length * rawScore);
+	adjustedIndexOffset = adjustedIndexOffset >= options.colors.length ? options.colors.length - 1 : adjustedIndexOffset;
+	power.className = `${options.cssCustom} ${options.colors[adjustedIndexOffset]}`;
+	power.innerHTML = `${parsedScore.toLocaleString("en", {minimumFractionDigits: 2})} de 
+		${options.maxScore.toLocaleString("en", {minimumFractionDigits: 2})} 
+		<span class="small glyphicon glyphicon-star"></span>`;
 }, removeCookieByName = (name) => {
 	document.cookie = `${name}=; Path=/; Max-Age=0;`;
 };
