@@ -33,6 +33,18 @@
 				return self::$singleton;
 			}
 
+			public function fetchUsername(int $userId) : ?string {
+				$result = MySQLDatabase::getSingleton()->select(new SQLQuery("
+					SELECT
+						username
+					FROM
+						users
+					WHERE
+						id = :userId", [":userId" => $userId]));
+				if ($result === null) return null;
+				return $result->fetch(PDO::FETCH_OBJ)->username;
+			}
+
 			public function signUp(LoginModel $login) : ?LoginModel {
 				$result = MySQLDatabase::getSingleton()->select(new SQLQuery("
 					SELECT
