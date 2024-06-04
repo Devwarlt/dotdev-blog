@@ -105,7 +105,4 @@
 			}
 			return $num;
 		}
-
-		public function scoreFormat(float $averageScore, int $totalVotes) : float {
-		}
 	}
