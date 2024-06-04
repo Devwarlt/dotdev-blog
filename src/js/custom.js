@@ -1,3 +1,16 @@
+/*
+// Experimental code (python reference statement like):
+Function.prototype.unpack = function (params) {
+	const rawArgs = this.toLocaleString().match(/\(.*\)\{/);
+	if (!rawArgs) {
+		console.error("args parsing failed");
+		return;
+	}
+	const argsList = rawArgs[0].replace(/[(){]/g, '').split(',');
+	const args = argsList.map((param) => params[param.trim()] || param);
+	return this(...args);
+};*/
+
 const passwordContainsLowercaseLetter = (value) => {
 	return /[a-z]/.test(value);
 }, passwordContainsUppercaseLetter = (value) => {
@@ -100,4 +113,60 @@ const passwordContainsLowercaseLetter = (value) => {
 		<span class="small glyphicon glyphicon-star"></span>`;
 }, removeCookieByName = (name) => {
 	document.cookie = `${name}=; Path=/; Max-Age=0;`;
+}, fillRemoveSingleModalData = (postId) => {
+	let removeListInput = document.getElementById('post-remove-list');
+	let labelCountPosts = document.getElementById('count-selected-posts');
+	let formattedCountPosts = document.getElementById('format-selected-posts');
+	let removeList = document.getElementById('selected-posts-remove-list');
+	if (removeList.hasChildNodes()) removeList.innerHTML = "";
+	let newItem = document.createElement('li');
+	let postTitle = document.getElementById(`accordion-button-post-id-${postId}`);
+	newItem.appendChild(document.createTextNode(`"${postTitle.innerText}"`));
+	newItem.innerHTML = `<u><i>${newItem.innerHTML}</i></u>`;
+	removeList.appendChild(newItem);
+	labelCountPosts.innerHTML = "";
+	formattedCountPosts.innerHTML = "a postagem a seguir";
+	removeListInput.setAttribute('value', postId);
+}, fillRemoveModalData = () => {
+	let removeIdList = [];
+	let countSelectedItems = 0;
+	let removeListInput = document.getElementById('post-remove-list');
+	let labelCountPosts = document.getElementById('count-selected-posts');
+	let formattedCountPosts = document.getElementById('format-selected-posts');
+	let removeList = document.getElementById('selected-posts-remove-list');
+	if (removeList.hasChildNodes()) removeList.innerHTML = "";
+	$.each(document.getElementsByClassName('checkbox-child'), (_, child) => {
+		if (child.checked) {
+			removeIdList.push(child.getAttribute('value'));
+			countSelectedItems++;
+		}
+	});
+	removeListInput.setAttribute('value', removeIdList.toString());
+	labelCountPosts.innerHTML = countSelectedItems;
+	formattedCountPosts.innerHTML = `postage${(countSelectedItems > 1 ? 'ns' : 'm')}`;
+	for (let i = 0; i < countSelectedItems; i++) {
+		let newItem = document.createElement('li');
+		let postTitle = document.getElementById(`accordion-button-post-id-${removeIdList[i]}`);
+		newItem.appendChild(document.createTextNode(`"${postTitle.innerText}"`));
+		newItem.innerHTML = `<u><i>${newItem.innerHTML}</i></u>`;
+		removeList.appendChild(newItem);
+	}
+
+	// Experimental code:
+	//const input = {'qualifiedName': 'value', 'value': removeIdList.toString()};
+	//input |> removeListInput.setAttribute.unpack;
+}, fillEditModalData = (postId, postOwnerName, isPostHidden) => {
+	let editModalHiddenPostId = document.getElementById('post-edit-id');
+	editModalHiddenPostId.value = postId;
+
+	let editModalOwnerUsername = document.getElementById('post-edit-owner');
+	editModalOwnerUsername.value = postOwnerName;
+
+	let editModalTitle = document.getElementById('post-edit-title');
+	let postTitleId = document.getElementById(`accordion-button-post-id-${postId}`);
+	editModalTitle.value = postTitleId.innerText;
+
+	let editModalText = document.getElementById('post-edit-text');
+	let postTextId = document.getElementById(`accordion-post-content-id-${postId}`);
+	editModalText.value = postTextId.innerText;
 };

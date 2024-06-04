@@ -4,7 +4,7 @@
 	{
 		private ?PostModel $post;
 		private string $err = "";
-		private bool $status = false;
+		private bool $success = false;
 		private ?array $posts;
 		private ?int $count;
 
@@ -32,9 +32,10 @@
 
 		public function getErr() : string { return $this->err; }
 
-		public function setErr(string $err) : void { $this->err = $err; }
+		public function setErr(string $err) : void {
+			$this->err = $err;
+			$this->success = false;
+		}
 
-		public function getStatus() : bool { return $this->status; }
-
-		public function setStatus(bool $status) : void { $this->status = $status; }
+		public function isSuccess() : bool { return $this->success; }
 	}

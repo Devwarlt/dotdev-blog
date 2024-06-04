@@ -137,8 +137,8 @@
 			"heading": '<span class="glyphicon glyphicon-info-sign text-warning-emphasis"></span> ' +
 				'<strong>Atenção</strong>',
 			"hideAfter": false,
-			"position": 'bottom-right',
-			"showHideTransition": 'slide',
+			"position": 'top-center',
+			"showHideTransition": 'fade',
 			"text": '<?= $err ?>',
 			"class": 'bg-warning rounded-2 border-warning-subtle'
 		});
@@ -150,9 +150,8 @@
 			},
 			"heading": '<span class="glyphicon glyphicon-ok-sign text-success-emphasis"></span> ' +
 				'<strong>Notificação</strong>',
-			"hideAfter": false,
-			"position": 'bottom-right',
-			"showHideTransition": 'slide',
+			"position": 'top-center',
+			"showHideTransition": 'fade',
 			"text": '<?= $ok;?>',
 			"class": 'bg-success text-light rounded-2 border-success-subtle'
 		});

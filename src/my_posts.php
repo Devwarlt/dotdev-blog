@@ -122,10 +122,9 @@
 					</li>
 					<li class="nav-item">
 						<button id="count-button" type="button" class="btn btn-lg btn-secondary position-relative
-						disabled">
-							<span class="glyphicon small glyphicon-remove-sign"></span> <label id="count-label"
-							                                                                   for="count-button">Remover
-							                                                                                      postagem</label>
+						disabled" data-bs-toggle="modal" data-bs-target="#remove-post-modal"
+						        onclick="fillRemoveModalData()">
+							<span class="glyphicon small glyphicon-remove-sign"></span> Remover postagem
 							<span id="count-checkboxes"
 							      class="position-absolute start-100 translate-middle badge rounded-pill bg-danger"
 							      style="display:none; padding-top: -2px">
@@ -187,7 +186,7 @@
 										<input class="mt-5 form-check-input checkbox-child"
 										       type="checkbox"
 										       id="post-id-<?= $post->getId() ?>"
-										       value=""
+										       value="<?= $post->getId() ?>"
 										       onclick="toggleMaster();
 											   updateCheckboxes($('#count-checkboxes'), $('#count-button'))">
 									</td>
@@ -206,8 +205,9 @@
 													: "open" ?> small"></span></small><small
 													class="small text-secondary post-labels">Última alteração em
 												<u><?= $post->getLastUpdated()->format(DEFAULT_DATEFORMAT) ?></u> por
-												<strong><?= $post->getLastUpdateUserId() !== -1 &&
-												            $post->getLastUpdateUserId() !== $post->getOwnerId()
+												<strong><?= $postOwnerName = $post->getLastUpdateUserId() !== -1 &&
+												                             $post->getLastUpdateUserId() !==
+												                             $post->getOwnerId()
 														? login::getSingleton()
 														       ->fetchUsername($post->getLastUpdateUserId())
 														: "você" ?></strong>
@@ -227,6 +227,7 @@
 												<h2 class="accordion-header"
 												    id="accordion-header-post-id-<?= $post->getId() ?>">
 													<button class="accordion-button collapsed"
+													        id="accordion-button-post-id-<?= $post->getId() ?>"
 													        type="button"
 													        data-bs-toggle="collapse"
 													        data-bs-target="#accordion-post-id-<?= $post->getId() ?>"
@@ -239,7 +240,8 @@
 												     class="accordion-collapse collapse"
 												     aria-labelledby="accordion-header-post-id-<?= $post->getId() ?>"
 												     data-bs-parent="#accordion-flush-post-id-<?= $post->getId() ?>">
-													<div class="accordion-body">
+													<div class="accordion-body"
+													     id="accordion-post-content-id-<?= $post->getId() ?>">
 														<?= $post->getText() ?>
 													</div>
 												</div>
@@ -250,10 +252,18 @@
 										<div class="btn-group btn-group-sm"
 										     role="group"
 										     style="margin-top: 2.75rem !important">
-											<button type="button" class="btn btn-warning">
+											<button type="button" class="btn btn-warning"
+											        data-bs-toggle="modal" data-bs-target="#edit-post-modal"
+											        onclick="fillEditModalData(
+											        <?= $post->getId() ?>,
+													        '<?= $postOwnerName ?>', <?= $post->isHidden()
+												        ? 'true'
+												        : 'false' ?>)">
 												<span class="small glyphicon glyphicon-pencil"></span>
 											</button>
-											<button type="button" class="btn btn-danger">
+											<button type="button" class="btn btn-danger"
+											        data-bs-toggle="modal" data-bs-target="#remove-post-modal"
+											        onclick="fillRemoveSingleModalData(<?= $post->getId() ?>)">
 												<span class="small glyphicon glyphicon-remove-sign"></span>
 											</button>
 										</div>
@@ -278,10 +288,11 @@
 		</div>
 	</div>
 </div>
+<!-- [MODAL] add new post -->
 <div class="modal"
      id="create-post-modal"
      tabindex="-1"
-     aria-labelledby="exampleModalLiveLabel"
+     aria-labelledby="create-post-modal"
      aria-modal="true"
      role="dialog"
      style="display: none;">
@@ -321,6 +332,115 @@
 				</div>
 				<div class="modal-footer">
 					<button type="submit" class="btn btn-success">Criar</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!-- [MODAL] remove post -->
+<div class="modal"
+     id="remove-post-modal"
+     tabindex="-1"
+     aria-labelledby="remove-post-modal"
+     aria-modal="true"
+     role="dialog"
+     style="display: none;">
+	<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+		<div class="modal-content">
+			<form action="php/MVCRouter" method="post">
+				<input type="hidden" name="controller" value="remove-post"> <input id="post-remove-list"
+				                                                                   type="hidden"
+				                                                                   name="post-remove-list"
+				                                                                   value="">
+				<div class="modal-header">
+					<h5 class="modal-title">Remover postagem</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+				</div>
+				<div class="modal-body">
+					<div class="mb-3">
+						Você deseja remover permanentemente <strong id="count-selected-posts"></strong> <span
+								id="format-selected-posts"></span>?
+						<ul id="selected-posts-remove-list">
+						</ul>
+					</div>
+					<br />
+					<div class="mb-3" style="margin: var(--bs-accordion-body-padding-x) var(--bs-accordion-body-padding-y);
+					         text-justify: inter-word; text-align: justify">
+						<p class="blockquote blockquote-footer fst-italic"><span class="glyphicon
+						glyphicon-info-sign small fst-italic"></span> Esta ação é irreversível, pois você estará
+							<strong>excluindo permanentemente</strong> os dados e o conteúdo publicado na plataforma.
+						</p>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-danger">Remover</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!-- [MODAL] edit post -->
+<div class="modal"
+     id="edit-post-modal"
+     tabindex="-1"
+     aria-labelledby="edit-post-modal"
+     aria-modal="true"
+     role="dialog"
+     style="display: none;">
+	<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+		<div class="modal-content">
+			<form action="php/MVCRouter" method="post">
+				<input type="hidden" name="controller" value="edit-post"> <input type="hidden"
+				                                                                 name="post-edit-new-editor"
+				                                                                 value="<?= login::getSingleton()
+				                                                                                 ->fetchLogin()
+				                                                                                 ->getId() ?>"> <input
+						type="hidden"
+						id="post-edit-id"
+						name="post-edit-id"
+						value="">
+				<div class="modal-header">
+					<h5 class="modal-title">Alterar postagem</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+				</div>
+				<div class="modal-body">
+					<div class="mb-3">
+						<label for="post-edit-owner" class="form-label">Autor</label>
+						<input class="form-control bg-secondary-subtle"
+						       type="text"
+						       id="post-edit-owner"
+						       value=""
+						       aria-label="readonly input"
+						       readonly>
+					</div>
+					<div class="mb-3">
+						<label for="post-edit-new-editor" class="form-label">Editor</label>
+						<input class="form-control bg-secondary-subtle"
+						       type="text"
+						       id="post-edit-new-editor"
+						       name="post-edit-new-editor-name"
+						       value="<?= login::getSingleton()->fetchLogin()->getUsername() ?>"
+						       aria-label="readonly input"
+						       readonly>
+					</div>
+					<div class="mb-3">
+						<label for="post-edit-title" class="form-label">Título</label> <input class="form-control"
+						                                                                      id="post-edit-title"
+						                                                                      name="post-edit-title"
+						                                                                      type="text"
+						                                                                      value=""
+						                                                                      aria-label="input">
+					</div>
+					<div class="mb-3">
+						<label for="post-edit-text" class="form-label">Texto</label> <textarea
+								class="form-control"
+								id="post-edit-text"
+								name="post-edit-text"
+								rows="3" style="white-space: pre-line"></textarea>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-warning">Atualizar</button>
 				</div>
 			</form>
 		</div>
@@ -370,8 +490,8 @@
 			"heading": '<span class="glyphicon glyphicon-info-sign text-warning-emphasis"></span> ' +
 				'<strong>Atenção</strong>',
 			"hideAfter": false,
-			"position": 'bottom-right',
-			"showHideTransition": 'slide',
+			"position": 'top-center',
+			"showHideTransition": 'fade',
 			"text": '<?= $err ?>',
 			"class": 'bg-warning rounded-2 border-warning-subtle'
 		});
@@ -382,9 +502,8 @@
 			},
 			"heading": '<span class="glyphicon glyphicon-ok-sign text-success-emphasis"></span> ' +
 				'<strong>Notificação</strong>',
-			"hideAfter": false,
-			"position": 'bottom-right',
-			"showHideTransition": 'slide',
+			"position": 'top-center',
+			"showHideTransition": 'fade',
 			"text": '<?= $ok;?>',
 			"class": 'bg-success text-light rounded-2 border-success-subtle'
 		});

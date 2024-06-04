@@ -15,7 +15,7 @@ if (typeof Object.create !== 'function') Object.create = obj => {
 			let _container = $('.jq-toast-wrap');
 			if (_container.length === 0) {
 				_container = $('<div></div>', {
-					"class": "jq-toast-wrap toast-container", "role": "alert", "aria-live": "polite"
+					"class": "mt-5 jq-toast-wrap toast-container", "role": "alert", "aria-live": "polite"
 				});
 				$('body').append(_container);
 			} else if (!this.options.stack || isNaN(parseInt(this.options.stack, 10))) _container.empty();

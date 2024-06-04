@@ -29,22 +29,18 @@
 				$result = new LoginResultModel();
 				if (!preg_match(self::$NAME_REGEX_PATTERN, $username)) {
 					$result->setErr("Nome inválido!");
-					$result->setStatus(false);
 					return $result;
 				}
 				if (!preg_match(self::$PASSWORD_REGEX_PATTERN, $password)) {
 					$result->setErr("Senha inválida!");
-					$result->setStatus(false);
 					return $result;
 				}
 				$login = new LoginModel(-1, $username, $password, -1);
 				$result->setLogin(LoginDAO::getSingleton()->signUp($login));
 				if ($result->getLogin() === null) {
 					$result->setErr("Credenciais não autenticadas!");
-					$result->setStatus(false);
 					return $result;
 				}
-				$result->setStatus(true);
 				return $result;
 			}
 
@@ -60,22 +56,20 @@
 				$result = new LoginResultModel();
 				if (!preg_match(self::$NAME_REGEX_PATTERN, $username)) {
 					$result->setErr("Nome inválido!");
-					$result->setStatus(false);
 					return $result;
 				}
 				if (!preg_match(self::$PASSWORD_REGEX_PATTERN, $password)) {
 					$result->setErr("Senha inválida!");
-					$result->setStatus(false);
 					return $result;
 				}
 				$result->setLogin($login = new LoginModel(-1, $username, $password, 0));
 				if (LoginDAO::getSingleton()->signUp($login) !== null) {
 					$result->setErr("Já existe um cadastro com esses dados. Efetue o login para continuar.");
-					$result->setStatus(false);
 					return $result;
 				}
-				$result->setStatus(LoginDAO::getSingleton()->signIn($login));
-				if (!$result->getStatus()) $result->setErr("Não foi possível criar o usuário!");
+				if (LoginDAO::getSingleton()->signIn($login)) {
+					$result->setErr("Não foi possível criar o usuário!");
+				}
 				return $result;
 			}
 

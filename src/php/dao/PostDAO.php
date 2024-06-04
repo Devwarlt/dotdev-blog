@@ -13,18 +13,23 @@
 
 			private function __construct() { }
 
-			public function count(int $ownerId) : ?int {
+			/**
+			 * @param int   $ownerId
+			 * @param int[] $postIds
+			 *
+			 * @return int|null
+			 */
+			public function countOwnedPosts(int $ownerId, array $postIds) : ?int {
 				$result = MySQLDatabase::getSingleton()->select(new SQLQuery("
-					SELECT COUNT(id) AS 'total_posts'
+					SELECT COUNT(id) AS 'total_owned_posts'
 					FROM
 						posts
 					WHERE
-						owner_id = :owner_id", [
-					":owner_id" => $ownerId
-				]));
+						owner_id = :owner_id
+					AND
+						id IN (:postIds)", [":owner_id" => $ownerId, ":postIds" => implode(', ', $postIds)]));
 				if ($result === null) return null;
-				$data = $result->fetch(PDO::FETCH_OBJ);
-				return $data->total_posts;
+				return $result->fetch(PDO::FETCH_OBJ)->total_owned_posts;
 			}
 
 			public static function getSingleton() : PostDAO {
@@ -71,6 +76,33 @@
 				return $posts;
 			}
 
+			public function count(int $ownerId) : ?int {
+				$result = MySQLDatabase::getSingleton()->select(new SQLQuery("
+					SELECT COUNT(id) AS 'total_posts'
+					FROM
+						posts
+					WHERE
+						owner_id = :owner_id", [
+					":owner_id" => $ownerId
+				]));
+				if ($result === null) return null;
+				return $result->fetch(PDO::FETCH_OBJ)->total_posts;
+			}
+
+			/**
+			 * @param int[] $postIds
+			 *
+			 * @return bool
+			 */
+			public function delete(array $postIds) : bool {
+				return MySQLDatabase::getSingleton()->delete(new SQLQuery("
+					DELETE
+					FROM
+						posts
+					WHERE
+						id IN (:postIds);", [":postIds" => implode(', ', $postIds)]));
+			}
+
 			public function create(PostModel $post) : bool {
 				return MySQLDatabase::getSingleton()->insert(new SQLQuery("
 					INSERT INTO
@@ -83,6 +115,24 @@
 					":title"    => $post->getTitle(),
 					":text"     => $post->getText(),
 					":owner_id" => $post->getOwnerId()
+				]));
+			}
+
+			public function update(int $postId, int $newEditorId, string $title, string $text) : bool {
+				return MySQLDatabase::getSingleton()->update(new SQLQuery("
+					UPDATE
+						posts
+					SET
+						last_update_user_id = :last_update_user_id,
+						title = ':title',
+						text = ':text',
+						last_updated = DEFAULT
+					WHERE
+						id = :id", [
+					":id"                  => $postId,
+					":last_update_user_id" => $newEditorId,
+					":title"               => $title,
+					":text"                => $text
 				]));
 			}
 		}
